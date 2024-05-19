@@ -13,10 +13,15 @@ class CarouselContainer extends StatelessWidget {
     final size=MediaQuery.of(context).size;
     return Card(
       child: Row(
-        children: [SizedBox(
-          height: size.height*.05,
+        children: [
+          Container(
+            // color: Colors.red,
+          height: size.height*.2,
+          width: size.width*.5,
+          
           child: Column(
             children: [
+              SizedBox(height: size.height*.05,),
               Text(data,style: carouselTextLarge,),
               Text(datatype,style: carouselTextLarge,),
             ],

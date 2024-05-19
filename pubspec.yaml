@@ -39,6 +39,8 @@ dependencies:
   card_swiper: ^3.0.1
   carousel_slider: ^4.2.1
   flutter_onboarding_slider: ^1.0.11
+  font_awesome_flutter: ^10.7.0
+  scrollable_reorderable_navbar: ^0.0.2
 
 dev_dependencies:
   flutter_test:

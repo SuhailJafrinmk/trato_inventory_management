@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trato_inventory_management/features/splash_screen/splash_screen.dart';
+import 'package:trato_inventory_management/features/home_screen/presentation/home_screen.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/routes/routes.dart';
 void main(){
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-     home:const SplashScreen(),
+     home:HomeScreen()
     );
   }
 }

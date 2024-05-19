@@ -1,30 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:trato_inventory_management/models/product_model.dart';
+import 'package:trato_inventory_management/utils/constants/image_links.dart';
 
-class ProductGrid extends StatefulWidget {
-  final String productImage;
-  final String ProductName;
-  final String stockOutText;
+class ProductGrid extends StatelessWidget {
+  // final ProductModel productModel;
 
-  const ProductGrid({super.key, required this.productImage, required this.ProductName, required this.stockOutText});
+  // const ProductGrid({super.key, required this.productModel});
 
-  @override
-  State<ProductGrid> createState() => _ProductGridState();
-}
+  
 
-class _ProductGridState extends State<ProductGrid> {
   @override
   Widget build(BuildContext context) {
-    final size=MediaQuery.of(context).size;
-    return Container(
-      height: size.height*.03,
-      width: size.width*.03,
-    child: Column(
-      children: [
-        Image.asset(widget.productImage,fit: BoxFit.cover,),
-        Text(widget.ProductName),
-        Text(widget.stockOutText),
-      ],
-    ),
+    return SizedBox(
+     
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(AppImages.productImage),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              children: [
+                Text(
+                  'samsung galaxy',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'only 2 items on stock',
+                  style: TextStyle(color: Colors.red),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
