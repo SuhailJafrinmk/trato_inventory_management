@@ -27,9 +27,6 @@ class InventoryPage extends StatelessWidget {
                 child: IconButton(onPressed: (){
                   print('clicked add button');
                   show_dialogue(context);
-                  // showDialog(context: context, builder: (context){
-                  //   return CategoryModal();
-                  // });
                 }, icon: Icon(Icons.add,color: Colors.white,))),
             ],
           ),
@@ -43,7 +40,7 @@ class InventoryPage extends StatelessWidget {
               crossAxisSpacing: 15,
               crossAxisCount:2,
             scrollDirection: Axis.vertical,
-            children: [
+            children:const[
               CategoryTile(categoryname: 'Smartphone'),
               CategoryTile(categoryname: 'Laptops'),
               CategoryTile(categoryname: 'Accesories'),
@@ -63,7 +60,9 @@ class InventoryPage extends StatelessWidget {
                CircleAvatar(
                 radius: 20,
                 backgroundColor: Colors.black,
-                child: IconButton(onPressed: (){}, icon: Icon(Icons.add,color: Colors.white,))),
+                child: IconButton(onPressed: (){
+                  Navigator.pushNamed(context, 'add_product');
+                }, icon: Icon(Icons.add,color: Colors.white,))),
             ],
           ),
           Expanded(
@@ -87,16 +86,16 @@ class InventoryPage extends StatelessWidget {
 void show_dialogue(BuildContext context){
   showDialog(context: context, builder: (context){
    return Dialog(
-    child: SizedBox(
+    child: Container(
+      padding: EdgeInsets.all(20),
       height: 300,
       width: 300,
       child: Column(
         children: [
           Text('Add category',style: categoryTitle,),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           AppTextfield(labelText: 'Category', width: 200, padding: 10, obscureText: false),
-          CustomButton(height: 60, width: 200, elevation: 10, color: AppColors.primaryColor, radius: 10,child: Text('Add category'),),
-      
+          CustomButton(onTap: () => Navigator.pop(context),  height: 60, width: 200, elevation: 10, color: AppColors.primaryColor, radius: 10,child: Text('Add category',style: buttonText,),),
         ],
       ),
     ),

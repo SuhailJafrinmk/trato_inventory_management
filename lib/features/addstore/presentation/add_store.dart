@@ -72,6 +72,7 @@ class _AddStorePageState extends State<AddStorePage> {
                       labelStyle: labeltextblack,
                       ),
                   CustomButton(
+                    onTap: () => Navigator.pushNamed(context,'home_screen'),
                     height: size.height*.07,
                      width: size.width*.8,
                       elevation: 5,

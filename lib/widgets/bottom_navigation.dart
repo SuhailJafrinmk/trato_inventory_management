@@ -59,10 +59,3 @@ class ScrollableBottomNavigationBar extends StatelessWidget {
     );
   }
 }
-
-    
-      // BarItem(title: 'inventory', icon: FontAwesomeIcons.warehouse),
-      // BarItem(title: 'Customers', icon: FontAwesomeIcons.users),
-      // BarItem(title: 'Suppliers', icon: Icons.local_shipping),
-      // BarItem(title: "Purchases", icon: Icons.receipt),
-   

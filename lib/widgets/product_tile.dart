@@ -3,7 +3,7 @@ import 'package:trato_inventory_management/utils/constants/image_links.dart';
 
 class ProductTile extends StatelessWidget {
   // ProductModel? productModel;
-List <DropdownMenuItem<dynamic>> dropdownItems=[DropdownMenuItem(child: Text('Delete')),DropdownMenuItem(child: Text("Edit"))];
+List <DropdownMenuItem<dynamic>> dropdownItems=[const DropdownMenuItem(child: Text('Delete')),const DropdownMenuItem(child: Text("Edit"))];
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -11,12 +11,12 @@ List <DropdownMenuItem<dynamic>> dropdownItems=[DropdownMenuItem(child: Text('De
       leading: Container(
         height: 50,
         width: 50,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(AppImages.productImage),fit:BoxFit.cover ),
+        decoration: const BoxDecoration(
+          image: const DecorationImage(image: AssetImage(AppImages.productImage),fit:BoxFit.cover ),
         ),
       ),
-      title: Text('Samsung galaxy s22'),
-      subtitle: Column(
+      title: const Text('Samsung galaxy s22'),
+      subtitle: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('500 \$'),

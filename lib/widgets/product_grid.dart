@@ -18,7 +18,7 @@ class ProductGrid extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage(AppImages.productImage),
                   fit: BoxFit.cover,
                 ),
@@ -26,8 +26,8 @@ class ProductGrid extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
+          const Padding(
+            padding: EdgeInsets.all(4.0),
             child: Column(
               children: [
                 Text(

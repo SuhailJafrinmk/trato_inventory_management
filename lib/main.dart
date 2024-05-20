@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:trato_inventory_management/features/onboarding/presentation/onboarding.dart';
 import 'package:trato_inventory_management/features/splash_screen/splash_screen.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/routes/routes.dart';
 void main(){
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-     home:SplashScreen(),
+     home:const SplashScreen(),
     );
   }
 }

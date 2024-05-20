@@ -3,6 +3,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:trato_inventory_management/features/addcustomer/presentation/add_customer.dart';
 import 'package:trato_inventory_management/features/addproduct/presentation/add_product.dart';
 import 'package:trato_inventory_management/features/addstore/presentation/add_store.dart';
 import 'package:trato_inventory_management/features/home_screen/presentation/home_screen.dart';
@@ -22,5 +23,6 @@ class AppRoutes{
   'splash_screen':(context) => SplashScreen(),
   'onboarding':(context) => OnBoarding(),
   'home_screen':(context) => HomeScreen(),
+  'add_customer':(context) => AddCustomer(),
   };
 }

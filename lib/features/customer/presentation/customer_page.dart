@@ -30,7 +30,9 @@ class CustomerPage extends StatelessWidget {
               CustomerTile(),
             ],
           )),
-        ElevatedButton(onPressed: (){}, child: Text('Add customer')),
+        ElevatedButton(onPressed: (){
+          Navigator.pushNamed(context, 'add_customer');
+        }, child: Text('Add customer')),
       ],
     )
     );

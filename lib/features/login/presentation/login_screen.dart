@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/icons.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
-import 'package:trato_inventory_management/utils/routes/routes.dart';
 import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 
@@ -91,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 padding: 20),
                               SizedBox(height: size.height*.04,),
                               CustomButton(
-                                onTap: () => Navigator.pushNamed(context, 'home_screen'),
+                                onTap: () => Navigator.pushNamed(context, 'add_store'),
                                 height: size.height*.06,
                                  width: size.width*.70,
                                  elevation: 0,

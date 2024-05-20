@@ -8,9 +8,5 @@ List<NavigationItem>navigationItems=[
   NavigationItem(icon: FontAwesomeIcons.users, label: "customers"),
   NavigationItem(icon: Icons.local_shipping, label: "supplier"),
   NavigationItem(icon: Icons.receipt, label: 'Purchases'),
+  NavigationItem(icon: Icons.storage, label: 'Records'),
 ];
-
-      // BarItem(title: 'inventory', icon: FontAwesomeIcons.warehouse),
-      // BarItem(title: 'Customers', icon: FontAwesomeIcons.users),
-      // BarItem(title: 'Suppliers', icon: Icons.local_shipping),
-      // BarItem(title: "Purchases", icon: Icons.receipt),
