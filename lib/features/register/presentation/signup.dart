@@ -101,7 +101,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                   padding: 20,
                                   suffixIcon: AppIcons.visibility,
                                   ),                          
-                              CustomButton(height: size.height*.06, width: size.width*.70, elevation: 0, color: AppColors.secondaryColor, radius: 20,child: Text('Submit',style: buttonText,),),
+                              CustomButton(
+                                onTap:() => Navigator.pushNamed(context, 'login'),
+                                height: size.height*.06, width: size.width*.70, elevation: 0, color: AppColors.secondaryColor, radius: 20,child: Text('Submit',style: buttonText,),),
                               ],
                           ),
                         ),

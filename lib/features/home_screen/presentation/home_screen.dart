@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:trato_inventory_management/features/addproduct/presentation/add_product.dart';
 import 'package:trato_inventory_management/features/addstore/presentation/add_store.dart';
+import 'package:trato_inventory_management/features/customer/presentation/customer_page.dart';
 import 'package:trato_inventory_management/features/inventory/presentation/inventory_page.dart';
 import 'package:trato_inventory_management/features/product_details/presentation/product_details.dart';
+import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/navigation_items_list.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
@@ -31,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: ScrollableBottomNavigationBar(
+        backgroundColor: AppColors.primaryColor,
         items: navigationItems, 
         selectedIndex: selectedIndex,
          onItemTapped: (index){
@@ -49,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             HomeFirst(),
             InventoryPage(),
-            AddStorePage(),
+            CustomerPage(),
             ProductDetails(),
             HomeFirst(),
           ],

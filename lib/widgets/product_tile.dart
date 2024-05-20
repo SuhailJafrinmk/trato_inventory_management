@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trato_inventory_management/models/product_model.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 
 class ProductTile extends StatelessWidget {
@@ -8,6 +7,7 @@ List <DropdownMenuItem<dynamic>> dropdownItems=[DropdownMenuItem(child: Text('De
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => Navigator.pushNamed(context, 'product_details'),
       leading: Container(
         height: 50,
         width: 50,

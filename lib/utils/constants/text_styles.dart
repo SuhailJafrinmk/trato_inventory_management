@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trato_inventory_management/utils/constants/colors.dart';
 
 
   TextStyle labeltextwhite=const TextStyle(
@@ -61,4 +62,10 @@ TextStyle inputFieldTextWhite=TextStyle(
   fontWeight: FontWeight.w500,
   color: Colors.white,
   fontSize: 15,
+);
+
+TextStyle ?onboardingDescriptionText=TextStyle(
+  fontWeight: FontWeight.w500,
+  color: AppColors.primaryColor,
+  fontSize: 22,
 );

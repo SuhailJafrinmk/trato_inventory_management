@@ -90,7 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 width: size.width*.7,
                                 padding: 20),
                               SizedBox(height: size.height*.04,),
-                              CustomButton(height: size.height*.06,
+                              CustomButton(
+                                onTap: () => Navigator.pushNamed(context, 'home_screen'),
+                                height: size.height*.06,
                                  width: size.width*.70,
                                  elevation: 0,
                                  color: AppColors.secondaryColor,

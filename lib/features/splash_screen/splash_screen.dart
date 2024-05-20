@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/widgets/scaling_animation.dart';
@@ -9,8 +11,14 @@ class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
-
 class _SplashScreenState extends State<SplashScreen> {
+ @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 3),(){
+      Navigator.pushNamed(context,'onboarding');
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;

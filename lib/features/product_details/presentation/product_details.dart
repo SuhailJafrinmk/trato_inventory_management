@@ -61,7 +61,7 @@ class ProductDetails extends StatelessWidget {
                             Text('Selling price:100000',style: productDescription,),
                             Text('Available 8 units',style: productDescription,),
                             SizedBox(height: size.height*.02,),
-                            CustomButton(height: size.height*.075, width: size.width*.7, elevation: 5, color: AppColors.primaryColor, radius: 10,child: Text('Close',style: buttonText,),)
+                            CustomButton(height: size.height*.075, width: size.width*.7, elevation: 5, color: AppColors.primaryColor, radius: 10,child: Text('Close',style: buttonText,),onTap: (){},)
                           ],
                         ),
                        ),
