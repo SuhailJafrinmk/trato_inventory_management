@@ -6,6 +6,7 @@ import 'package:trato_inventory_management/features/addstore/presentation/add_st
 import 'package:trato_inventory_management/features/customer/presentation/customer_page.dart';
 import 'package:trato_inventory_management/features/inventory/presentation/inventory_page.dart';
 import 'package:trato_inventory_management/features/product_details/presentation/product_details.dart';
+import 'package:trato_inventory_management/features/purchases/presentation/purchases.dart';
 import 'package:trato_inventory_management/features/supplier/presentation/supplier.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
             InventoryPage(),
             CustomerPage(),
             SupplierPage(),
-            HomeFirst(),
+            PurchasesList(),
           ],
          ),
     );
