@@ -25,8 +25,8 @@ class PurchasesList extends StatelessWidget {
             ],
           )),
         ElevatedButton(onPressed: (){
-          Navigator.pushNamed(context, 'add_customer');
-        }, child: Text('Add customer')),
+          Navigator.pushNamed(context, 'add_purchase');
+        }, child: Text('Add Purchase')),
       ],
     )
     );

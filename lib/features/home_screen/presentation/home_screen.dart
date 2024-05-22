@@ -6,7 +6,9 @@ import 'package:trato_inventory_management/features/addstore/presentation/add_st
 import 'package:trato_inventory_management/features/customer/presentation/customer_page.dart';
 import 'package:trato_inventory_management/features/inventory/presentation/inventory_page.dart';
 import 'package:trato_inventory_management/features/product_details/presentation/product_details.dart';
+import 'package:trato_inventory_management/features/profile/presentation/profile_page.dart';
 import 'package:trato_inventory_management/features/purchases/presentation/purchases.dart';
+import 'package:trato_inventory_management/features/records/presentation/records.dart';
 import 'package:trato_inventory_management/features/supplier/presentation/supplier.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
@@ -26,6 +28,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController pageController=PageController();
   int selectedIndex=0;
+  final List<String> AppbarTitles=['Home','Inventory','Records',"profile"];
   @override
   void dispose() {
     pageController.dispose();
@@ -34,6 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(AppbarTitles[selectedIndex]),
+
+      ),
       bottomNavigationBar: ScrollableBottomNavigationBar(
         backgroundColor: AppColors.primaryColor,
         items: navigationItems, 
@@ -54,9 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             HomeFirst(),
             InventoryPage(),
-            CustomerPage(),
-            SupplierPage(),
-            PurchasesList(),
+            Records(),
+            ProfileScreen(),
+          
           ],
          ),
     );

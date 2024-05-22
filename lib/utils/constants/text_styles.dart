@@ -69,3 +69,14 @@ TextStyle ?onboardingDescriptionText=TextStyle(
   color: AppColors.primaryColor,
   fontSize: 22,
 );
+
+TextStyle biggestTextBlack=TextStyle(
+  fontSize: 30,
+  color: Colors.black,
+);
+
+TextStyle recordsText=TextStyle(
+  fontSize: 20,
+  color: AppColors.primaryColor,
+  
+);

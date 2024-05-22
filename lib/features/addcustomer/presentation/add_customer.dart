@@ -21,7 +21,7 @@ class AddCustomer extends StatelessWidget {
                AppTextfield(labelText: 'Place', width: double.infinity, padding: 10, obscureText: false),
                 AppTextfield(labelText: 'Email', width: double.infinity, padding: 10, obscureText: false),
                  AppTextfield(labelText: 'Address', width: double.infinity, padding: 10, obscureText: false),
-                 CustomButton(height: 70, width: double.infinity, elevation: 10, color: AppColors.primaryColor, radius: 10,)
+                 CustomButton(height: 70, width: double.infinity, elevation: 10, color: AppColors.primaryColor, radius: 10,onTap: (){},)
             ],
           ),
         ),

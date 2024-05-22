@@ -40,7 +40,7 @@ class SupplierPage extends StatelessWidget {
             )),
         ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, 'add_customer');
+              Navigator.pushNamed(context, 'add_supplier');
             },
             child: Text('Add Supplier')),
       ],

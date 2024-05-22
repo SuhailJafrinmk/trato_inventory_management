@@ -23,38 +23,36 @@ class ScrollableBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: backgroundColor,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: items.map((item) {
-            int index = items.indexOf(item);
-            bool isSelected = index == selectedIndex;
-            return GestureDetector(
-              onTap: () => onItemTapped(index),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: isSelected ? backgroundColor.withOpacity(0.2) : backgroundColor,
-                ),
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Icon(
-                      item.icon,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: items.map((item) {
+          int index = items.indexOf(item);
+          bool isSelected = index == selectedIndex;
+          return GestureDetector(
+            onTap: () => onItemTapped(index),
+            child: Container(
+              decoration: BoxDecoration(
+                color: isSelected ? backgroundColor.withOpacity(0.2) : backgroundColor,
+              ),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    item.icon,
+                    color: isSelected ? selectedItemColor : unselectedItemColor,
+                  ),
+                  Text(
+                    item.label,
+                    style: TextStyle(
                       color: isSelected ? selectedItemColor : unselectedItemColor,
                     ),
-                    Text(
-                      item.label,
-                      style: TextStyle(
-                        color: isSelected ? selectedItemColor : unselectedItemColor,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          }).toList(),
-        ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
