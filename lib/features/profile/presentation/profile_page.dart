@@ -1,65 +1,72 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trato_inventory_management/features/profile/bloc/profile_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-      return SingleChildScrollView(
+    final bloc = BlocProvider.of<ProfileBloc>(context);
+    return BlocListener<ProfileBloc, ProfileState>(
+      listener: (context, state) {
+       if(state is LogoutSuccess){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Logging out')));
+        Navigator.pushReplacementNamed(context, 'login');
+       }
+      },
+      child: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: CircleAvatar(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: const CircleAvatar(
                 radius: 50,
-                backgroundImage: NetworkImage('https://via.placeholder.com/150'), // Replace with actual image
+                backgroundImage: NetworkImage(
+                    'https://via.placeholder.com/150'), 
               ),
             ),
-            Text(
+            const Text(
               'John Doe',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            Text(
+            const Text(
               'john.doe@example.com',
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
-            SizedBox(height: 20),
-            Divider(),
+            const SizedBox(height: 20),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Edit Profile'),
-              trailing: Icon(Icons.arrow_forward_ios),
+              leading: const Icon(Icons.person),
+              title: const Text('Edit Profile'),
+              trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
-                // Navigate to edit profile screen
+           
               },
             ),
-          
             ListTile(
-              leading: Icon(Icons.notifications),
-              title: Text('Notifications'),
+              leading: const Icon(Icons.notifications),
+              title: const Text('Notifications'),
               trailing: Switch(
-                value: true, // Replace with actual value
+                value: true, 
                 onChanged: (value) {
-                  // Handle notification toggle
+                  
                 },
               ),
             ),
-          
-      
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.info),
               title: Text('App Version'),
-              trailing: Text('1.0.0'), 
+              trailing: Text('1.0.0'),
             ),
-       
             ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
               onTap: () {
-   
+                bloc.add(LogoutTilePressed());
               },
             ),
           ],
         ),
-      );
+      ),
+    );
   }
 }

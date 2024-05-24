@@ -22,7 +22,7 @@ TextStyle textbutton=const TextStyle(
   fontWeight: FontWeight.bold
 );
 TextStyle minorText=const TextStyle(
-  color: Color.fromARGB(255, 235, 230, 230),
+  color: Color.fromARGB(255, 195, 189, 189),
   fontWeight: FontWeight.w500,
 );
 TextStyle categoryTitle=const TextStyle(

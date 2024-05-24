@@ -18,7 +18,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   FutureOr<void> registerButtonClickedEvent(RegisterButtonClickedEvent event, Emitter<RegisterState> emit)async {
       try {
-      emit(RegisterLoadedState());
+      emit(RegisterLoadingState());
       UserCredential credential =
           await firebaseAuth.createUserWithEmailAndPassword(
               email: event.useEmail, password: event.password);

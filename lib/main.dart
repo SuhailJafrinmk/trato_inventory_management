@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
+import 'package:trato_inventory_management/features/profile/bloc/profile_bloc.dart';
 import 'package:trato_inventory_management/features/register/bloc/register_bloc.dart';
 import 'package:trato_inventory_management/features/splash_screen/splash_screen.dart';
 import 'package:trato_inventory_management/firebase_options.dart';
@@ -20,9 +21,12 @@ void main()async{
       BlocProvider(
         create: (context) => RegisterBloc(),
       ),
+      BlocProvider(
+        create: (context) => ProfileBloc(),
+      )
     
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 

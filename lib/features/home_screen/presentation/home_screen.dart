@@ -77,49 +77,66 @@ class HomeFirst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      final size=MediaQuery.of(context).size;
-    return SafeArea(child: Column(
-        children: [
-          SizedBox(height: size.height*.03,),
-         Material(
-          elevation: 5,
-           child: ListTile(leading: 
-           SizedBox(child: Image.asset(AppImages.shopDummyimage)),
-           title:const Text('Indian Hyper market'),subtitle: const Text('Gst id:232323232'),),
-         ),
-         SizedBox(height:size.height*.03,),
-        CarouselSlider(items: const[
-          CarouselContainer(data: 'Total Costs', datatype: '10000 \$', imageurl:AppImages.costsImage),
-           CarouselContainer(data: 'Total Stock', datatype: '10000 \$', imageurl:AppImages.salesImage),
-            CarouselContainer(data: 'Total Sales', datatype: '10000 \$', imageurl:AppImages.stockImage),
-        ], options: CarouselOptions(
-          autoPlay: true
-        )),
-        SizedBox(height:size.height*.03,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return SafeArea(child: SingleChildScrollView(
+      child: Column(
           children: [
-            Text('SmartPhones',style:categoryTitle ,),
-            TextButton(onPressed: (){}, child: const Text('See All')),
+            SizedBox(height: size.height*.03,),
+           Material(
+            elevation: 5,
+             child: ListTile(leading: 
+             SizedBox(child: Image.asset(AppImages.shopDummyimage)),
+             title:const Text('Indian Hyper market'),subtitle: const Text('Gst id:232323232'),),
+           ),
+           SizedBox(height:size.height*.03,),
+          CarouselSlider(items: const[
+            CarouselContainer(data: 'Total Costs', datatype: '10000 \$', imageurl:AppImages.costsImage),
+             CarouselContainer(data: 'Total Stock', datatype: '10000 \$', imageurl:AppImages.salesImage),
+              CarouselContainer(data: 'Total Sales', datatype: '10000 \$', imageurl:AppImages.stockImage),
+          ], options: CarouselOptions(
+            autoPlay: true
+          )),
+          SizedBox(height:size.height*.03,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text('SmartPhones',style:categoryTitle ,),
+              TextButton(onPressed: (){}, child: const Text('See All')),
+            ],
+          ),
+          SizedBox(
+            height: size.height*.25,
+            width: size.width,
+            child: GridView.count(crossAxisCount: 1,
+          scrollDirection: Axis.horizontal,
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
+          childAspectRatio: 3 / 3,
+          children: [
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.pixelImage,),
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.pixelImage,),
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.pixelImage,),
+          ],
+          ),
+          ),
+           SizedBox(
+            height: size.height*.25,
+            width: size.width,
+            child: GridView.count(crossAxisCount: 1,
+          scrollDirection: Axis.horizontal,
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
+          childAspectRatio: 3 / 3,
+          children: [
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.stockImage,),
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.stockImage,),
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.stockImage,),
+          ],
+          ),
+          ),
+          
           ],
         ),
-        SizedBox(
-          height: 200,
-          width: size.width,
-          child: GridView.count(crossAxisCount: 1,
-        scrollDirection: Axis.horizontal,
-        crossAxisSpacing: 8.0,
-        mainAxisSpacing: 8.0,
-        childAspectRatio: 2 / 3,
-        children: [
-          // ProductGrid(),
-          // ProductGrid(),
-          // ProductGrid(),
-        ],
-        ),
-        ),
-        
-        ],
-      )
+    )
       );
   }
 }

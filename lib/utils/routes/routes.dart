@@ -21,14 +21,14 @@ import 'package:trato_inventory_management/features/splash_screen/splash_screen.
 
 class AppRoutes{
   static Map<String,WidgetBuilder> approutes={
+  'splash_screen':(context) => SplashScreen(),
+  'onboarding':(context) => OnBoarding(),
   'login':(context)=>LoginScreen(),
   'signup':(context)=>SignupScreen(),
+  'home_screen':(context) => HomeScreen(),
   'product_details':(context)=>ProductDetails(),
   'add_store':(context) => AddStorePage(),
   'add_product':(context) => AddProduct(),
-  'splash_screen':(context) => SplashScreen(),
-  'onboarding':(context) => OnBoarding(),
-  'home_screen':(context) => HomeScreen(),
   'add_customer':(context) => AddCustomer(),
   'add_supplier':(context) => AddSupplier(),
   'add_purchase':(context) => AddPurchase(),

@@ -4,7 +4,10 @@ import 'package:trato_inventory_management/utils/constants/image_links.dart';
 
 class ProductGrid extends StatelessWidget {
    void Function()? onTap;
-   ProductGrid(this.onTap);
+   final String productName;
+   final String subtitle;
+   final String productImage;
+   ProductGrid({required this.productName,required this.subtitle,required this.productImage,this.onTap});
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -15,25 +18,25 @@ class ProductGrid extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  image: const DecorationImage(
-                    image: AssetImage(AppImages.productImage),
+                  image:  DecorationImage(
+                    image: AssetImage(productImage),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
             ),
-            const Padding(
+             Padding(
               padding: EdgeInsets.all(4.0),
               child: Column(
                 children: [
                   Text(
-                    'samsung galaxy',
+                    productName,
                     style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    'only 2 items on stock',
+                    subtitle,
                     style: TextStyle(color: Colors.red),
                     textAlign: TextAlign.center,
                   ),

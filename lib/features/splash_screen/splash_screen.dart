@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/widgets/scaling_animation.dart';
 
@@ -15,9 +16,11 @@ class _SplashScreenState extends State<SplashScreen> {
  @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3),(){
-      Navigator.pushNamed(context,'onboarding');
-    });
+    // Future.delayed(Duration(seconds: 3),(){
+    //   Navigator.pushNamed(context,'onboarding');
+    // });
+    checkLoginStatus(context);
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -41,3 +44,14 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+void checkLoginStatus(context)async{
+      SharedPreferences ?sharedPreferences=await SharedPreferences.getInstance();
+      final loginStatus=sharedPreferences.getBool('loginkey');
+      if(loginStatus==null){
+        Future.delayed(Duration(seconds: 3),(){
+          Navigator.pushReplacementNamed(context, 'onboarding');
+        });
+      }else{
+        loginStatus==true ? Navigator.pushReplacementNamed(context, 'home_screen') : Navigator.pushReplacementNamed(context, 'signup');
+      }
+    }

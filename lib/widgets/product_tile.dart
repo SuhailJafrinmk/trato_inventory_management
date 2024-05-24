@@ -12,7 +12,7 @@ List <DropdownMenuItem<dynamic>> dropdownItems=[const DropdownMenuItem(child: Te
         height: 50,
         width: 50,
         decoration: const BoxDecoration(
-          image: const DecorationImage(image: AssetImage(AppImages.productImage),fit:BoxFit.cover ),
+          image: const DecorationImage(image: AssetImage(AppImages.galaxyS24),fit:BoxFit.cover ),
         ),
       ),
       title: const Text('Samsung galaxy s22'),
