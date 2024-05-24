@@ -111,9 +111,9 @@ class HomeFirst extends StatelessWidget {
         mainAxisSpacing: 8.0,
         childAspectRatio: 2 / 3,
         children: [
-          ProductGrid(),
-          ProductGrid(),
-          ProductGrid(),
+          // ProductGrid(),
+          // ProductGrid(),
+          // ProductGrid(),
         ],
         ),
         ),

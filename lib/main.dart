@@ -1,10 +1,29 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
+import 'package:trato_inventory_management/features/register/bloc/register_bloc.dart';
 import 'package:trato_inventory_management/features/splash_screen/splash_screen.dart';
+import 'package:trato_inventory_management/firebase_options.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/routes/routes.dart';
-void main(){
+void main()async{
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+   await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => LoginBloc(),
+      ),
+      BlocProvider(
+        create: (context) => RegisterBloc(),
+      ),
+    
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

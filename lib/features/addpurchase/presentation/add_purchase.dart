@@ -63,9 +63,9 @@ class _AddPurchaseState extends State<AddPurchase> {
         mainAxisSpacing: 4.0,
         childAspectRatio: 2 / 3,
         children: [
-          ProductGrid(),
-          ProductGrid(),
-          ProductGrid(),
+          // ProductGrid(),
+          // ProductGrid(),
+          // ProductGrid(),
         ],
         ),
         ),

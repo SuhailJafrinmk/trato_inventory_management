@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/icons.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
@@ -19,7 +21,18 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
   final size=MediaQuery.of(context).size;
-    return Scaffold(
+  return BlocListener<LoginBloc, LoginState>(
+    listener: (context, state) {
+      if(state is LoginLoadedState){
+
+      }else if(state is LoginErrorState){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+
+      }else if(state is LoginSuccessState){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login Succesfull')));
+      }
+    },
+    child: Scaffold(
         body: Stack(
           children: [
             Row(
@@ -90,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 padding: 20),
                               SizedBox(height: size.height*.04,),
                               CustomButton(
-                                onTap: () => Navigator.pushNamed(context, 'add_store'),
+                                onTap: () => Navigator.pushReplacementNamed(context, 'add_store'),
                                 height: size.height*.06,
                                  width: size.width*.70,
                                  elevation: 0,
@@ -113,6 +126,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ],
         ),
-      );
+      ),
+  );
+
   }
+    
 }

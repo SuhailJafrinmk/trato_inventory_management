@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "657478886999",
+    "project_id": "trato-inventory-management",
+    "storage_bucket": "trato-inventory-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657478886999:android:3d8fc2a7e19f7fe364a512",
+        "android_client_info": {
+          "package_name": "com.selfstack.trato_inventory_management"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrMufesjJ_aaT_0NZbrKTI3YgqsNQWCmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

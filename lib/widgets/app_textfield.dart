@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trato_inventory_management/utils/constants/colors.dart';
 
 class AppTextfield extends StatelessWidget {
 final String labelText;
@@ -37,17 +38,18 @@ TextStyle? inputStyle;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(padding),
+      padding: EdgeInsets.symmetric(horizontal: padding,vertical: 8),
       child: Container(
         width: width,
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: borderColor))
-        ),
+        // decoration: BoxDecoration(
+        //   border: Border(bottom: BorderSide(color: borderColor))
+        // ),
         child:Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(labelText,style: labelStyle,),
             TextFormField(
+              
               style: inputStyle,
               onChanged: onChanged,
               autovalidateMode: validateMode,
@@ -56,6 +58,13 @@ TextStyle? inputStyle;
               controller: textEditingController,
               validator: validator,
               decoration: InputDecoration(
+                border: const UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.white
+                  )
+                ),
+                fillColor: AppColors.primaryColor,
+                filled: true,
               suffix: suffixIcon,
               hintText: hintText,
               ),

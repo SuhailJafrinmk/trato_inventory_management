@@ -9,26 +9,30 @@ class PurchasesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
-    return SafeArea(child: Column(
-      children: [
-        SizedBox(height: size.height*.01,),
-        Text('Purchase records',style: categoryTitle,),
-        SizedBox(
-          height: size.height*.75,
-          width: size.width,
-          child: ListView(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            children:<Widget> [
-              PurchaseTile(),
-              PurchaseTile(),
-              PurchaseTile(),
-            ],
-          )),
-        ElevatedButton(onPressed: (){
-          Navigator.pushNamed(context, 'add_purchase');
-        }, child: Text('Add Purchase')),
-      ],
-    )
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Purchase records'),
+      ),
+      body: SafeArea(child: Column(
+        children: [
+          
+          SizedBox(
+            height: size.height*.75,
+            width: size.width,
+            child: ListView(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              children:<Widget> [
+                PurchaseTile(),
+                PurchaseTile(),
+                PurchaseTile(),
+              ],
+            )),
+          ElevatedButton(onPressed: (){
+            Navigator.pushNamed(context, 'add_purchase');
+          }, child: Text('Add Purchase')),
+        ],
+      )
+      ),
     );
   }
 }

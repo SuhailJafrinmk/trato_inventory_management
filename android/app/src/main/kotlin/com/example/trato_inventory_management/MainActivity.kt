@@ -1,4 +1,4 @@
-package com.example.trato_inventory_management
+package com.selfstack.trato_inventory_management
 
 import io.flutter.embedding.android.FlutterActivity
 
