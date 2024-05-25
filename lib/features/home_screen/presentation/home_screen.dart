@@ -99,7 +99,7 @@ class HomeFirst extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('SmartPhones',style:categoryTitle ,),
+              Text('Smartphones',style:categoryTitle ,),
               TextButton(onPressed: (){}, child: const Text('See All')),
             ],
           ),
@@ -112,11 +112,18 @@ class HomeFirst extends StatelessWidget {
           mainAxisSpacing: 8.0,
           childAspectRatio: 3 / 3,
           children: [
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.pixelImage,),
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.pixelImage,),
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.pixelImage,),
+         ProductGrid(productName: 'Pixel 7A', subtitle: 'only 2 stock',productImage: AppImages.pixelImage,),
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.galaxyS24,),
+         ProductGrid(productName: 'Iphone 13', subtitle: 'only 2 stock',productImage: AppImages.iphone13pro,),
           ],
           ),
+          ),
+           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text('Laptops',style:categoryTitle ,),
+              TextButton(onPressed: (){}, child: const Text('See All')),
+            ],
           ),
            SizedBox(
             height: size.height*.25,
@@ -127,9 +134,9 @@ class HomeFirst extends StatelessWidget {
           mainAxisSpacing: 8.0,
           childAspectRatio: 3 / 3,
           children: [
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.galaxyS24,),
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.galaxyS24,),
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.galaxyS24,),
+         ProductGrid(productName: 'Asus rogue', subtitle: 'only 2 stock',productImage: AppImages.asusRogue,),
+         ProductGrid(productName: 'Asus rogue', subtitle: 'only 2 stock',productImage: AppImages.asusRogue,),
+         ProductGrid(productName: 'Asus rogue', subtitle: 'only 2 stock',productImage: AppImages.asusRogue,),
           ],
           ),
           ),

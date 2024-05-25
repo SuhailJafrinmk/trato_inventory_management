@@ -76,105 +76,99 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 30),
-                            child: Text(
-                              'Welcome back',
-                              style: signInGreeting,
-                            ),
+                          Text(
+                            'Welcome back',
+                            style: signInGreeting,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 60),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 20),
-                              height: size.height * .5,
-                              width: size.width * .8,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: Colors.white)),
-                              child: Form(
-                                key: formkey,
-                                child: Column(
-                                  children: [
-                                    AppTextfield(
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter an email';
-                                          }
-                                          if (!RegexUtils.emailRegExp
-                                              .hasMatch(value)) {
-                                            return 'Please enter a valid email';
-                                          }
-                                          return null;
-                                        },
-                                        labelStyle: labeltextwhite,
-                                        inputStyle: inputFieldTextWhite,
-                                        obscureText: false,
-                                        textEditingController: emailController,
-                                        labelText: 'Email',
-                                        width: size.width * .7,
-                                        padding: 20,
-                                        suffixIcon: AppIcons.visibility),
-                                    AppTextfield(
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter a password';
-                                          }
-                                          return null;
-                                        },
-                                        labelStyle: labeltextwhite,
-                                        inputStyle: inputFieldTextWhite,
-                                        obscureText: false,
-                                        textEditingController:
-                                            passwordController,
-                                        labelText: 'Password',
-                                        width: size.width * .7,
-                                        padding: 20),
-                                    SizedBox(
-                                      height: size.height * .04,
-                                    ),
-                                    CustomButton(
-                                      onTap: () {
-                                        if (formkey.currentState!.validate()) {
-                                          bloc.add(LoginButtonPressedEvent(
-                                              userEmail: emailController.text,
-                                              userPassword:
-                                                  passwordController.text));
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            height: size.height * .5,
+                            width: size.width * .8,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.white)),
+                            child: Form(
+                              key: formkey,
+                              child: Column(
+                                children: [
+                                  AppTextfield(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter an email';
                                         }
+                                        if (!RegexUtils.emailRegExp
+                                            .hasMatch(value)) {
+                                          return 'Please enter a valid email';
+                                        }
+                                        return null;
                                       },
-                                      height: size.height * .06,
-                                      width: size.width * .70,
-                                      elevation: 0,
-                                      color: AppColors.secondaryColor,
-                                      radius: 20,
-                                      child: Text(
-                                        'Submit',
-                                        style: buttonText,
-                                      ),
+                                      labelStyle: labeltextwhite,
+                                      inputStyle: inputFieldTextWhite,
+                                      obscureText: false,
+                                      textEditingController: emailController,
+                                      labelText: 'Email',
+                                      width: size.width * .7,
+                                      padding: 20,
+                                      suffixIcon: AppIcons.visibility),
+                                  AppTextfield(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter a password';
+                                        }
+                                        return null;
+                                      },
+                                      labelStyle: labeltextwhite,
+                                      inputStyle: inputFieldTextWhite,
+                                      obscureText: false,
+                                      textEditingController:
+                                          passwordController,
+                                      labelText: 'Password',
+                                      width: size.width * .7,
+                                      padding: 20),
+                                  SizedBox(
+                                    height: size.height * .04,
+                                  ),
+                                  CustomButton(
+                                    onTap: () {
+                                      if (formkey.currentState!.validate()) {
+                                        bloc.add(LoginButtonPressedEvent(
+                                            userEmail: emailController.text,
+                                            userPassword:
+                                                passwordController.text));
+                                      }
+                                    },
+                                    height: size.height * .06,
+                                    width: size.width * .70,
+                                    elevation: 10,
+                                    color: AppColors.secondaryColor,
+                                    radius: 20,
+                                    child: Text(
+                                      'Login',
+                                      style: buttonText,
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          'dont have an account',
-                                          style: minorText,
-                                        ),
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                  context, 'signup');
-                                            },
-                                            child: Text(
-                                              'SignUp',
-                                              style: textbutton,
-                                            ))
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        'dont have an account',
+                                        style: minorText,
+                                      ),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                                context, 'signup');
+                                          },
+                                          child: Text(
+                                            'SignUp',
+                                            style: textbutton,
+                                          ))
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
                           ),

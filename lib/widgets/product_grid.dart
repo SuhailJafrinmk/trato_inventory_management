@@ -19,7 +19,7 @@ class ProductGrid extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   image:  DecorationImage(
-                    image: AssetImage(productImage),
+                    image: AssetImage(productImage,),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(8.0),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
+import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
+import 'package:trato_inventory_management/widgets/record_page_widget.dart';
 
 class Records extends StatelessWidget {
   const Records({super.key});
@@ -23,7 +25,7 @@ class Records extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 108, 142, 164),
                   borderRadius: BorderRadius.circular(20),
@@ -37,12 +39,12 @@ class Records extends StatelessWidget {
                       '1223',
                       style: categoryTitle,
                     ),
-                    Text('Sellers'),
+                    const Text('Sellers'),
                   ],
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 145, 155, 162),
                     borderRadius: BorderRadius.circular(20)),
@@ -55,7 +57,7 @@ class Records extends StatelessWidget {
                       '1223',
                       style: categoryTitle,
                     ),
-                    Text('Customers'),
+                    const Text('Customers'),
                   ],
                 ),
               ),
@@ -65,77 +67,12 @@ class Records extends StatelessWidget {
         SizedBox(
           height: height * .03,
         ),
-        InkWell(
-          onTap: () {
-            // Navigator.pushNamed(context, 'add_purchase');
-          },
-          child: Material(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20)),
-            elevation: 20,
-            child: Container(
-              height: height * .2,
-              width: width * .8,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    bottomRight: Radius.circular(20)),
-                color: AppColors.backgroundColor,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('assets/images/sales.jpg'),
-                  ),
-                  Text(
-                    'Sales records',
-                    style: categoryTitle,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        RecordsAddTile(backgroundImage: AppImages.recordPurchase, title: 'Purchase Records'),
         SizedBox(
           height: height * .05,
         ),
-        InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, 'purchase_page');
-          },
-          child: Material(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
-            elevation: 20,
-            child: Container(
-              height: height * .2,
-              width: width * .8,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    bottomRight: Radius.circular(20)),
-                color: AppColors.backgroundColor,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/purchases.jpg'),
-                    radius: 50,
-                  ),
-                  Text(
-                    'purchase records',
-                    style: categoryTitle,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
+        RecordsAddTile(backgroundImage: AppImages.recordsSales, title: 'Sales Records'),
+             ],
     ));
   }
 }

@@ -35,23 +35,17 @@ Color ?fillColor;
     this.inputStyle,
     this.fillColor=AppColors.primaryColor
     });
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: padding,vertical: 8),
       child: Container(
         width: width,
-        // decoration: BoxDecoration(
-        //   border: Border(bottom: BorderSide(color: borderColor))
-        // ),
         child:Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(labelText,style: labelStyle,),
             TextFormField(
-              
               style: inputStyle,
               onChanged: onChanged,
               autovalidateMode: validateMode,

@@ -12,4 +12,6 @@ class AppImages{
   static const String iphonexs='assets/images/iphone_xs.jpg';
   static const String iphone13pro='assets/images/iphone_13_pro.jpg';
   static const String redmi9a='assets/images/redmi_9a.jpg';
+  static const String recordsSales='assets/images/sales.jpg';
+  static const String recordPurchase='assets/images/purchases.jpg';
 }
