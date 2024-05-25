@@ -8,6 +8,6 @@ class RegisterButtonClickedEvent extends RegisterEvent{
   final String password;
 
   RegisterButtonClickedEvent({required this.userName, required this.useEmail, required this.password});
-  
 }
+class VisibilityIconClicked extends RegisterEvent{} 
 

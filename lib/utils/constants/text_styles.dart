@@ -30,53 +30,58 @@ TextStyle categoryTitle=const TextStyle(
   fontWeight: FontWeight.w500,
   fontSize: 25,
 );
-TextStyle carouselTextLarge=TextStyle(
+TextStyle carouselTextLarge=const TextStyle(
   fontSize: 30,
   color: Colors.black,
   fontWeight: FontWeight.w500
 );
 
-TextStyle labeltextblack=TextStyle(
+TextStyle labeltextblack=const TextStyle(
   fontWeight: FontWeight.w500,
   color: Colors.black,
 );
 
-TextStyle appbartitle=TextStyle(
+TextStyle appbartitle=const TextStyle(
 fontWeight: FontWeight.w500,
 color: Colors.black,
 fontSize: 25
 );
 
-TextStyle productTitle=TextStyle(
+TextStyle productTitle=const TextStyle(
 fontWeight: FontWeight.bold,
 color: Colors.black,
 fontSize: 25,
 );
-TextStyle productDescription=TextStyle(
+TextStyle productDescription=const TextStyle(
   fontWeight: FontWeight.w300,
   color: Colors.black,
   fontSize: 15,
 );
 
-TextStyle inputFieldTextWhite=TextStyle(
+TextStyle inputFieldTextWhite=const TextStyle(
   fontWeight: FontWeight.w500,
   color: Colors.white,
   fontSize: 15,
 );
 
-TextStyle ?onboardingDescriptionText=TextStyle(
+TextStyle ?onboardingDescriptionText=const TextStyle(
   fontWeight: FontWeight.w500,
   color: AppColors.primaryColor,
-  fontSize: 22,
+  fontSize: 15,
 );
 
-TextStyle biggestTextBlack=TextStyle(
+TextStyle biggestTextBlack=const TextStyle(
   fontSize: 30,
   color: Colors.black,
 );
 
-TextStyle recordsText=TextStyle(
+TextStyle recordsText=const TextStyle(
   fontSize: 20,
   color: AppColors.primaryColor,
   
+);
+
+TextStyle onboardingTitle=const TextStyle(
+  fontSize: 25,
+  color: Colors.black
 );

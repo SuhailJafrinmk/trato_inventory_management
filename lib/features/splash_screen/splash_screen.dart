@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
+import 'package:trato_inventory_management/widgets/revealig_animation.dart';
 import 'package:trato_inventory_management/widgets/scaling_animation.dart';
 
 
@@ -31,13 +32,18 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            OneTimeScalingAnimation(
-              child: SizedBox(
-                height: size.height*.5,
-                width: size.width*.5,
-                child: Image.asset('assets/images/logodesign2.png'),
-                ),
-            ),
+            LeftToRightRevealAnimation(child: SizedBox(
+              height: size.height*.5,
+              width: size.width*.5,
+              child: Image.asset('assets/images/logodesign2.png'),
+            )),
+            // OneTimeScalingAnimation(
+            //   child: SizedBox(
+            //     height: size.height*.5,
+            //     width: size.width*.5,
+            //     child: Image.asset('assets/images/logodesign2.png'),
+            //     ),
+            // ),
           ],
         ),
       ),

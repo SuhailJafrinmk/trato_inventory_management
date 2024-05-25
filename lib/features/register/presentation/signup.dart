@@ -97,6 +97,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: Column(
                                   children: [
                                     AppTextfield(
+                                      validateMode: AutovalidateMode.onUserInteraction,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Username is required.';
@@ -120,6 +121,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       padding: 20,
                                     ),
                                     AppTextfield(
+                                      validateMode: AutovalidateMode.onUserInteraction,
                                         validator: (value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Email is required.';
@@ -138,6 +140,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         width: size.width * .7,
                                         padding: 20),
                                     AppTextfield(
+                                      validateMode: AutovalidateMode.onUserInteraction,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Password is required';
@@ -166,9 +169,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                       labelText: 'Password',
                                       width: size.width * .7,
                                       padding: 20,
-                                      suffixIcon: AppIcons.visibility,
+                                      suffixIcon:IconButton(onPressed: (){}, icon: Icon(Icons.visibility,color: Colors.white,))
                                     ),
                                     AppTextfield(
+                                      validateMode: AutovalidateMode.onUserInteraction,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'please enter a password';
@@ -184,7 +188,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       labelText: 'Confirm password',
                                       width: size.width * .7,
                                       padding: 20,
-                                      suffixIcon: AppIcons.visibility,
+                                      suffixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.visibility,color: Colors.white,)),
                                     ),
                                     CustomButton(
                                       onTap: () {

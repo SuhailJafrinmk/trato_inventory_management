@@ -94,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Column(
                                 children: [
                                   AppTextfield(
+                                    validateMode: AutovalidateMode.onUserInteraction,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Please enter an email';
@@ -111,8 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       labelText: 'Email',
                                       width: size.width * .7,
                                       padding: 20,
-                                      suffixIcon: AppIcons.visibility),
+                                      ),
                                   AppTextfield(
+                                    validateMode: AutovalidateMode.onUserInteraction,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Please enter a password';
@@ -126,7 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                           passwordController,
                                       labelText: 'Password',
                                       width: size.width * .7,
-                                      padding: 20),
+                                      padding: 20,
+                                      suffixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.visibility,color: Colors.white,),),
+                                      ),
                                   SizedBox(
                                     height: size.height * .04,
                                   ),

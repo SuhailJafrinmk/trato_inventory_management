@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trato_inventory_management/features/category/presentation/category_product_page.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
@@ -41,8 +42,8 @@ class InventoryPage extends StatelessWidget {
               crossAxisSpacing: 15,
               crossAxisCount:2,
             scrollDirection: Axis.vertical,
-            children:const[
-              CategoryTile(categoryname: 'Smartphone'),
+            children:[
+              CategoryTile(categoryname: 'Smartphone',onTap: ()=>Navigator.pushNamed(context, 'category_products'),),
               CategoryTile(categoryname: 'Laptops'),
               CategoryTile(categoryname: 'Accesories'),
               CategoryTile(categoryname: 'Earphones'),

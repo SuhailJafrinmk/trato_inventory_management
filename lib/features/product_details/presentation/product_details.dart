@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
+import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 
@@ -48,7 +49,7 @@ class ProductDetails extends StatelessWidget {
                       height: size.height*.4,
                       width: size.width*.75,
                       decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage('assets/images/samsung galaxy s24.jpg'))
+                        image: DecorationImage(image: AssetImage(AppImages.galaxyS24))
                       ),
                      ),
                      Expanded(

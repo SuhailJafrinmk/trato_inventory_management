@@ -2,7 +2,8 @@
     <application
         android:label="trato"
         android:name="${applicationName}"
-        android:icon="@mipmap/logodesign2">
+        android:icon="@mipmap/logodesign2"
+        android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -51,6 +51,9 @@ dependencies:
   cloud_firestore: ^4.15.8
   connectivity_plus: ^6.0.3
   shared_preferences: ^2.2.3
+  custom_pop_up_menu: ^1.2.4
+  google_fonts: ^6.2.0
+  auto_size_text: ^3.0.0
   
 
 dev_dependencies:

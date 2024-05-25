@@ -80,7 +80,7 @@ class HomeFirst extends StatelessWidget {
     return SafeArea(child: SingleChildScrollView(
       child: Column(
           children: [
-            SizedBox(height: size.height*.03,),
+            // SizedBox(height: size.height*.03,),
            Material(
             elevation: 5,
              child: ListTile(leading: 
