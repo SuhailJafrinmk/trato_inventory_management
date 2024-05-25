@@ -84,11 +84,11 @@ class _AddPurchaseState extends State<AddPurchase> {
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [
-                    ProductTile(),
-                    ProductTile(),
-                    ProductTile(),
-                    ProductTile(),
-                    ProductTile(),
+                    // ProductTile(),
+                    // ProductTile(),
+                    // ProductTile(),
+                    // ProductTile(),
+                    // ProductTile(),
 
                   ],
                 ),

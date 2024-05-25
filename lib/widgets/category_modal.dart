@@ -15,7 +15,7 @@ class CategoryModal extends StatelessWidget {
       child: Column(
         children: [
           Text('Add Category'),
-          AppTextfield(labelText: 'Category', width: size.width*.8, padding: 10, obscureText: false),
+          AppTextfield(labelText: 'Category', width: size.width*.8, padding: 10, obscureText: false,fillColor: Colors.white,),
           CustomButton(height: size.height*.1, width: size.width*.8, elevation: 10, color: AppColors.primaryColor, radius: 10),
         ],
       ),

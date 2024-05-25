@@ -16,6 +16,7 @@ AutovalidateMode? validateMode;
 String?hintText;
 void Function(String)? onChanged;
 TextStyle? inputStyle;
+Color ?fillColor;
    AppTextfield({
     super.key, 
     required this.labelText,
@@ -32,6 +33,7 @@ TextStyle? inputStyle;
     this.hintText,
     this.onChanged,
     this.inputStyle,
+    this.fillColor=AppColors.primaryColor
     });
 
 
@@ -63,7 +65,7 @@ TextStyle? inputStyle;
                     color: Colors.white
                   )
                 ),
-                fillColor: AppColors.primaryColor,
+                fillColor: fillColor,
                 filled: true,
               suffix: suffixIcon,
               hintText: hintText,

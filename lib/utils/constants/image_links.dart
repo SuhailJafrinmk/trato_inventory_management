@@ -7,6 +7,9 @@ class AppImages{
   static const String stockImage='assets/images/stock_7444276.png';
   static const String costsImage='assets/images/costs_11746571.png';
   static const String pixelImage='assets/images/pixel_7a.jpg';
-  static const String hpVictusImage='assets/images/hp victus.jpg';
-  static const String asusRogue='assets\images\asus_rogue.webp';
+  // static const String hpVictusImage='assets/images/hp victus.jpg';
+  static const String asusRogue='assets/images/asus_rogue.webp';
+  static const String iphonexs='assets/images/iphone_xs.jpg';
+  static const String iphone13pro='assets/images/iphone_13_pro.jpg';
+  static const String redmi9a='assets/images/redmi_9a.jpg';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
+import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/category_grid.dart';
@@ -68,12 +69,16 @@ class InventoryPage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                ProductTile(),
-                ProductTile(),
-                ProductTile(),
-                ProductTile(),
-                ProductTile(),
-                ProductTile(),
+               ProductTile(productName: 'samsung galaxy s24',productImage: AppImages.galaxyS24,subtitle1: '500 \$',subtitle2: '100 units in stock',),
+               ProductTile(productName: 'Pixel 7a',productImage: AppImages.pixelImage,subtitle1: '500 \$',subtitle2: '100 units in stock',),
+               ProductTile(productName: 'Asus rogue',productImage: AppImages.asusRogue,subtitle1: '500 \$',subtitle2: '100 units in stock',),
+               ProductTile(productName: 'samsung galaxy s24',productImage: AppImages.galaxyS24,subtitle1: '500 \$',subtitle2: '100 units in stock',),
+               ProductTile(productName: 'Iphone 13 pro',productImage: AppImages.iphone13pro,subtitle1: '500 \$',subtitle2: '100 units in stock',),
+               ProductTile(productName: 'samsung galaxy s24',productImage: AppImages.galaxyS24,subtitle1: '500 \$',subtitle2: '100 units in stock',),
+               ProductTile(productName: 'Pixel 7a',productImage: AppImages.pixelImage,subtitle1: '500 \$',subtitle2: '100 units in stock',),
+               ProductTile(productName: 'Asus rogue',productImage: AppImages.asusRogue,subtitle1: '500 \$',subtitle2: '100 units in stock',),
+               ProductTile(productName: 'samsung galaxy s24',productImage: AppImages.galaxyS24,subtitle1: '500 \$',subtitle2: '100 units in stock',),
+               ProductTile(productName: 'Iphone 13 pro',productImage: AppImages.iphone13pro,subtitle1: '500 \$',subtitle2: '100 units in stock',),
               ],
             ),
           ),

@@ -31,6 +31,7 @@ class _AddProductState extends State<AddProduct> {
               Row(
                 children: [
                   AppTextfield(
+                    fillColor: Colors.white,
                       labelText: 'Category',
                       width: size.width * .5,
                       padding: 10,
@@ -55,11 +56,13 @@ class _AddProductState extends State<AddProduct> {
                 ],
               ),
               AppTextfield(
+                fillColor: Colors.white,
                   labelText: 'Product',
                   width: double.infinity,
                   padding: 10,
                   obscureText: false),
               AppTextfield(
+                fillColor: Colors.white,
                 labelText: 'Purchase Price',
                 width: double.infinity,
                 padding: 10,
@@ -67,6 +70,7 @@ class _AddProductState extends State<AddProduct> {
                 inputType: TextInputType.number,
               ),
               AppTextfield(
+                fillColor: Colors.white,
                 labelText: 'Selling price',
                 width: double.infinity,
                 padding: 10,
@@ -74,6 +78,7 @@ class _AddProductState extends State<AddProduct> {
                 inputType: TextInputType.number,
               ),
               AppTextfield(
+                fillColor: Colors.white,
                 labelText: 'Minimum Quantity',
                 width: double.infinity,
                 padding: 10,
@@ -81,6 +86,7 @@ class _AddProductState extends State<AddProduct> {
                 inputType: TextInputType.number,
               ),
               AppTextfield(
+                fillColor: Colors.white,
                   labelText: 'Description',
                   width: double.infinity,
                   padding: 10,

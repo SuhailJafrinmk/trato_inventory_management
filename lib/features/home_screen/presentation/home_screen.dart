@@ -127,9 +127,9 @@ class HomeFirst extends StatelessWidget {
           mainAxisSpacing: 8.0,
           childAspectRatio: 3 / 3,
           children: [
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.stockImage,),
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.stockImage,),
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.stockImage,),
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.galaxyS24,),
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.galaxyS24,),
+         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.galaxyS24,),
           ],
           ),
           ),
