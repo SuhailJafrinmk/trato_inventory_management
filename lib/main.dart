@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
 import 'package:trato_inventory_management/features/profile/bloc/profile_bloc.dart';
@@ -10,6 +11,9 @@ import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/routes/routes.dart';
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
+   SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]);
    await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -24,7 +28,6 @@ void main()async{
       BlocProvider(
         create: (context) => ProfileBloc(),
       )
-    
     ],
     child: const MyApp(),
   ));

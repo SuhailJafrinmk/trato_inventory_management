@@ -27,9 +27,9 @@ class PurchasesList extends StatelessWidget {
                 PurchaseTile(),
               ],
             )),
-          ElevatedButton(onPressed: (){
-            Navigator.pushNamed(context, 'add_purchase');
-          }, child: Text('Add Purchase')),
+          // ElevatedButton(onPressed: (){
+          //   Navigator.pushNamed(context, 'add_purchase');
+          // }, child: Text('Add Purchase')),
         ],
       )
       ),

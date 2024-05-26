@@ -1,11 +1,14 @@
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
+import 'package:trato_inventory_management/widgets/popup_menu_button.dart';
 
 class ProductTile extends StatelessWidget {
 final String productName;
  String subtitle1;
  String subtitle2;
 String productImage;
+CustomPopupMenuController popupMenuController=CustomPopupMenuController();
 
 ProductTile({super.key, required this.productName, required this.subtitle1,required this.subtitle2,required this.productImage});
 List <DropdownMenuItem<dynamic>> dropdownItems=[const DropdownMenuItem(child: Text('Delete')),const DropdownMenuItem(child: Text("Edit"))];
@@ -28,7 +31,9 @@ List <DropdownMenuItem<dynamic>> dropdownItems=[const DropdownMenuItem(child: Te
           Text(subtitle2),
         ],
       ),
-      // trailing: DropdownButton(items: dropdownItems, onChanged: (dynamic){})
+      trailing: CustomPopupMenuWidget(menuItems: ['Edit','Delete'],
+       controller: popupMenuController,
+       child: Icon(Icons.more_vert),),
     );
   }
 }

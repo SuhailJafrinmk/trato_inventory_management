@@ -1,6 +1,8 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/profile/bloc/profile_bloc.dart';
+import 'package:trato_inventory_management/utils/constants/image_links.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
@@ -18,18 +20,20 @@ class ProfileScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: const CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                    'https://via.placeholder.com/150'), 
+              child: DottedBorder(
+                borderType: BorderType.Circle,
+                child: const CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage(AppImages.shopDummyimage), 
+                ),
               ),
             ),
             const Text(
-              'John Doe',
+              '6g mobiles',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const Text(
-              'john.doe@example.com',
+              'Gst id:1212121212',
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
             const SizedBox(height: 20),
@@ -51,11 +55,6 @@ class ProfileScreen extends StatelessWidget {
                   
                 },
               ),
-            ),
-            const ListTile(
-              leading: Icon(Icons.info),
-              title: Text('App Version'),
-              trailing: Text('1.0.0'),
             ),
             ListTile(
               leading: const Icon(Icons.logout),
