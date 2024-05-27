@@ -32,7 +32,7 @@ class _SignupScreenState extends State<SignupScreen> {
         } else if (state is RegisterSuccessState) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('Register success')));
-          Navigator.pushNamed(context, 'login');
+          Navigator.pushReplacementNamed(context, 'add_store');
         } else if (state is RegisterErrorState) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));

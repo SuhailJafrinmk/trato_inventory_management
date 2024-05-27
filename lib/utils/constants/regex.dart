@@ -6,5 +6,6 @@ class RegexUtils{
    static final specialChar=RegExp(r'[!@#$%^&*(),.?":{}|<>]');
    static final atLeastANumber=RegExp(r'[0-9]');
    static final atLeastAnUppercase=RegExp(r'[A-Z]');
+   static final gstValidation=RegExp(r'^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$');
 
 }
