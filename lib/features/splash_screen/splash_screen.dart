@@ -58,6 +58,6 @@ void checkLoginStatus(context)async{
           Navigator.pushReplacementNamed(context, 'onboarding');
         });
       }else{
-        loginStatus==true ? Navigator.pushReplacementNamed(context, 'home_screen') : Navigator.pushReplacementNamed(context, 'signup');
+        loginStatus==true ? Navigator.pushReplacementNamed(context, 'home_screen') : Navigator.pushReplacementNamed(context, 'login');
       }
     }

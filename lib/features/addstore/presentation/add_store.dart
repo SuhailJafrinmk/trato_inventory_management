@@ -32,7 +32,7 @@ class _AddStorePageState extends State<AddStorePage> {
         if (state is AddstoreSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Store added successfully')));
-          Navigator.pushReplacementNamed(context, 'home_screen');
+          Navigator.pushReplacementNamed(context, 'login');
         }
         if (state is AddstoreError) {
           ScaffoldMessenger.of(context)

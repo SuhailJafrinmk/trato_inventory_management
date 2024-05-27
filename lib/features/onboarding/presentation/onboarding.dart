@@ -62,8 +62,7 @@ class _OnBoardingState extends State<OnBoarding> {
                         //  color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(60),bottomRight: Radius.circular(60))
                   ),
-                  // height: screenHeight,
-                  // width: screenWidth,
+                
                   child: Center(
                     child: Column(
                       children: [
