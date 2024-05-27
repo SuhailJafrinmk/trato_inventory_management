@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/custom_dropdown.dart';
 import 'package:trato_inventory_management/widgets/product_grid.dart';
+import 'package:trato_inventory_management/widgets/product_quantity_select_modal.dart';
 import 'package:trato_inventory_management/widgets/product_tile.dart';
 
 class AddPurchase extends StatefulWidget {
@@ -30,26 +32,26 @@ class _AddPurchaseState extends State<AddPurchase> {
                     children: [
                    Row(
                      children: [
-             Container(
-              // padding: EdgeInsets.all(),
-              height: 50,
-              width: 160,
-              decoration: BoxDecoration(
-                border: Border.all(),
-                borderRadius: BorderRadius.circular(20)
-              ),
+            //  Container(
+            //   // padding: EdgeInsets.all(),
+            //   height: 50,
+            //   width: 160,
+            //   decoration: BoxDecoration(
+            //     border: Border.all(),
+            //     borderRadius: BorderRadius.circular(20)
+            //   ),
               
-                  child: CustomDropdownButton<String>(items: ['mobile tech','apple suppliers','dialogue'],
-                   value: selected_item,
+            //       child: CustomDropdownButton<String>(items: ['mobile tech','apple suppliers','dialogue'],
+            //        value: selected_item,
                
-                     onChanged: (String ?newValue){
-                      print('new value $newValue');
-                      setState(() {
-                        selected_item=newValue!;
-                        print('value of selected item $selected_item');
-                      });
-                     }),
-             ),
+            //          onChanged: (String ?newValue){
+            //           print('new value $newValue');
+            //           setState(() {
+            //             selected_item=newValue!;
+            //             print('value of selected item $selected_item');
+            //           });
+            //          }),
+            //  ),
                      ],
                    ),
                    SizedBox(height: 20,),
@@ -63,9 +65,11 @@ class _AddPurchaseState extends State<AddPurchase> {
         mainAxisSpacing: 4.0,
         childAspectRatio: 2 / 3,
         children: [
-          // ProductGrid(),
-          // ProductGrid(),
-          // ProductGrid(),
+          ProductGrid(productName: 'samsung galaxy', subtitle: 'samsung electronics', productImage:AppImages.galaxyS24,onTap: () => showQuantityModal(context, 'samsung galaxy'),),
+          ProductGrid(productName: 'Iphone 13 pro', subtitle: 'Apple electronics', productImage:AppImages.iphone13pro,onTap: () => showQuantityModal(context, 'iphone 13 pro', ),),
+          ProductGrid(productName: 'pixel 7a', subtitle: 'google electronics', productImage:AppImages.pixelImage,onTap: () => showQuantityModal(context, 'pixel 7a'),),
+          ProductGrid(productName: 'Asus rogue', subtitle: 'Asus electronics', productImage:AppImages.asusRogue,onTap: () => showQuantityModal(context, 'asus rogue'),),
+          ProductGrid(productName: 'Redmi 9a', subtitle: 'Shaomi mobiles', productImage:AppImages.redmi9a,onTap: () => showQuantityModal(context, 'Redmi 9a'),),
         ],
         ),
         ),
@@ -84,12 +88,7 @@ class _AddPurchaseState extends State<AddPurchase> {
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [
-                    // ProductTile(),
-                    // ProductTile(),
-                    // ProductTile(),
-                    // ProductTile(),
-                    // ProductTile(),
-
+                  //  ProductGrid(productName: 'samsung galaxy s24', subtitle: 'samsung electronics', productImage: AppImages.galaxyS24),
                   ],
                 ),
               ),
@@ -102,4 +101,11 @@ class _AddPurchaseState extends State<AddPurchase> {
           ),
     );
   }
+}
+void showQuantityModal(BuildContext context,String productName,){
+  showDialog(context: context,
+   builder: (context){
+    return QuantityModal(productName: productName);
+   }
+   );
 }

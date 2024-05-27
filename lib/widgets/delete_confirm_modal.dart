@@ -11,7 +11,6 @@ class DeleteConfirmationModal extends StatelessWidget {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
     return AlertDialog(
-      
       title: Text('Confirm Deletion'),
       content: SizedBox(
         height: height*.2,

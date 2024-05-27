@@ -70,10 +70,7 @@ class CustomPopupMenuWidget extends StatelessWidget {
 void _onMenuItemSelected(BuildContext context, String item) {
     switch (item) {
       case 'Delete':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DeleteConfirmationModal()),
-        );
+       deleteConfirmationModal(context);
         break;
       case 'Edit':
         Navigator.push(
@@ -85,3 +82,8 @@ void _onMenuItemSelected(BuildContext context, String item) {
         print('Unknown menu item: $item');
     }
   }
+void deleteConfirmationModal(BuildContext context){
+showDialog(context: context, builder: (context){
+  return DeleteConfirmationModal();
+});
+}

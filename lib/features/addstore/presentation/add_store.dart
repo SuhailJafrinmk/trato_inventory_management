@@ -139,7 +139,7 @@ class _AddStorePageState extends State<AddStorePage> {
                             textEditingController: gstidController,
                             fillColor: AppColors.backgroundColor,
                             obscureText: false,
-                            labelText: 'Gsd id',
+                            labelText: 'Gst id',
                             width: size.width * .8,
                             padding: 20,
                             borderColor: Colors.black,
