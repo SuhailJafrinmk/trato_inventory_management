@@ -2,11 +2,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:trato_inventory_management/models/user_model.dart';
-
 part 'register_event.dart';
 part 'register_state.dart';
 

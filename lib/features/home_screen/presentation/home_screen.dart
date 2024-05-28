@@ -1,15 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:trato_inventory_management/features/addproduct/presentation/add_product.dart';
-import 'package:trato_inventory_management/features/addstore/presentation/add_store.dart';
-import 'package:trato_inventory_management/features/customer/presentation/customer_page.dart';
 import 'package:trato_inventory_management/features/inventory/presentation/inventory_page.dart';
-import 'package:trato_inventory_management/features/product_details/presentation/product_details.dart';
 import 'package:trato_inventory_management/features/profile/presentation/profile_page.dart';
-import 'package:trato_inventory_management/features/purchases/presentation/purchases.dart';
 import 'package:trato_inventory_management/features/records/presentation/records.dart';
-import 'package:trato_inventory_management/features/supplier/presentation/supplier.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/navigation_items_list.dart';
@@ -60,9 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           },
           children: [
-            HomeFirst(),
-            InventoryPage(),
-            Records(),
+            const HomeFirst(),
+            const InventoryPage(),
+            const Records(),
             ProfileScreen(),
           
           ],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
-import 'package:trato_inventory_management/utils/constants/icons.dart';
 import 'package:trato_inventory_management/utils/constants/regex.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/app_textfield.dart';
@@ -10,7 +9,6 @@ import 'package:trato_inventory_management/widgets/custom_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -31,8 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
               .showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is LoginSuccessState) {
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Login Succesfull')));
-          Navigator.pushReplacementNamed(context, 'home_screen');
+              .showSnackBar(const SnackBar(content: Text('Login Succesfull')));
+          Navigator.pushReplacementNamed(context,'home_screen');
         }
       },
       child: Scaffold(
@@ -66,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: BlocBuilder<LoginBloc, LoginState>(
                     builder: (context, state) {
                       if(state is LoginLoadedState){
-                        return Center(
+                        return const Center(
                           child: SizedBox(
                             height: 20,
                             width: 20,
@@ -83,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: signInGreeting,
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(vertical: 20),
+                            padding: const EdgeInsets.symmetric(vertical: 20),
                             height: size.height * .5,
                             width: size.width * .8,
                             decoration: BoxDecoration(
@@ -129,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       labelText: 'Password',
                                       width: size.width * .7,
                                       padding: 20,
-                                      suffixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.visibility,color: Colors.white,),),
+                                      suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.visibility,color: Colors.white,),),
                                       ),
                                   SizedBox(
                                     height: size.height * .04,

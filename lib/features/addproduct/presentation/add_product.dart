@@ -85,6 +85,12 @@ class _AddProductState extends State<AddProduct> {
                 obscureText: false,
                 inputType: TextInputType.number,
               ),
+                 AppTextfield(
+                fillColor: Colors.white,
+                  labelText: 'Supplier',
+                  width: double.infinity,
+                  padding: 10,
+                  obscureText: false),
               AppTextfield(
                 fillColor: Colors.white,
                   labelText: 'Description',

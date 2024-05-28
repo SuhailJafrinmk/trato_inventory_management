@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trato_inventory_management/utils/constants/text_styles.dart';
-import 'package:trato_inventory_management/widgets/customer_tile.dart';
 import 'package:trato_inventory_management/widgets/purchase_tile.dart';
 
 class PurchasesList extends StatelessWidget {
@@ -11,7 +9,7 @@ class PurchasesList extends StatelessWidget {
     final size=MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Purchase records'),
+        title: const Text('Purchase records'),
       ),
       body: SafeArea(child: Column(
         children: [
@@ -27,9 +25,6 @@ class PurchasesList extends StatelessWidget {
                 PurchaseTile(),
               ],
             )),
-          // ElevatedButton(onPressed: (){
-          //   Navigator.pushNamed(context, 'add_purchase');
-          // }, child: Text('Add Purchase')),
         ],
       )
       ),

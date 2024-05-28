@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
-import 'package:trato_inventory_management/widgets/custom_dropdown.dart';
+import 'package:trato_inventory_management/widgets/app_textfield.dart';
+import 'package:trato_inventory_management/widgets/custom_button.dart';
 import 'package:trato_inventory_management/widgets/product_grid.dart';
 import 'package:trato_inventory_management/widgets/product_quantity_select_modal.dart';
-import 'package:trato_inventory_management/widgets/product_tile.dart';
+
 
 class AddPurchase extends StatefulWidget {
   const AddPurchase({super.key});
@@ -23,40 +25,17 @@ class _AddPurchaseState extends State<AddPurchase> {
      print('height of device:$height');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Purchase'),
+        title: const Text('Add Purchase'),
       ),
       body: SafeArea(
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
                     children: [
-                   Row(
-                     children: [
-            //  Container(
-            //   // padding: EdgeInsets.all(),
-            //   height: 50,
-            //   width: 160,
-            //   decoration: BoxDecoration(
-            //     border: Border.all(),
-            //     borderRadius: BorderRadius.circular(20)
-            //   ),
-              
-            //       child: CustomDropdownButton<String>(items: ['mobile tech','apple suppliers','dialogue'],
-            //        value: selected_item,
-               
-            //          onChanged: (String ?newValue){
-            //           print('new value $newValue');
-            //           setState(() {
-            //             selected_item=newValue!;
-            //             print('value of selected item $selected_item');
-            //           });
-            //          }),
-            //  ),
-                     ],
-                   ),
-                   SizedBox(height: 20,),
+                 
+                   const SizedBox(height: 20,),
                  SizedBox(
-          height: 300,
+          height: height*.4,
           width: width,
           child: GridView.count(
         crossAxisCount: 2,
@@ -81,17 +60,60 @@ class _AddPurchaseState extends State<AddPurchase> {
           child: Column(
             children: [
               Text('Grand totel:\$ 343434',style: biggestTextBlack,),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               SizedBox(
-                height: 200,
+                height: height*.3,
                 width: width,
                 child: ListView(
                   scrollDirection: Axis.vertical,
-                  children: [
-                  //  ProductGrid(productName: 'samsung galaxy s24', subtitle: 'samsung electronics', productImage: AppImages.galaxyS24),
+                  children: const[
+                   ListTile(
+                    title: Text('samsung galaxy'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('quanity:120'),
+                        Text('supplier:samsung mobiles'),
+                      ],
+                    ),
+                    trailing: Icon(Icons.delete),
+                  ),
+                    ListTile(
+                    title: Text('pixel 7a'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('quanity:50'),
+                        Text('supplier:google electronic'),
+                      ],
+                    ),
+                    trailing: Icon(Icons.delete),
+                  ),
+                     ListTile(
+                    title: Text('Asus rogue'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('quanity:70'),
+                        Text('supplier:Asus electronics'),
+                      ],
+                    ),
+                    trailing: Icon(Icons.delete),
+                  ),
+                  
                   ],
                 ),
               ),
+              Expanded(child: SizedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [ElevatedButton(onPressed: (){
+                    showCustomerForm(context);
+                  }, child: const Text('Add')),
+                  ElevatedButton(onPressed: (){}, child: const Text('cancel'))
+                  ],
+                ),
+              ))
             ],
           ),
         ))
@@ -106,6 +128,24 @@ void showQuantityModal(BuildContext context,String productName,){
   showDialog(context: context,
    builder: (context){
     return QuantityModal(productName: productName);
+   }
+   );
+}
+
+void showCustomerForm(BuildContext context){
+  showModalBottomSheet(context: context,
+   builder: (context){
+    return Container(
+      padding: EdgeInsets.all(20),
+      
+      child: Column(
+        children: [
+          AppTextfield(labelText: 'Customer name', width: double.infinity, padding: 10, obscureText: false,fillColor: Colors.white,),
+          AppTextfield(labelText: 'Customer email', width: double.infinity, padding: 10, obscureText: false,fillColor: Colors.white,),
+          CustomButton(height: 60, width: double.infinity, elevation: 10, color: AppColors.primaryColor, radius: 10,child: Text('Confirm',style: buttonText,),)
+        ],
+      ),
+    );
    }
    );
 }
