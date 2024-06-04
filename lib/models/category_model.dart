@@ -1,6 +1,18 @@
-class CategoryModel{
+class CategoryModel {
   final String category;
-  int ? categoryid;
+  String? description;
+  CategoryModel({required this.category, this.description});
+  Map<String, dynamic> toMap() {
+    return {
+      'category': category,
+      'description': description,
+    };
+  }
 
-
-  CategoryModel({required this.category,this.categoryid});}
+  factory CategoryModel.fromMap(Map<String, dynamic> data) {
+    return CategoryModel(
+      category: data['category'],
+      description: data['description'] ?? '',
+    );
+  }
+}

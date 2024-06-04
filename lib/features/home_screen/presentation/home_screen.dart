@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/features/inventory/presentation/inventory_page.dart';
 import 'package:trato_inventory_management/features/profile/presentation/profile_page.dart';
@@ -19,47 +21,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final PageController pageController=PageController();
-  int selectedIndex=0;
-  final List<String> AppbarTitles=['Home','Inventory','Records',"profile"];
+  final PageController pageController = PageController();
+  int selectedIndex = 0;
+  final List<String> AppbarTitles = ['Home', 'Inventory', 'Records', "profile"];
   @override
   void dispose() {
     pageController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(AppbarTitles[selectedIndex]),
-
       ),
       bottomNavigationBar: ScrollableBottomNavigationBar(
-        backgroundColor: AppColors.primaryColor,
-        items: navigationItems, 
-        selectedIndex: selectedIndex,
-         onItemTapped: (index){
-          setState(() {
-            selectedIndex=index;
-            pageController.jumpToPage(index);
-          });
-         }),
-         body: PageView(
-          controller: pageController,
-          onPageChanged: (value) {
+          backgroundColor: AppColors.primaryColor,
+          items: navigationItems,
+          selectedIndex: selectedIndex,
+          onItemTapped: (index) {
             setState(() {
-              selectedIndex=value;
+              selectedIndex = index;
+              pageController.jumpToPage(index);
             });
-          },
-          children: [
-            const HomeFirst(),
-            const InventoryPage(),
-            const Records(),
-            ProfileScreen(),
-          
-          ],
-         ),
+          }),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (value) {
+          setState(() {
+            selectedIndex = value;
+          });
+        },
+        children: [
+          const HomeFirst(),
+          const InventoryPage(),
+          const Records(),
+          ProfileScreen(),
+        ],
+      ),
     );
   }
 }
@@ -69,74 +70,140 @@ class HomeFirst extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final size=MediaQuery.of(context).size;
-    return SafeArea(child: SingleChildScrollView(
+    final size = MediaQuery.of(context).size;
+    User? user = FirebaseAuth.instance.currentUser;
+    return SafeArea(
+        child: SingleChildScrollView(
       child: Column(
-          children: [
-            // SizedBox(height: size.height*.03,),
-           Material(
+        children: [
+          // SizedBox(height: size.height*.03,),
+          Material(
             elevation: 5,
-             child: ListTile(leading: 
-             SizedBox(child: Image.asset(AppImages.shopDummyimage)),
-             title:const Text('Indian Hyper market'),subtitle: const Text('Gst id:232323232'),),
-           ),
-           SizedBox(height:size.height*.03,),
-          CarouselSlider(items: const[
-            CarouselContainer(data: 'Total Costs', datatype: '10000 \$', imageurl:AppImages.costsImage),
-             CarouselContainer(data: 'Total Stock', datatype: '10000 \$', imageurl:AppImages.salesImage),
-              CarouselContainer(data: 'Total Sales', datatype: '10000 \$', imageurl:AppImages.stockImage),
-          ], options: CarouselOptions(
-            autoPlay: true
-          )),
-          SizedBox(height:size.height*.03,),
+            child: StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('UserData')
+                    .doc(user!.uid)
+                    .collection('store details')
+                    .doc(user.uid)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Error fetching products'));
+                  } else if (!snapshot.hasData || !snapshot.hasData) {
+                    return const Center(child: Text('No stores added'));
+                  } else {
+                    final data = snapshot.data!.data() as Map<String, dynamic>;
+                    final storename = data['storeName'];
+                    final gstid = data['gstId'];
+                    return ListTile(
+                      leading: SizedBox(
+                          child: Image.asset(AppImages.shopDummyimage)),
+                      title: Text(storename),
+                      subtitle: Text('Gst id:${gstid}'),
+                    );
+                  }
+                }),
+          ),
+          SizedBox(
+            height: size.height * .03,
+          ),
+          CarouselSlider(items: const [
+            CarouselContainer(
+                data: 'Total Costs',
+                datatype: '10000 \$',
+                imageurl: AppImages.costsImage),
+            CarouselContainer(
+                data: 'Total Stock',
+                datatype: '10000 \$',
+                imageurl: AppImages.salesImage),
+            CarouselContainer(
+                data: 'Total Sales',
+                datatype: '10000 \$',
+                imageurl: AppImages.stockImage),
+          ], options: CarouselOptions(autoPlay: true)),
+          SizedBox(
+            height: size.height * .03,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('Smartphones',style:categoryTitle ,),
-              TextButton(onPressed: (){}, child: const Text('See All')),
+              Text(
+                'Smartphones',
+                style: categoryTitle,
+              ),
+              TextButton(onPressed: () {}, child: const Text('See All')),
             ],
           ),
           SizedBox(
-            height: size.height*.25,
+            height: size.height * .25,
             width: size.width,
-            child: GridView.count(crossAxisCount: 1,
-          scrollDirection: Axis.horizontal,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-          childAspectRatio: 3 / 3,
-          children: [
-         ProductGrid(productName: 'Pixel 7A', subtitle: 'only 2 stock',productImage: AppImages.pixelImage,),
-         ProductGrid(productName: 'Samsung galaxy', subtitle: 'only 2 stock',productImage: AppImages.galaxyS24,),
-         ProductGrid(productName: 'Iphone 13', subtitle: 'only 2 stock',productImage: AppImages.iphone13pro,),
-          ],
+            child: GridView.count(
+              crossAxisCount: 1,
+              scrollDirection: Axis.horizontal,
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              childAspectRatio: 3 / 3,
+              children: [
+                ProductGrid(
+                  productName: 'Pixel 7A',
+                  subtitle: 'only 2 stock',
+                  productImage: AppImages.pixelImage,
+                ),
+                ProductGrid(
+                  productName: 'Samsung galaxy',
+                  subtitle: 'only 2 stock',
+                  productImage: AppImages.galaxyS24,
+                ),
+                ProductGrid(
+                  productName: 'Iphone 13',
+                  subtitle: 'only 2 stock',
+                  productImage: AppImages.iphone13pro,
+                ),
+              ],
+            ),
           ),
-          ),
-           Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('Laptops',style:categoryTitle ,),
-              TextButton(onPressed: (){}, child: const Text('See All')),
+              Text(
+                'Laptops',
+                style: categoryTitle,
+              ),
+              TextButton(onPressed: () {}, child: const Text('See All')),
             ],
           ),
-           SizedBox(
-            height: size.height*.25,
+          SizedBox(
+            height: size.height * .25,
             width: size.width,
-            child: GridView.count(crossAxisCount: 1,
-          scrollDirection: Axis.horizontal,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-          childAspectRatio: 3 / 3,
-          children: [
-         ProductGrid(productName: 'Asus rogue', subtitle: 'only 2 stock',productImage: AppImages.asusRogue,),
-         ProductGrid(productName: 'Asus rogue', subtitle: 'only 2 stock',productImage: AppImages.asusRogue,),
-         ProductGrid(productName: 'Asus rogue', subtitle: 'only 2 stock',productImage: AppImages.asusRogue,),
-          ],
+            child: GridView.count(
+              crossAxisCount: 1,
+              scrollDirection: Axis.horizontal,
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              childAspectRatio: 3 / 3,
+              children: [
+                ProductGrid(
+                  productName: 'Asus rogue',
+                  subtitle: 'only 2 stock',
+                  productImage: AppImages.asusRogue,
+                ),
+                ProductGrid(
+                  productName: 'Asus rogue',
+                  subtitle: 'only 2 stock',
+                  productImage: AppImages.asusRogue,
+                ),
+                ProductGrid(
+                  productName: 'Asus rogue',
+                  subtitle: 'only 2 stock',
+                  productImage: AppImages.asusRogue,
+                ),
+              ],
+            ),
           ),
-          ),
-          
-          ],
-        ),
-    )
-      );
+        ],
+      ),
+    ));
   }
 }

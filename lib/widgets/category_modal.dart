@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 
 class CategoryModal extends StatelessWidget {
   const CategoryModal({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final bloc=BlocProvider.of(context);
     final size=MediaQuery.of(context).size;
     return Container(
       height: size.height*.4,

@@ -17,6 +17,7 @@ String?hintText;
 void Function(String)? onChanged;
 TextStyle? inputStyle;
 Color ?fillColor;
+FocusNode ?focusNode;
    AppTextfield({
     super.key, 
     required this.labelText,
@@ -33,7 +34,8 @@ Color ?fillColor;
     this.hintText,
     this.onChanged,
     this.inputStyle,
-    this.fillColor=AppColors.primaryColor
+    this.fillColor=AppColors.primaryColor,
+    this.focusNode
     });
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ Color ?fillColor;
           children: [
             Text(labelText,style: labelStyle,),
             TextFormField(
+              focusNode: focusNode,
               style: inputStyle,
               onChanged: onChanged,
               autovalidateMode: validateMode,

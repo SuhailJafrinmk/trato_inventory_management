@@ -9,8 +9,9 @@ class CustomPopupMenuWidget extends StatelessWidget {
   final List<String> menuItems;
   final CustomPopupMenuController controller;
   final Widget child;
+  final Map<String,dynamic>? document;
 
-  CustomPopupMenuWidget({required this.menuItems, required this.controller,required this.child});
+  CustomPopupMenuWidget({required this.menuItems,required this.controller,required this.child,this.document});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class CustomPopupMenuWidget extends StatelessWidget {
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
                       print("onTap");
-                       _onMenuItemSelected(context, item);
+                       _onMenuItemSelected(context, item,document);
                       controller.hideMenu();    
                     },
                     child: Container(
@@ -67,10 +68,10 @@ class CustomPopupMenuWidget extends StatelessWidget {
   }
 }
 
-void _onMenuItemSelected(BuildContext context, String item) {
+void _onMenuItemSelected(BuildContext context, String item,Map<String,dynamic>?document) {
     switch (item) {
       case 'Delete':
-       deleteConfirmationModal(context);
+       deleteConfirmationModal(context,document);
         break;
       case 'Edit':
         Navigator.push(
@@ -82,8 +83,8 @@ void _onMenuItemSelected(BuildContext context, String item) {
         print('Unknown menu item: $item');
     }
   }
-void deleteConfirmationModal(BuildContext context){
+void deleteConfirmationModal(BuildContext context,Map<String,dynamic>?document){
 showDialog(context: context, builder: (context){
-  return DeleteConfirmationModal();
+  return DeleteConfirmationModal(document: document);
 });
 }

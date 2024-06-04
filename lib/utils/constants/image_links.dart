@@ -14,4 +14,5 @@ class AppImages{
   static const String redmi9a='assets/images/redmi_9a.jpg';
   static const String recordsSales='assets/images/sales.jpg';
   static const String recordPurchase='assets/images/purchases.jpg';
+  static const String placeholder='https://res.cloudinary.com/dccos4vab/image/upload/v1712903228/73-730477_first-name-profile-image-placeholder-png_ddrkew.png';
 }

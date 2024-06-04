@@ -1,16 +1,16 @@
-class UserModel{
+class UserModel {
   final String userName;
   final String userEmail;
   final String password;
-  final String ?uid;
+  final String? uid;
 
   UserModel(this.userName, this.userEmail, this.password, this.uid);
-  Map<String,dynamic>toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      'userName':userName,
-      'userEmail':userEmail,
-      'password':password,
-      'uid':uid,
+      'userName': userName,
+      'userEmail': userEmail,
+      'password': password,
+      'uid': uid,
     };
   }
   // factory UserModel.fromMap(Map<String,dynamic>data){
@@ -22,7 +22,4 @@ class UserModel{
   //   );
 
   // }
-
-
-
 }

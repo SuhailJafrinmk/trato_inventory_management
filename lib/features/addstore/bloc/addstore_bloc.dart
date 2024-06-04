@@ -22,7 +22,7 @@ class AddstoreBloc extends Bloc<AddstoreEvent, AddstoreState> {
    FirebaseFirestore firestore=FirebaseFirestore.instance;
    DocumentReference documentReference=firestore.collection('UserData').doc(user!.uid);
    CollectionReference collectionReference=documentReference.collection('store details');
-    await collectionReference.add(event.storeModel.toMap());
+    await collectionReference.doc(user.uid).set(event.storeModel.toMap());
     emit(AddstoreSuccess());
     }catch(e){
     emit(AddstoreError(errorMessage: e.toString()));

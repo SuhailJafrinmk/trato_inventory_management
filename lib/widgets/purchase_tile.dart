@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class PurchaseTile extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return const ListTile(

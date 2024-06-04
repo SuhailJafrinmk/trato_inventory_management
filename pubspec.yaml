@@ -54,6 +54,9 @@ dependencies:
   custom_pop_up_menu: ^1.2.4
   google_fonts: ^6.2.0
   auto_size_text: ^3.0.0
+  image_picker: ^1.0.8
+  input_quantity: ^2.3.4
+  intl: ^0.19.0
   
 
 dev_dependencies:
