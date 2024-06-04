@@ -28,9 +28,8 @@ class AddImageErrorState extends AddProductState{
   AddImageErrorState({required this.message});
 }
 class ImagePickedState extends AddProductState{
-  final XFile pickedImage;
-
-  ImagePickedState({required this.pickedImage});
+  File? croppedIage;
+  ImagePickedState({required this.croppedIage});
 }
 class ProductAddedSuccessState extends AddProductState{}
 class AddProductErrorState extends AddProductState{

@@ -57,6 +57,7 @@ dependencies:
   image_picker: ^1.0.8
   input_quantity: ^2.3.4
   intl: ^0.19.0
+  image_cropper: ^5.0.1
   
 
 dev_dependencies:

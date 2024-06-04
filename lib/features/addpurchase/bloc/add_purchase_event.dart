@@ -11,3 +11,7 @@ class AddRecordConfirm extends AddPurchaseEvent{
 
   AddRecordConfirm({required this.record});
 }
+class DeleteButtonClicked extends AddPurchaseEvent{
+ PurchasedItem purchasedItem;
+ DeleteButtonClicked({required this.purchasedItem});
+}

@@ -42,6 +42,10 @@ class _AddPurchaseState extends State<AddPurchase> {
         } else if (state is PurchaseRecordAddSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Record Added successfully')));
+        }else if(state is PurchaseListUpdated){
+        //   itemsPurchased.addAll(state.itemsPurchased);
+        //      ScaffoldMessenger.of(context).showSnackBar(
+        //       const SnackBar(content: Text('item removed')));
         }
       },
       child: Scaffold(
@@ -147,6 +151,9 @@ class _AddPurchaseState extends State<AddPurchase> {
                           final singleItem = itemsPurchased[index];
                           return ListTile(
                             title: Text(singleItem.productName),
+                            trailing: IconButton(onPressed: (){
+                              bloc.add(DeleteButtonClicked(purchasedItem: singleItem));
+                            }, icon: Icon(Icons.delete)),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -223,7 +230,7 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
                 builder: (context, state) {
                   if(state is PurchaseRecordAddLoading){
                     return const Center(
-                      child: const Column(
+                      child:  Column(
                         children: [
                           CircularProgressIndicator(),
                           Text("adding your purchase record"),

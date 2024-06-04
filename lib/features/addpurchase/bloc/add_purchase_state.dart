@@ -17,3 +17,7 @@ class PurchaseRecordAddingError extends AddPurchaseState{
   PurchaseRecordAddingError({required this.message});
 
 } 
+class PurchaseListUpdated extends AddPurchaseState{
+  List<PurchasedItem> itemsPurchased = [];
+  PurchaseListUpdated({required this.itemsPurchased});
+}

@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:trato_inventory_management/models/product_model.dart';
@@ -12,12 +14,14 @@ part 'add_product_state.dart';
 
 class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
   final ImagePicker imagePicker=ImagePicker();
+  final ImageCropper imageCropper=ImageCropper();
+  File? croppedImageFile;
   AddProductBloc() : super(AddProductInitial()) {
    on<DropdownTextfieldClicked>(dropdownTextfieldClicked);
    on<FetchCategoriesEvent>(fetchCategoriesEvent);
    on<AddProductButtonClicked>(addProductButtonClicked);
    on<AddImageButtonClicked>(addImageButtonClicked);
-   on<FetchProducts>(fetchProducts);
+  //  on<FetchProducts>(fetchProducts);
   }
 
   FutureOr<void> dropdownTextfieldClicked(DropdownTextfieldClicked event, Emitter<AddProductState> emit) {
@@ -72,15 +76,57 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
   }
   
   //this function is just for picking the image and emit the state 
-  FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddProductState> emit)async{
-    final pickedImage=await imagePicker.pickImage(source: ImageSource.gallery);
-    if(pickedImage!=null){
-      emit(ImagePickedState(pickedImage: pickedImage));
-    }
+
+FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddProductState> emit) async {
+  print('started adding image');
+  final pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+  print('image oicked');
+  if (pickedImage != null) {
+    try {
+      // Crop the image using image_cropper
+      final croppedFile = await imageCropper.cropImage(
+        sourcePath: pickedImage.path,
+        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+        compressQuality: 100,
+      );
+      print('image cropped');
+
+      if (croppedFile != null) {
+        final croppedImagePath = croppedFile.path;
+        final croppedImageFile = File(croppedImagePath);
+        emit(ImagePickedState(croppedIage: croppedImageFile));
+      } else {
+        print("Image cropping canceled or failed.");
       }
-  
-  FutureOr<void> fetchProducts(FetchProducts event, Emitter<AddProductState> emit) {
-    
+    } on Exception catch (e) {
+
+      print("Error picking or cropping image: $e");
+    }
   }
+}
+
+
+
+  // FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddProductState> emit)async{
+  //   final pickedImage=await imagePicker.pickImage(source: ImageSource.gallery);
+  //   if(pickedImage!=null){
+  //   final croppedImage=await imageCropper.cropImage(
+  //     sourcePath: pickedImage.path,
+  //     aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+  //     compressQuality: 100,
+  //   );
+  //   if (croppedImage != null) {
+  //       final croppedImagePath=croppedImage.path;
+  //       croppedImageFile=File(croppedImagePath);
+  //     }
+  
+  //     emit(ImagePickedState(croppedIage: croppedImageFile));
+  //   }
+  //   return;
+  //   }
+  
+  // FutureOr<void> fetchProducts(FetchProducts event, Emitter<AddProductState> emit) {
+    
+  // }
   }
 

@@ -50,7 +50,7 @@ class _AddProductState extends State<AddProduct> {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('Product added')));
         }else if(state is ImagePickedState){
-          pickedImage=state.pickedImage;
+          pickedImage=state.croppedIage;
         }
       },
       child: Scaffold(
@@ -108,7 +108,7 @@ class _AddProductState extends State<AddProduct> {
                                 if (state is ImagePickedState) {
                                   return Center(
                                     child: Image.file(
-                                        File(state.pickedImage.path)),
+                                        File(state.croppedIage!.path)),
                                   );
                                 }
                                 return Center(

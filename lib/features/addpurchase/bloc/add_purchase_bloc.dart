@@ -19,6 +19,7 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
   AddPurchaseBloc() : super(AddPurchaseInitial()) {
     on<ConfirmQuantity>(confirmQuantity);
     on<AddRecordConfirm>(addRecordConfirm);
+    // on<DeleteButtonClicked>(deleteButtonClicked);
   }
 
   //function just for adding the individual items into the list of purchase item just to be displayed on the ui.
@@ -44,4 +45,9 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
       emit(PurchaseRecordAddingError(message: e.toString()));
     }
   }
+
+  // FutureOr<void> deleteButtonClicked(DeleteButtonClicked event, Emitter<AddPurchaseState> emit) {
+  //   itemsPurchased.remove(event.purchasedItem);
+  //   emit(PurchaseListUpdated(itemsPurchased: itemsPurchased));
+  // }
 }
