@@ -81,15 +81,15 @@ class _AddPurchaseState extends State<AddPurchase> {
                           .map((e) => e.data() as Map<String, dynamic>)
                           .toList();
                       return GridView.builder(
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(10),
                           scrollDirection: Axis.vertical,
                           itemCount: singledocument.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisSpacing: 4.0,
-                                  mainAxisSpacing: 4.0,
-                                  childAspectRatio: 2 / 3,
-                                  crossAxisCount: 2),
+                                  crossAxisSpacing: 8.0,
+                                  mainAxisSpacing: 8.0,
+                                  childAspectRatio: 1 / 1.5,
+                                  crossAxisCount: 3),
                           itemBuilder: (context, index) {
                             final eachdocument = singledocument[index];
                             return ProductGrid(
@@ -126,10 +126,10 @@ class _AddPurchaseState extends State<AddPurchase> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Grand Totel: ${totalCount}',
+                              'Grand Totel: $totalCount',
                               style: biggestTextBlack,
                             ),
-                            Text('Date:${formattedNow}'),
+                            Text('Date:$formattedNow'),
                           ],
                         );
                       },

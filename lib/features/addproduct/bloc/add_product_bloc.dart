@@ -43,6 +43,7 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
   }
   
   //function for submitting the form to firestore submits the entire data for the product including image
+  //this is called on submission of form
   FutureOr<void> addProductButtonClicked(AddProductButtonClicked event, Emitter<AddProductState> emit)async {
     try{
     emit(AddProductLoadingState());
