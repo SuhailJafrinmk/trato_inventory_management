@@ -25,6 +25,7 @@ class _InventoryPageState extends State<InventoryPage> {
   CustomPopupMenuController menuController = CustomPopupMenuController();
   @override
   void initState() {
+    //event meant for fetching the existing categories in the database
     BlocProvider.of<InventoryBloc>(context).add(FetchCategoriesEvent());
     super.initState();
   }
@@ -118,8 +119,7 @@ class _InventoryPageState extends State<InventoryPage> {
                         final categoryName = categories[index].id;
                         return GestureDetector(
                             onLongPress: () {
-                              bloc.add(CategoryTileLongpress(
-                                  document: categoryName));
+                              BlocProvider.of<InventoryBloc>(context).add(CategoryTileLongpress(document: categoryName));
                             },
                             child: CategoryTile(categoryname: categoryName));
                       });
@@ -153,7 +153,8 @@ class _InventoryPageState extends State<InventoryPage> {
             ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
+                  stream: FirebaseFirestore
+                      .instance //retrieves the available products from the database
                       .collection('UserData')
                       .doc(user.uid)
                       .collection('Products')
@@ -182,10 +183,10 @@ class _InventoryPageState extends State<InventoryPage> {
                                 menuItems: ['Edit', 'Delete'],
                               ),
                               productName: productData['productName'],
-                              subtitle1:
-                                  'supplier : ${productData['supplier']}',
+                              subtitle1:'supplier : ${productData['supplier']}',
                               subtitle2: 'suail',
-                              productImage: productData['productImage']);
+                              productImage: productData['productImage']
+                              );
                         });
                   }),
             ),
@@ -196,15 +197,13 @@ class _InventoryPageState extends State<InventoryPage> {
   }
 }
 
-void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
-    List<String>? categoryNames) {
+void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,List<String>? categoryNames) {
   showDialog(
       context: context,
       builder: (context) {
         final TextEditingController categoryController =
             TextEditingController();
-        final TextEditingController? descriptionControler =
-            TextEditingController();
+        final TextEditingController? descriptionControler =TextEditingController();
         return AlertDialog(
           title: const Text('Add category'),
           content: Column(
@@ -231,7 +230,6 @@ void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
                 fillColor: Colors.white,
               ),
               AppTextfield(
-                validateMode: AutovalidateMode.onUserInteraction,
                 textEditingController: descriptionControler,
                 labelText: 'Description',
                 width: double.infinity,

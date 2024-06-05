@@ -19,17 +19,15 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
   AddPurchaseBloc() : super(AddPurchaseInitial()) {
     on<ConfirmQuantity>(confirmQuantity);
     on<AddRecordConfirm>(addRecordConfirm);
-    // on<DeleteButtonClicked>(deleteButtonClicked);
   }
 
   //function just for adding the individual items into the list of purchase item just to be displayed on the ui.
-  FutureOr<void> confirmQuantity(
-      ConfirmQuantity event, Emitter<AddPurchaseState> emit) {
+  FutureOr<void> confirmQuantity(ConfirmQuantity event, Emitter<AddPurchaseState> emit) {
     itemsPurchased.add(event.purchasedItem);
     emit(SinglePurchaseAddedState(purcaseItems: itemsPurchased));
   }
 
-  //function for adding a single purchase record including the list of items,date,total purchase amount.
+  //function for adding a single purchase record including the list of items,date,total purchase amount to the database.
   FutureOr<void> addRecordConfirm(
       AddRecordConfirm event, Emitter<AddPurchaseState> emit) async {
     try {

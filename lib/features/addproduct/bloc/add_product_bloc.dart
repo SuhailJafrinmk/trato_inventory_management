@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +22,7 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
    on<FetchCategoriesEvent>(fetchCategoriesEvent);
    on<AddProductButtonClicked>(addProductButtonClicked);
    on<AddImageButtonClicked>(addImageButtonClicked);
-  //  on<FetchProducts>(fetchProducts);
+   on<FetchProducts>(fetchProducts);
   }
 
   FutureOr<void> dropdownTextfieldClicked(DropdownTextfieldClicked event, Emitter<AddProductState> emit) {
@@ -31,6 +32,7 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
   //fetches the categories required to show in the dropdown field for categories the event is called in init state of addproduct page
   FutureOr<void> fetchCategoriesEvent(FetchCategoriesEvent event, Emitter<AddProductState> emit)async{
     try{
+      log('evenet started');
       emit(CategoryLoadingState());
      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     User? user = firebaseAuth.currentUser;
@@ -39,6 +41,7 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
         .doc(user!.uid)
         .collection('Category');
     QuerySnapshot querySnapshot = await categories.get();
+    //maps every single document names in to a list
       final dropDownItems=querySnapshot.docs.map((doc) =>doc.id).toList();
       emit(FetchingSuccessState(dropDownItems: dropDownItems));
     }catch(e){
@@ -57,6 +60,7 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
     Reference storage=FirebaseStorage.instance.ref().child(filename);
     await storage.putFile(File(event.productModel.productImage!.path));
     String imageUrl=await storage.getDownloadURL();
+    //model containing all the details of the product
     ProductModel productModel=ProductModel(
       supplier: event.productModel.supplier,
       category: event.productModel.category,
@@ -68,6 +72,7 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
       description: event.productModel.description
     );
     DocumentReference reference=firestore.collection('UserData').doc(currentUser!.uid);
+    //adding the product data to a new collection named products under the document name as product name
     await reference.collection('Products').doc(event.productModel.productName).set(productModel.toMap());
     emit(ProductAddedSuccessState());
     }catch(e){
@@ -75,15 +80,15 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
     }
   }
   
-  //this function is just for picking the image and emit the state 
 
+  //this function is just for picking the image and emit the state 
 FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddProductState> emit) async {
   print('started adding image');
   final pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
   print('image oicked');
   if (pickedImage != null) {
     try {
-      // Crop the image using image_cropper
+      //crop the picked image using image cropper
       final croppedFile = await imageCropper.cropImage(
         sourcePath: pickedImage.path,
         aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
@@ -94,6 +99,7 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
       if (croppedFile != null) {
         final croppedImagePath = croppedFile.path;
         final croppedImageFile = File(croppedImagePath);
+        //adding the cropped image to the state
         emit(ImagePickedState(croppedIage: croppedImageFile));
       } else {
         print("Image cropping canceled or failed.");
@@ -128,5 +134,24 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
   // FutureOr<void> fetchProducts(FetchProducts event, Emitter<AddProductState> emit) {
     
   // }
+  
+  FutureOr<void> fetchProducts(FetchProducts event, Emitter<AddProductState> emit) async{
+    log('fetch product event started');
+     try{
+      emit(FetchProductsLoading());
+     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    User? user = firebaseAuth.currentUser;
+    CollectionReference categories = FirebaseFirestore.instance
+        .collection('UserData')
+        .doc(user!.uid)
+        .collection('Products');
+    QuerySnapshot querySnapshot = await categories.get();
+    //maps every single document names in to a list
+      final totalItems=querySnapshot.docs.map((doc) =>doc.id).toList();
+      emit(FetchProductsSuccess(products: totalItems));
+    }catch(e){
+      emit(FetchProductsFailed());
+    }
+  }
   }
 

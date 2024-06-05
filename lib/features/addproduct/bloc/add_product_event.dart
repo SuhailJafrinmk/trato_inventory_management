@@ -15,4 +15,3 @@ class AddProductButtonClicked extends AddProductEvent{
 
 class AddImageButtonClicked extends AddProductEvent{}
 class FetchProducts extends AddProductEvent{}
-

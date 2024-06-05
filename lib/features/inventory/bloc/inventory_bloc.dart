@@ -19,7 +19,8 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     on<FetchCategoriesEvent>(fetchCategoriesEvent);
     on<DeleteConfirmationClicked>(deleteConfirmationClicked);
   }
-
+  
+  //this block of code helps to add a new category the document will have the name of the category
   FutureOr<void> addCategoryButtonClicked(AddCategoryButtonClicked event, Emitter<InventoryState> emit)async{
     final currentuser=firebaseAuth.currentUser;
     try{
@@ -31,7 +32,8 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
       emit(CategoryAddedError(errorMessage: e.toString()));
     }
   }
-
+ 
+ //meant for deleting an existing category 
   FutureOr<void> categoryTileLongpress(CategoryTileLongpress event, Emitter<InventoryState> emit) async{
     try{
     final currentuser=firebaseAuth.currentUser;
@@ -44,6 +46,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     
   }
 
+  //meant for fetching the existing available categories in order to validate a new category addition
   FutureOr<void> fetchCategoriesEvent(FetchCategoriesEvent event, Emitter<InventoryState> emit)async {
     final user=firebaseAuth.currentUser;
     CollectionReference reference=firestore.collection('UserData').doc(user!.uid).collection("Category");
@@ -52,6 +55,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     emit(CategoriesFetchedState(listOfDocuments));
   }
 
+   //for deleting a product from the collection of records
   FutureOr<void> deleteConfirmationClicked(DeleteConfirmationClicked event, Emitter<InventoryState> emit)async{
     emit(ProductDeletingLoadingState());
     try{

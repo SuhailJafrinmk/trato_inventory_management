@@ -25,7 +25,6 @@ class _AddPurchaseState extends State<AddPurchase> {
   List<PurchasedItem> itemsPurchased = [];
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<AddPurchaseBloc>(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     User? user = FirebaseAuth.instance.currentUser;
@@ -37,15 +36,12 @@ class _AddPurchaseState extends State<AddPurchase> {
         if (state is SinglePurchaseAddedState) {
           itemsPurchased.addAll(state.purcaseItems);
         } else if (state is PurchaseRecordAddingError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.message)));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is PurchaseRecordAddSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Record Added successfully')));
         }else if(state is PurchaseListUpdated){
-        //   itemsPurchased.addAll(state.itemsPurchased);
-        //      ScaffoldMessenger.of(context).showSnackBar(
-        //       const SnackBar(content: Text('item removed')));
+       
         }
       },
       child: Scaffold(
@@ -152,7 +148,7 @@ class _AddPurchaseState extends State<AddPurchase> {
                           return ListTile(
                             title: Text(singleItem.productName),
                             trailing: IconButton(onPressed: (){
-                              bloc.add(DeleteButtonClicked(purchasedItem: singleItem));
+                              // bloc.add(DeleteButtonClicked(purchasedItem: singleItem));
                             }, icon: Icon(Icons.delete)),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -299,8 +295,8 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
                                 supplierEmail: customerEmailController.text,
                                 supplierName: customerController.text,
                               );
-                              BlocProvider.of<AddPurchaseBloc>(context)
-                                  .add(AddRecordConfirm(record: record));
+                              //event meant for handling the purchase record
+                              BlocProvider.of<AddPurchaseBloc>(context).add(AddRecordConfirm(record: record));
                             }
                           },
                           height: 60,
@@ -324,12 +320,10 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
       );
     },
   ).whenComplete(() {
-    // Dispose focus nodes to avoid memory leaks
     customerFocusNode.dispose();
     emailFocusNode.dispose();
   });
 
-  // Request focus after a short delay to ensure the modal is fully opened
   Future.delayed(const Duration(milliseconds: 100), () {
     customerFocusNode.requestFocus();
   });

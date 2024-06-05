@@ -39,3 +39,12 @@ class AddProductErrorState extends AddProductState{
 
 }
 class AddProductLoadingState extends AddProductState{}
+
+class FetchProductsLoading extends AddProductState{}
+class FetchProductsSuccess extends AddProductState{
+  final List<String> products;
+
+  FetchProductsSuccess({required this.products});
+
+}
+class FetchProductsFailed extends AddProductState{}

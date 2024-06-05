@@ -20,6 +20,7 @@ class AddProduct extends StatefulWidget {
 class _AddProductState extends State<AddProduct> {
   String? selectedValue;
   List<String> dropDownItems = [];
+  List<String>availableProducts=[];
   final formkey = GlobalKey<FormState>();
   TextEditingController productNameController = TextEditingController();
   TextEditingController purchasePriceController = TextEditingController();
@@ -34,12 +35,12 @@ class _AddProductState extends State<AddProduct> {
   void initState() {
     super.initState();
     BlocProvider.of<AddProductBloc>(context).add(FetchCategoriesEvent());
+    BlocProvider.of<AddProductBloc>(context).add(FetchProducts());
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final bloc = BlocProvider.of<AddProductBloc>(context);
     return BlocListener<AddProductBloc, AddProductState>(
       listener: (context, state) {
         if (state is CategorySelectedState) {
@@ -49,8 +50,16 @@ class _AddProductState extends State<AddProduct> {
         } else if (state is ProductAddedSuccessState) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('Product added')));
+          productNameController.clear();
+          purchasePriceController.clear();
+          sellingPriceController.clear();
+          minimumQuantityController.clear();
+          supplierController.clear();
+          ProductDescriptionController.clear();
         }else if(state is ImagePickedState){
           pickedImage=state.croppedIage;
+        }else if(state is FetchProductsSuccess){
+          availableProducts.addAll(state.products);
         }
       },
       child: Scaffold(
@@ -88,8 +97,8 @@ class _AddProductState extends State<AddProduct> {
                                 items: dropDownItems,
                                 value: selectedValue,
                                 onChanged: (newItem) {
-                                  bloc.add(DropdownTextfieldClicked(
-                                      selectedItem: newItem));
+                                  //event meant for updating the state of the dropdown textfield selected item
+                                BlocProvider.of<AddProductBloc>(context).add(DropdownTextfieldClicked(selectedItem: newItem));
                                 },
                               );
                             },
@@ -118,7 +127,7 @@ class _AddProductState extends State<AddProduct> {
                                       const Text('Add Image'),
                                       IconButton(
                                           onPressed: () {
-                                            bloc.add(AddImageButtonClicked());
+                                            BlocProvider.of<AddProductBloc>(context).add(AddImageButtonClicked()); //event meant for adding image of the product
                                           },
                                           icon: const Icon(Icons.add)),
                                     ],
@@ -140,6 +149,9 @@ class _AddProductState extends State<AddProduct> {
                         }
                         if (value.trim().length > 30) {
                           return 'Product length should be less than 30';
+                        }
+                        if(availableProducts.contains(value)){
+                          return 'Product already added';
                         }
                         return null;
                       },
@@ -262,7 +274,7 @@ class _AddProductState extends State<AddProduct> {
                       }
                       if (formkey.currentState!.validate()) {
                         print(formkey.currentState);
-                              bloc.add(AddProductButtonClicked(
+                              BlocProvider.of<AddProductBloc>(context).add(AddProductButtonClicked(
                                   productModel: ProductModel(
                                     supplier: supplierController.text,
                                       category: selectedValue!,

@@ -76,12 +76,11 @@ class HomeFirst extends StatelessWidget {
         child: SingleChildScrollView(
       child: Column(
         children: [
-          // SizedBox(height: size.height*.03,),
           Material(
             elevation: 5,
             child: StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('UserData')
+                stream: FirebaseFirestore.instance  //retrieivng the added store details from firestore database
+                    .collection('UserData') 
                     .doc(user!.uid)
                     .collection('store details')
                     .doc(user.uid)
