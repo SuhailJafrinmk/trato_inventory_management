@@ -12,38 +12,56 @@ class ProductGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: SizedBox(
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image:  DecorationImage(
-                    image: NetworkImage(productImage),
-                    fit: BoxFit.cover,
+      child: Material(
+        elevation: 5,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border(
+              left: BorderSide(color: Colors.black12, width: 2.0),
+              right: BorderSide(color: Colors.black12, width: 2.0),
+              bottom: BorderSide(color: Colors.black12, width: 2.0),
+            )
+          ),
+          child: SizedBox(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image:  DecorationImage(
+                        image: NetworkImage(productImage),
+                        fit: BoxFit.cover,
+                      ),
+                       borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
+              ),
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(8.0),
                 ),
-              ),
-            ),
-             Padding(
-              padding: EdgeInsets.all(4.0),
-              child: Column(
-                children: [
-                  Text(
-                    productName,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
+                 Padding(
+                  padding: EdgeInsets.all(4.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        productName,
+                        style: TextStyle(fontWeight: FontWeight.bold),   
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        subtitle,
+                        style: TextStyle(color: Colors.black45),
+                      ),
+                    ],
                   ),
-                  Text(
-                    subtitle,
-                    style: TextStyle(color: Colors.red),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

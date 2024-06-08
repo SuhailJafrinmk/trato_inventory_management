@@ -6,12 +6,14 @@ import 'package:trato_inventory_management/features/addproduct/bloc/add_product_
 import 'package:trato_inventory_management/models/product_model.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
+import 'package:trato_inventory_management/utils/constants/validations.dart';
 import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 import 'package:trato_inventory_management/widgets/drop_down_textfield.dart';
 
 class AddProduct extends StatefulWidget {
-  const AddProduct({super.key});
+  final Map<String, dynamic>? document;
+  AddProduct({this.document});
 
   @override
   State<AddProduct> createState() => _AddProductState();
@@ -20,20 +22,31 @@ class AddProduct extends StatefulWidget {
 class _AddProductState extends State<AddProduct> {
   String? selectedValue;
   List<String> dropDownItems = [];
-  List<String>availableProducts=[];
+  List<String> availableProducts = [];
   final formkey = GlobalKey<FormState>();
   TextEditingController productNameController = TextEditingController();
   TextEditingController purchasePriceController = TextEditingController();
   TextEditingController sellingPriceController = TextEditingController();
   TextEditingController minimumQuantityController = TextEditingController();
   TextEditingController supplierController = TextEditingController();
-  TextEditingController ProductDescriptionController = TextEditingController();
+  TextEditingController? productDescriptionController = TextEditingController();
   dynamic pickedImage;
-  //  XFile ? pickedImage;
 
   @override
   void initState() {
     super.initState();
+    if (widget.document != null) {
+      selectedValue = widget.document!['category'];
+      productNameController.text = widget.document!['productName'];
+      purchasePriceController.text =
+          widget.document!['purchasePrice'].toString();
+      sellingPriceController.text = widget.document!['sellingPrice'].toString();
+      minimumQuantityController.text =
+          widget.document!['minimumQuantity'].toString();
+      supplierController.text = widget.document!['supplier'];
+      productDescriptionController?.text = widget.document!['description'];
+      pickedImage = widget.document!['productImage'];
+    }
     BlocProvider.of<AddProductBloc>(context).add(FetchCategoriesEvent());
     BlocProvider.of<AddProductBloc>(context).add(FetchProducts());
   }
@@ -49,17 +62,20 @@ class _AddProductState extends State<AddProduct> {
           dropDownItems.addAll(state.dropDownItems);
         } else if (state is ProductAddedSuccessState) {
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Product added')));
+              .showSnackBar(const SnackBar(content: Text('Product added')));
           productNameController.clear();
           purchasePriceController.clear();
           sellingPriceController.clear();
           minimumQuantityController.clear();
           supplierController.clear();
-          ProductDescriptionController.clear();
-        }else if(state is ImagePickedState){
-          pickedImage=state.croppedIage;
-        }else if(state is FetchProductsSuccess){
+          productDescriptionController?.clear();
+        } else if (state is ImagePickedState) {
+          pickedImage = state.croppedIage;
+        } else if (state is FetchProductsSuccess) {
           availableProducts.addAll(state.products);
+        } else if (state is EditProductSuccessState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Product edited successfully')));
         }
       },
       child: Scaffold(
@@ -98,7 +114,9 @@ class _AddProductState extends State<AddProduct> {
                                 value: selectedValue,
                                 onChanged: (newItem) {
                                   //event meant for updating the state of the dropdown textfield selected item
-                                BlocProvider.of<AddProductBloc>(context).add(DropdownTextfieldClicked(selectedItem: newItem));
+                                  BlocProvider.of<AddProductBloc>(context).add(
+                                      DropdownTextfieldClicked(
+                                          selectedItem: newItem));
                                 },
                               );
                             },
@@ -127,7 +145,10 @@ class _AddProductState extends State<AddProduct> {
                                       const Text('Add Image'),
                                       IconButton(
                                           onPressed: () {
-                                            BlocProvider.of<AddProductBloc>(context).add(AddImageButtonClicked()); //event meant for adding image of the product
+                                            BlocProvider.of<AddProductBloc>(
+                                                    context)
+                                                .add(
+                                                    AddImageButtonClicked()); //event meant for adding image of the product
                                           },
                                           icon: const Icon(Icons.add)),
                                     ],
@@ -140,38 +161,22 @@ class _AddProductState extends State<AddProduct> {
                       ),
                     ],
                   ),
+                  //textfield to add product name
                   AppTextfield(
                       textEditingController: productNameController,
                       validateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'please add a product name';
-                        }
-                        if (value.trim().length > 30) {
-                          return 'Product length should be less than 30';
-                        }
-                        if(availableProducts.contains(value)){
-                          return 'Product already added';
-                        }
-                        return null;
-                      },
+                      validator: (p0) =>
+                          AppValidations.productName(p0, availableProducts),
                       fillColor: Colors.white,
                       labelText: 'Product',
                       width: double.infinity,
                       padding: 10,
                       obscureText: false),
+                  //textfield for adding purchase price of the product
                   AppTextfield(
                     textEditingController: purchasePriceController,
                     validateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'please add Purchase price';
-                      }
-                      if (value.trim().length > 10) {
-                        return 'Product price should be less than 10';
-                      }
-                      return null;
-                    },
+                    validator: (p0) => AppValidations.purchasePrice(p0),
                     fillColor: Colors.white,
                     labelText: 'Purchase Price',
                     width: double.infinity,
@@ -179,18 +184,11 @@ class _AddProductState extends State<AddProduct> {
                     obscureText: false,
                     inputType: TextInputType.number,
                   ),
+                  //textfield for adding selling price of the product
                   AppTextfield(
                     textEditingController: sellingPriceController,
                     validateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'please add selling price';
-                      }
-                      if (value.trim().length > 50) {
-                        return 'Product length should be less than 30';
-                      }
-                      return null;
-                    },
+                    validator: (p0) => AppValidations.sellingPrice(p0),
                     fillColor: Colors.white,
                     labelText: 'Selling price',
                     width: double.infinity,
@@ -198,18 +196,11 @@ class _AddProductState extends State<AddProduct> {
                     obscureText: false,
                     inputType: TextInputType.number,
                   ),
+                  //textfield for adding the minimum quantity of the product required in stock
                   AppTextfield(
                     textEditingController: minimumQuantityController,
                     validateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'please add minimum quantity';
-                      }
-                      if (value.trim().length > 2) {
-                        return 'Minimum quantity should be less than 100';
-                      }
-                      return null;
-                    },
+                    validator: (p0) => AppValidations.minimumQuantity(p0),
                     fillColor: Colors.white,
                     labelText: 'Minimum Quantity',
                     width: double.infinity,
@@ -217,35 +208,19 @@ class _AddProductState extends State<AddProduct> {
                     obscureText: false,
                     inputType: TextInputType.number,
                   ),
+                  //textfield for adding the supplier name of the product
                   AppTextfield(
                       textEditingController: supplierController,
                       validateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'please add supplier name';
-                        }
-                        if (value.trim().length > 50) {
-                          return 'supplier name should be less than 30 characters';
-                        }
-                        return null;
-                      },
+                      validator: (p0) => AppValidations.supplierName(p0),
                       fillColor: Colors.white,
                       labelText: 'Supplier',
                       width: double.infinity,
                       padding: 10,
                       obscureText: false),
+                  //textfield for adding a short description for the product which is not necessary
                   AppTextfield(
-                      textEditingController: ProductDescriptionController,
-                      validateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'please add a description';
-                        }
-                        if (value.trim().length > 50) {
-                          return 'less than 100 characters';
-                        }
-                        return null;
-                      },
+                      textEditingController: productDescriptionController,
                       fillColor: Colors.white,
                       labelText: 'Description',
                       width: double.infinity,
@@ -260,36 +235,50 @@ class _AddProductState extends State<AddProduct> {
                     child: BlocBuilder<AddProductBloc, AddProductState>(
                       builder: (context, state) {
                         if (state is AddProductLoadingState) {
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                         }
-                        return Text(
-                          'Add product',
-                          style: buttonText,
+                        return BlocBuilder<AddProductBloc, AddProductState>(
+                          builder: (context, state) {
+                            if(state is EditProductLoadingState){
+                              return CircularProgressIndicator();
+                            }
+                            return Text(
+                              widget.document==null ? 'Add Product' : 'Edit product',
+                              style: buttonText,
+                            );
+                          },
                         );
                       },
                     ),
                     onTap: () {
-                      if(!formkey.currentState!.validate()){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Form not valid')));
+                      if (!formkey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Form not valid')));
                       }
                       if (formkey.currentState!.validate()) {
-                        print(formkey.currentState);
-                              BlocProvider.of<AddProductBloc>(context).add(AddProductButtonClicked(
-                                  productModel: ProductModel(
-                                    supplier: supplierController.text,
-                                      category: selectedValue!,
-                                      productName: productNameController.text,
-                                      purchasePrice: int.parse(
-                                          purchasePriceController.text),
-                                      sellingPrice: int.parse(
-                                          sellingPriceController.text),
-                                      minimumQuantity: int.parse(
-                                          minimumQuantityController.text),
-                                      description:
-                                          ProductDescriptionController.text,
-                                      productImage: pickedImage
-                                      )));
-                            
+                        final product = ProductModel(
+                            supplier: supplierController.text,
+                            category: selectedValue!,
+                            productName: productNameController.text,
+                            purchasePrice:
+                                int.parse(purchasePriceController.text),
+                            sellingPrice:
+                                int.parse(sellingPriceController.text),
+                            minimumQuantity:
+                                int.parse(minimumQuantityController.text),
+                            description:
+                                productDescriptionController?.text ?? '',
+                            productImage: pickedImage);
+                        if (widget.document == null) {
+                          BlocProvider.of<AddProductBloc>(context).add(
+                              AddProductButtonClicked(productModel: product));
+                        } else {
+                          final String? oldDoc =
+                              widget.document?['productName'];
+                          BlocProvider.of<AddProductBloc>(context).add(
+                              EditProductClicked(
+                                  productModel: product, oldDoc: oldDoc));
+                        }
                       }
                     },
                   )

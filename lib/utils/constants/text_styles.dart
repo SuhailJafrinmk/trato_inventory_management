@@ -85,3 +85,8 @@ TextStyle onboardingTitle=const TextStyle(
   fontSize: 25,
   color: Colors.black
 );
+
+TextStyle modalDescription=TextStyle(
+  fontSize: 15,
+  color: const Color.fromARGB(255, 51, 51, 51),
+);

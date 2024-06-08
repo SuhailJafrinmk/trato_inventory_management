@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:trato_inventory_management/utils/constants/colors.dart';
 
 // ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
   Widget ?child;
-  double height;
-  double width;
+  double? height;
+  double ?width;
   double elevation;
   void Function()? onTap;
   double radius;
   Color color;
-  CustomButton({this.child,required this.height,required this.width,required this.elevation,required this.color,this.onTap,required this.radius});
+  CustomButton({this.child,this.height,this.width,this.elevation=10,this.color=AppColors.secondaryColor,this.onTap,this.radius=20});
 
 
 

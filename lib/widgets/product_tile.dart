@@ -9,6 +9,7 @@ class ProductTile extends StatelessWidget {
   String subtitle2;
   String productImage;
   Widget? trailingWidget;
+  void Function()? onTap;
 
   ProductTile(
       {super.key,
@@ -16,15 +17,18 @@ class ProductTile extends StatelessWidget {
       required this.subtitle1,
       required this.subtitle2,
       required this.productImage,
-      this.trailingWidget});
+      this.onTap,
+      this.trailingWidget
+      });
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => Navigator.pushNamed(context, 'product_details'),
+      onTap: onTap,
       leading: Container(
         height: 50,
         width: 50,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
               image: NetworkImage(productImage ?? AppImages.placeholder),
               fit: BoxFit.cover),
@@ -35,6 +39,7 @@ class ProductTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(subtitle1),
+          // SizedBox(height: 10,),
           Text(subtitle2),
         ],
       ),

@@ -8,8 +8,10 @@ import 'package:trato_inventory_management/widgets/custom_button.dart';
 
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
+  final Map<String,dynamic>productData;
 
+  const ProductDetails({super.key, required this.productData});
+ 
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
@@ -49,7 +51,7 @@ class ProductDetails extends StatelessWidget {
                       height: size.height*.4,
                       width: size.width*.75,
                       decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage(AppImages.galaxyS24))
+                        image: DecorationImage(image: NetworkImage(productData['productImage'])),
                       ),
                      ),
                      Expanded(
@@ -57,9 +59,9 @@ class ProductDetails extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Samsung galaxy',style: productTitle,),
-                            Text('Purchase price:70000',style: productDescription,),
-                            Text('Selling price:100000',style: productDescription,),
+                            Text('${productData['productName']}',style: productTitle,),
+                            Text('${productData['purchasePrice']}',style: productDescription,),
+                            Text('${productData['description']}' ?? '',style: productDescription,),
                             Text('Available 8 units',style: productDescription,),
                             SizedBox(height: size.height*.02,),
                             CustomButton(height: size.height*.075, width: size.width*.7, elevation: 5, color: AppColors.primaryColor, radius: 10,child: Text('Close',style: buttonText,),onTap: (){},)

@@ -23,6 +23,8 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
    on<AddProductButtonClicked>(addProductButtonClicked);
    on<AddImageButtonClicked>(addImageButtonClicked);
    on<FetchProducts>(fetchProducts);
+   on<EditProductClicked>(editProductClicked);
+
   }
 
   FutureOr<void> dropdownTextfieldClicked(DropdownTextfieldClicked event, Emitter<AddProductState> emit) {
@@ -91,8 +93,8 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
       //crop the picked image using image cropper
       final croppedFile = await imageCropper.cropImage(
         sourcePath: pickedImage.path,
-        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-        compressQuality: 100,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        compressQuality: 50,
       );
       print('image cropped');
 
@@ -153,5 +155,39 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
       emit(FetchProductsFailed());
     }
   }
+  
+  FutureOr<void> editProductClicked(EditProductClicked event, Emitter<AddProductState> emit)async{
+     try{
+    emit(EditProductLoadingState());
+    User ?currentUser=FirebaseAuth.instance.currentUser;
+    FirebaseFirestore firestore=FirebaseFirestore.instance;
+    String filename='images/${DateTime.now().millisecondsSinceEpoch}.png';
+    Reference storage=FirebaseStorage.instance.ref().child(filename);
+    await storage.putFile(File(event.productModel.productImage!.path));
+    String imageUrl=await storage.getDownloadURL();
+    //model containing all the details of the product
+    ProductModel productModel=ProductModel(
+      supplier: event.productModel.supplier,
+      category: event.productModel.category,
+      productName: event.productModel.productName,
+      purchasePrice: event.productModel.purchasePrice,
+      sellingPrice: event.productModel.sellingPrice,
+      minimumQuantity: event.productModel.minimumQuantity,
+      productImage: imageUrl,
+      description: event.productModel.description
+    );
+    DocumentReference reference=firestore.collection('UserData').doc(currentUser!.uid);
+    log('before reaching the adding portion');
+    //adding the product data to a new collection named products under the document name as product name
+    await reference.collection('Products').doc(event.oldDoc).update(productModel.toMap());
+    emit(EditProductSuccessState());
+    }catch(e){
+      emit(EditProductErrorState(message: e.toString()));
+    }
+
+  }
+
+
+
   }
 

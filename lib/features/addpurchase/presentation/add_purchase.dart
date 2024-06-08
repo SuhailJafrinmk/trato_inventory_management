@@ -36,13 +36,12 @@ class _AddPurchaseState extends State<AddPurchase> {
         if (state is SinglePurchaseAddedState) {
           itemsPurchased.addAll(state.purcaseItems);
         } else if (state is PurchaseRecordAddingError) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is PurchaseRecordAddSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Record Added successfully')));
-        }else if(state is PurchaseListUpdated){
-       
-        }
+        } else if (state is PurchaseListUpdated) {}
       },
       child: Scaffold(
         appBar: AppBar(
@@ -50,7 +49,7 @@ class _AddPurchaseState extends State<AddPurchase> {
         ),
         body: SafeArea(
             child: Container(
-          padding: const EdgeInsets.all(10),
+          // padding: const EdgeInsets.all(3),
           child: Column(
             children: [
               const SizedBox(
@@ -73,8 +72,7 @@ class _AddPurchaseState extends State<AddPurchase> {
                           child: Text('Error fetching products'));
                     } else if (!snapshot.hasData ||
                         snapshot.data!.docs.isEmpty) {
-                      return const Center(
-                          child: Text('No categories available'));
+                      return const Center(child: Text('No Products available'));
                     } else {
                       final documents = snapshot.data!.docs;
                       final singledocument = documents
@@ -94,7 +92,7 @@ class _AddPurchaseState extends State<AddPurchase> {
                             final eachdocument = singledocument[index];
                             return ProductGrid(
                               productName: eachdocument['productName'],
-                              subtitle: eachdocument['category'],
+                              subtitle: '${eachdocument['purchasePrice']}',
                               productImage: eachdocument['productImage'],
                               onTap: () {
                                 showQuantityModal(
@@ -109,7 +107,6 @@ class _AddPurchaseState extends State<AddPurchase> {
               Expanded(
                   child: Container(
                 width: width,
-                decoration: BoxDecoration(border: Border.all()),
                 child: Column(
                   children: [
                     BlocBuilder<AddPurchaseBloc, AddPurchaseState>(
@@ -147,9 +144,11 @@ class _AddPurchaseState extends State<AddPurchase> {
                           final singleItem = itemsPurchased[index];
                           return ListTile(
                             title: Text(singleItem.productName),
-                            trailing: IconButton(onPressed: (){
-                              // bloc.add(DeleteButtonClicked(purchasedItem: singleItem));
-                            }, icon: Icon(Icons.delete)),
+                            trailing: IconButton(
+                                onPressed: () {
+                                  // bloc.add(DeleteButtonClicked(purchasedItem: singleItem));
+                                },
+                                icon: Icon(Icons.delete)),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -209,7 +208,6 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
   final formKey = GlobalKey<FormState>();
   final customerFocusNode = FocusNode();
   final emailFocusNode = FocusNode();
-
   showModalBottomSheet(
     isScrollControlled: true,
     context: context,
@@ -224,9 +222,9 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
               padding: const EdgeInsets.all(20),
               child: BlocBuilder<AddPurchaseBloc, AddPurchaseState>(
                 builder: (context, state) {
-                  if(state is PurchaseRecordAddLoading){
+                  if (state is PurchaseRecordAddLoading) {
                     return const Center(
-                      child:  Column(
+                      child: Column(
                         children: [
                           CircularProgressIndicator(),
                           Text("adding your purchase record"),
@@ -296,7 +294,8 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
                                 supplierName: customerController.text,
                               );
                               //event meant for handling the purchase record
-                              BlocProvider.of<AddPurchaseBloc>(context).add(AddRecordConfirm(record: record));
+                              BlocProvider.of<AddPurchaseBloc>(context)
+                                  .add(AddRecordConfirm(record: record));
                             }
                           },
                           height: 60,

@@ -20,3 +20,16 @@ class CategoriesFetchedState extends InventoryState{
 class ProductDeletingLoadingState extends InventoryState{}
 class ProductDeletedSuccessState extends InventoryState{}
 class ProductDeletingErrorState extends InventoryState{}
+
+class CategoryProductsFetched extends InventoryState{
+ final  List<Map<String,dynamic>> categoryProducts;
+
+  CategoryProductsFetched({required this.categoryProducts});
+
+}
+class CategoryProductsFetching extends InventoryState{}
+class CategoryProductsFetchingFailed extends InventoryState{
+  final String message;
+  CategoryProductsFetchingFailed({required this.message});
+}
+class CategoryProductsEmpty extends InventoryState{}

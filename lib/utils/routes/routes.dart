@@ -22,7 +22,7 @@ class AppRoutes{
   'login':(context)=>LoginScreen(),
   'signup':(context)=>SignupScreen(),
   'home_screen':(context) => HomeScreen(),
-  'product_details':(context)=>ProductDetails(),
+  // 'product_details':(context)=>ProductDetails(productData: ,),
   'add_store':(context) => AddStorePage(),
   'add_product':(context) => AddProduct(),
   'add_purchase':(context) => AddPurchase(),
@@ -30,6 +30,6 @@ class AppRoutes{
   'profile_screen':(context) => ProfileScreen(),
   'customer_page':(context) => CustomerPage(),
   'purchase_page':(context) => PurchasesList(),
-  'category_products':(context) => CategoryProductPage(),
+  // 'category_products':(context) => CategoryProductPage(),
   };
 }

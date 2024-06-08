@@ -3,14 +3,17 @@ import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trato_inventory_management/features/addproduct/presentation/add_product.dart';
+import 'package:trato_inventory_management/features/category/presentation/category_product_page.dart';
 import 'package:trato_inventory_management/features/inventory/bloc/inventory_bloc.dart';
+import 'package:trato_inventory_management/features/product_details/presentation/product_details.dart';
 import 'package:trato_inventory_management/models/category_model.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/category_grid.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
-import 'package:trato_inventory_management/widgets/popup_menu_button.dart';
+import 'package:trato_inventory_management/widgets/delete_confirm_modal.dart';
 import 'package:trato_inventory_management/widgets/product_tile.dart';
 
 class InventoryPage extends StatefulWidget {
@@ -119,9 +122,19 @@ class _InventoryPageState extends State<InventoryPage> {
                         final categoryName = categories[index].id;
                         return GestureDetector(
                             onLongPress: () {
-                              BlocProvider.of<InventoryBloc>(context).add(CategoryTileLongpress(document: categoryName));
+                              deleteCategory(context, categoryName);
                             },
-                            child: CategoryTile(categoryname: categoryName));
+                            child: CategoryTile(
+                                categoryname: categoryName,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CategoryProductPage(
+                                                CategoryName: categoryName,
+                                              )));
+                                }));
                       });
                 },
               ),
@@ -165,8 +178,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     } else if (snapshot.hasError) {
                       return const Center(
                           child: Text('Error fetching products'));
-                    } else if (!snapshot.hasData ||
-                        snapshot.data!.docs.isEmpty) {
+                    } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                       return const Center(child: Text('No products available'));
                     }
                     final doc = snapshot.data!.docs;
@@ -176,17 +188,42 @@ class _InventoryPageState extends State<InventoryPage> {
                           final productData =
                               doc[index].data() as Map<String, dynamic>;
                           return ProductTile(
-                              trailingWidget: CustomPopupMenuWidget(
-                                controller: menuController,
-                                child: Icon(Icons.more_vert_rounded),
-                                document: productData,
-                                menuItems: ['Edit', 'Delete'],
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductDetails(
+                                            productData: productData,
+                                          ))),
+                              trailingWidget: PopupMenuButton(
+                                itemBuilder: (context) {
+                                  return [
+                                    PopupMenuItem(
+                                      child: Text('Edit'),
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AddProduct(
+                                                      document: productData,
+                                                    )));
+                                      },
+                                    ),
+                                    PopupMenuItem(
+                                      child: Text('Delete'),
+                                      onTap: () {
+                                        deleteProduct(context, productData);
+                                      },
+                                    ),
+                                  ];
+                                },
                               ),
                               productName: productData['productName'],
-                              subtitle1:'supplier : ${productData['supplier']}',
-                              subtitle2: 'suail',
-                              productImage: productData['productImage']
-                              );
+                              subtitle1:
+                                  'supplier : ${productData['supplier']}',
+                              subtitle2:
+                                  'Price : ${productData['sellingPrice']}',
+                              productImage: productData['productImage']);
                         });
                   }),
             ),
@@ -197,14 +234,17 @@ class _InventoryPageState extends State<InventoryPage> {
   }
 }
 
-void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,List<String>? categoryNames) {
+void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
+    List<String>? categoryNames) {
   showDialog(
       context: context,
       builder: (context) {
         final TextEditingController categoryController =
             TextEditingController();
-        final TextEditingController? descriptionControler =TextEditingController();
+        final TextEditingController? descriptionControler =
+            TextEditingController();
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: const Text('Add category'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -264,6 +304,40 @@ void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,List<String
               )
             ],
           ),
+        );
+      });
+}
+
+void deleteProduct(BuildContext context, Map<String, dynamic>? document) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return DeleteConfirmationModal(
+          onTapDelete: () {
+            BlocProvider.of<InventoryBloc>(context)
+                .add(DeleteConfirmationClicked(document: document));
+            Navigator.pop(context);
+          },
+          onTapCancel: () {
+            Navigator.pop(context);
+          },
+        );
+      });
+}
+
+void deleteCategory(BuildContext context, String categoryName) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return DeleteConfirmationModal(
+          onTapDelete: () {
+            BlocProvider.of<InventoryBloc>(context)
+                .add(CategoryTileLongpress(categoryName: categoryName));
+            Navigator.pop(context);
+          },
+          onTapCancel: () {
+            Navigator.pop(context);
+          },
         );
       });
 }

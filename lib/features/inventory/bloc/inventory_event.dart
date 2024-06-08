@@ -7,9 +7,9 @@ CategoryModel categoryModel;
 AddCategoryButtonClicked(this.categoryModel);  
 }
 class CategoryTileLongpress extends InventoryEvent{
-  final String document;
+  final String categoryName;
 
-CategoryTileLongpress({required this.document});
+CategoryTileLongpress({required this.categoryName});
 
 }
 class FetchCategoriesEvent extends InventoryEvent{}
@@ -20,7 +20,11 @@ class DeleteConfirmationClicked extends InventoryEvent{
 
 class AddPurchaseButtonClicked extends InventoryEvent{
 final PurchaseRecord purchaseRecord;
-
   AddPurchaseButtonClicked({required this.purchaseRecord});
+}
 
+class CategoryTileClicked extends InventoryEvent{
+  final String categoryName;
+
+  CategoryTileClicked({required this.categoryName});
 }

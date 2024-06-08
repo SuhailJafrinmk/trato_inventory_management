@@ -18,6 +18,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     on<CategoryTileLongpress>(categoryTileLongpress);
     on<FetchCategoriesEvent>(fetchCategoriesEvent);
     on<DeleteConfirmationClicked>(deleteConfirmationClicked);
+    on<CategoryTileClicked>(categoryTileClicked);
   }
   
   //this block of code helps to add a new category the document will have the name of the category
@@ -38,7 +39,7 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
     try{
     final currentuser=firebaseAuth.currentUser;
     CollectionReference collectionReference=firestore.collection('UserData').doc(currentuser!.uid).collection('Category'); 
-    await collectionReference.doc(event.document).delete();
+    await collectionReference.doc(event.categoryName).delete();
     emit(CategoryDeleted());
     }catch(e){
       emit(CategoryDeletionError());
@@ -67,6 +68,23 @@ class InventoryBloc extends Bloc<InventoryEvent, InventoryState> {
      emit(ProductDeletedSuccessState());
     }catch(e){
       print('error occured while deleting');
+    }
+  }
+  
+  //for fetching the products that includes in the clicked category
+  FutureOr<void> categoryTileClicked(CategoryTileClicked event, Emitter<InventoryState> emit)async{
+    try{
+    final user=firebaseAuth.currentUser!.uid;
+    CollectionReference collectionReference=firestore.collection('UserData').doc(user).collection('Products');
+    final documents=await collectionReference.where('category',isEqualTo: event.categoryName).get();
+    final allDocs=documents.docs.map((e) => e.data() as Map<String,dynamic>).toList();
+    if(allDocs.isNotEmpty){
+    emit(CategoryProductsFetched(categoryProducts: allDocs));
+    }else{
+      emit(CategoryProductsEmpty());
+    }
+    }catch(e){
+      emit(CategoryProductsFetchingFailed(message: e.toString()));
     }
   }
 }

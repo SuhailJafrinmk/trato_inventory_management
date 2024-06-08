@@ -7,9 +7,10 @@ import 'package:trato_inventory_management/widgets/custom_button.dart';
 
 class DeleteConfirmationModal extends StatelessWidget {
 
-  Map<String,dynamic>?document;
+  void Function()? onTapDelete;
+  void Function()? onTapCancel;
 
-  DeleteConfirmationModal({super.key,this.document});
+  DeleteConfirmationModal({super.key,this.onTapDelete,this.onTapCancel});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,19 @@ class DeleteConfirmationModal extends StatelessWidget {
             SizedBox(height: height*.05,),
             Row(
               children: [
-                CustomButton(height: height*.05, width: width*.3, elevation: 10, color: AppColors.primaryColor, radius: 10,child: Text('Delete',style: buttonText,),onTap: () {
-                  bloc.add(DeleteConfirmationClicked(document: document));
-                },),
-                CustomButton(height: height*.05, width: width*.3, elevation: 10, color: AppColors.primaryColor, radius: 10,child: Text('Cancel',style: buttonText,),),
+                CustomButton(height: height*.05, width: width*.3, elevation: 10, color: AppColors.primaryColor, radius: 10,child: Text('Delete',style: buttonText,),
+                onTap: onTapDelete,
+                // onTap: () {
+                //   // bloc.add(DeleteConfirmationClicked(document: document));
+                //   // Navigator.pop(context);
+                // },
+                ),
+                CustomButton(height: height*.05, width: width*.3, elevation: 10, color: AppColors.primaryColor, radius: 10,child: Text('Cancel',style: buttonText,),
+                onTap: onTapCancel,
+                // onTap: () {
+                //   Navigator.pop(context);
+                // },
+                )
               ],
             ),
           ],

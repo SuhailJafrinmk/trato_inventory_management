@@ -36,15 +36,24 @@ class AddProductErrorState extends AddProductState{
   final String message;
 
   AddProductErrorState({required this.message});
-
 }
 class AddProductLoadingState extends AddProductState{}
 
+
+//for fetching the available products 
 class FetchProductsLoading extends AddProductState{}
 class FetchProductsSuccess extends AddProductState{
   final List<String> products;
-
   FetchProductsSuccess({required this.products});
-
 }
 class FetchProductsFailed extends AddProductState{}
+
+
+
+//for editing the product
+class EditProductLoadingState extends AddProductState{}
+class EditProductSuccessState extends AddProductState{}
+class EditProductErrorState extends AddProductState{
+  final String message;
+  EditProductErrorState({required this.message});
+}
