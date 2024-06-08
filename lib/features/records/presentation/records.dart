@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trato_inventory_management/features/addpurchase/presentation/add_purchase.dart';
+import 'package:trato_inventory_management/features/addpurchase/presentation/screens/add_purchase.dart';
 import 'package:trato_inventory_management/features/sales/presentation/sales_page.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';

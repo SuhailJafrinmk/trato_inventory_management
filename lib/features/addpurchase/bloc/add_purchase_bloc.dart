@@ -36,7 +36,7 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
           .collection('UserData')
           .doc(user!.uid)
           .collection('PurchaseRecords');
-      await reference.add(event.record.toMap());
+      await reference.doc(event.record.purchaseDate).set(event.record.toMap());
       emit(PurchaseRecordAddSuccess());
     } catch (e) {
       print(e.toString());

@@ -97,7 +97,7 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
         compressQuality: 50,
       );
       print('image cropped');
-
+      
       if (croppedFile != null) {
         final croppedImagePath = croppedFile.path;
         final croppedImageFile = File(croppedImagePath);

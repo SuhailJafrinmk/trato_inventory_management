@@ -209,14 +209,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
-  custom_pop_up_menu:
-    dependency: "direct main"
-    description:
-      name: custom_pop_up_menu
-      sha256: eeac484c6ddffffb25e803dc2a5cc9381e700a29f074e9fcc76fe36b62fde850
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.4"
   dbus:
     dependency: transitive
     description:
@@ -438,6 +430,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.11"
+  flutter_pdfview:
+    dependency: "direct main"
+    description:
+      name: flutter_pdfview
+      sha256: a9055bf920c7095bf08c2781db431ba23577aa5da5a056a7152dc89a18fbec6f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -864,14 +864,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  scrollable_reorderable_navbar:
-    dependency: "direct main"
-    description:
-      name: scrollable_reorderable_navbar
-      sha256: ebbe9812e24e64cb55081989ef599f2a27370f6a4cc20e997e17746c1338fa44
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
   shared_preferences:
     dependency: "direct main"
     description:

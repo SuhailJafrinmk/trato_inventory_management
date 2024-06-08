@@ -2,15 +2,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:trato_inventory_management/features/inventory/presentation/inventory_page.dart';
+import 'package:trato_inventory_management/features/inventory/presentation/screens/inventory_page.dart';
 import 'package:trato_inventory_management/features/profile/presentation/profile_page.dart';
 import 'package:trato_inventory_management/features/records/presentation/records.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/navigation_items_list.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
-import 'package:trato_inventory_management/widgets/bottom_navigation.dart';
-import 'package:trato_inventory_management/widgets/carousel_slider.dart';
+import 'package:trato_inventory_management/features/home_screen/widgets/bottom_navigation.dart';
+import 'package:trato_inventory_management/features/home_screen/widgets/carousel_slider.dart';
 import 'package:trato_inventory_management/widgets/product_grid.dart';
 
 class HomeScreen extends StatefulWidget {

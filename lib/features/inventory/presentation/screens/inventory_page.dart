@@ -1,19 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/addproduct/presentation/add_product.dart';
 import 'package:trato_inventory_management/features/category/presentation/category_product_page.dart';
 import 'package:trato_inventory_management/features/inventory/bloc/inventory_bloc.dart';
+import 'package:trato_inventory_management/features/inventory/presentation/dialogues/add_category_dialogue.dart';
+import 'package:trato_inventory_management/features/inventory/presentation/dialogues/delete_category_modal.dart';
+import 'package:trato_inventory_management/features/inventory/presentation/dialogues/delete_product_modal.dart';
 import 'package:trato_inventory_management/features/product_details/presentation/product_details.dart';
-import 'package:trato_inventory_management/models/category_model.dart';
-import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
-import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/category_grid.dart';
-import 'package:trato_inventory_management/widgets/custom_button.dart';
-import 'package:trato_inventory_management/widgets/delete_confirm_modal.dart';
 import 'package:trato_inventory_management/widgets/product_tile.dart';
 
 class InventoryPage extends StatefulWidget {
@@ -25,7 +22,6 @@ class InventoryPage extends StatefulWidget {
 
 class _InventoryPageState extends State<InventoryPage> {
   List<String>? categoryNames;
-  CustomPopupMenuController menuController = CustomPopupMenuController();
   @override
   void initState() {
     //event meant for fetching the existing categories in the database
@@ -198,7 +194,7 @@ class _InventoryPageState extends State<InventoryPage> {
                                 itemBuilder: (context) {
                                   return [
                                     PopupMenuItem(
-                                      child: Text('Edit'),
+                                      child: const Text('Edit'),
                                       onTap: () {
                                         Navigator.push(
                                             context,
@@ -210,7 +206,7 @@ class _InventoryPageState extends State<InventoryPage> {
                                       },
                                     ),
                                     PopupMenuItem(
-                                      child: Text('Delete'),
+                                      child: const Text('Delete'),
                                       onTap: () {
                                         deleteProduct(context, productData);
                                       },
@@ -234,110 +230,6 @@ class _InventoryPageState extends State<InventoryPage> {
   }
 }
 
-void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
-    List<String>? categoryNames) {
-  showDialog(
-      context: context,
-      builder: (context) {
-        final TextEditingController categoryController =
-            TextEditingController();
-        final TextEditingController? descriptionControler =
-            TextEditingController();
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: const Text('Add category'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppTextfield(
-                validateMode: AutovalidateMode.onUserInteraction,
-                textEditingController: categoryController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'please add category name';
-                  }
-                  if (categoryNames != null) {
-                    if (categoryNames.contains(value)) {
-                      return 'Category already exist';
-                    }
-                  }
-                  return null;
-                },
-                labelText: 'Category name',
-                width: double.infinity,
-                padding: 10,
-                obscureText: false,
-                fillColor: Colors.white,
-              ),
-              AppTextfield(
-                textEditingController: descriptionControler,
-                labelText: 'Description',
-                width: double.infinity,
-                padding: 10,
-                obscureText: false,
-                fillColor: Colors.white,
-              ),
-              CustomButton(
-                onTap: () {
-                  inventoryBloc.add(AddCategoryButtonClicked(CategoryModel(
-                      category: categoryController.text,
-                      description: descriptionControler?.text)));
-                },
-                height: 60,
-                width: double.infinity,
-                elevation: 10,
-                color: AppColors.primaryColor,
-                radius: 10,
-                child: BlocBuilder<InventoryBloc, InventoryState>(
-                  builder: (context, state) {
-                    if (state is CategoryAddLoading) {
-                      return const CircularProgressIndicator(
-                        color: Colors.white,
-                      );
-                    }
-                    return Text(
-                      'Add category',
-                      style: buttonText,
-                    );
-                  },
-                ),
-              )
-            ],
-          ),
-        );
-      });
-}
 
-void deleteProduct(BuildContext context, Map<String, dynamic>? document) {
-  showDialog(
-      context: context,
-      builder: (context) {
-        return DeleteConfirmationModal(
-          onTapDelete: () {
-            BlocProvider.of<InventoryBloc>(context)
-                .add(DeleteConfirmationClicked(document: document));
-            Navigator.pop(context);
-          },
-          onTapCancel: () {
-            Navigator.pop(context);
-          },
-        );
-      });
-}
 
-void deleteCategory(BuildContext context, String categoryName) {
-  showDialog(
-      context: context,
-      builder: (context) {
-        return DeleteConfirmationModal(
-          onTapDelete: () {
-            BlocProvider.of<InventoryBloc>(context)
-                .add(CategoryTileLongpress(categoryName: categoryName));
-            Navigator.pop(context);
-          },
-          onTapCancel: () {
-            Navigator.pop(context);
-          },
-        );
-      });
-}
+

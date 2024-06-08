@@ -8,6 +8,7 @@ import 'package:trato_inventory_management/features/addstore/bloc/addstore_bloc.
 import 'package:trato_inventory_management/features/inventory/bloc/inventory_bloc.dart';
 import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
 import 'package:trato_inventory_management/features/profile/bloc/profile_bloc.dart';
+import 'package:trato_inventory_management/features/purchases/bloc/purchase_bloc.dart';
 import 'package:trato_inventory_management/features/register/bloc/register_bloc.dart';
 import 'package:trato_inventory_management/features/splash_screen/splash_screen.dart';
 import 'package:trato_inventory_management/firebase_options.dart';
@@ -45,6 +46,9 @@ void main()async{
       ),
       BlocProvider(
         create: (context) => AddPurchaseBloc(),
+      ),
+      BlocProvider(
+        create: (context) => PurchaseBloc(),
       )
     ],
     child: const MyApp(),
