@@ -4,7 +4,6 @@ import 'package:trato_inventory_management/features/addproduct/presentation/add_
 import 'package:trato_inventory_management/features/addpurchase/presentation/screens/add_purchase.dart';
 import 'package:trato_inventory_management/features/addstore/presentation/add_store.dart';
 import 'package:trato_inventory_management/features/category/presentation/category_product_page.dart';
-import 'package:trato_inventory_management/features/customer/presentation/customer_page.dart';
 import 'package:trato_inventory_management/features/home_screen/presentation/screens/home_screen.dart';
 import 'package:trato_inventory_management/features/login/presentation/screens/login_screen.dart';
 import 'package:trato_inventory_management/features/onboarding/presentation/onboarding.dart';
@@ -28,7 +27,6 @@ class AppRoutes{
   'add_purchase':(context) => AddPurchase(),
   'records':(context) => Records(),
   'profile_screen':(context) => ProfileScreen(),
-  'customer_page':(context) => CustomerPage(),
   'purchase_page':(context) => PurchasesList(),
   // 'category_products':(context) => CategoryProductPage(),
   };

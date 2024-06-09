@@ -1,13 +1,11 @@
-import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:trato_inventory_management/features/purchases/bloc/purchase_bloc.dart';
 import 'package:trato_inventory_management/features/purchases/presentation/dialogues/show_purchase_details.dart';
 import 'package:trato_inventory_management/features/purchases/widgets/purchase_tile.dart';
-import 'package:pdf/widgets.dart' as pw;
 
 class PurchasesList extends StatelessWidget {
   User? user = FirebaseAuth.instance.currentUser;
