@@ -17,7 +17,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     checkLoginStatus(context);
-    
   }
   @override
   Widget build(BuildContext context) {
@@ -49,4 +48,4 @@ void checkLoginStatus(context)async{
       }else{
         loginStatus==true ? Navigator.pushReplacementNamed(context, 'home_screen') : Navigator.pushReplacementNamed(context, 'login');
       }
-    }
+  }

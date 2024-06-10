@@ -29,7 +29,7 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController sellingPriceController = TextEditingController();
   TextEditingController minimumQuantityController = TextEditingController();
   TextEditingController supplierController = TextEditingController();
-  TextEditingController? productDescriptionController = TextEditingController();
+  TextEditingController productDescriptionController = TextEditingController();
   dynamic pickedImage;
 
   @override
@@ -61,6 +61,7 @@ class _AddProductState extends State<AddProduct> {
         } else if (state is FetchingSuccessState) {
           dropDownItems.addAll(state.dropDownItems);
         } else if (state is ProductAddedSuccessState) {
+          BlocProvider.of<AddProductBloc>(context).add(FetchProducts());
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text('Product added')));
           productNameController.clear();
@@ -68,7 +69,7 @@ class _AddProductState extends State<AddProduct> {
           sellingPriceController.clear();
           minimumQuantityController.clear();
           supplierController.clear();
-          productDescriptionController?.clear();
+          productDescriptionController.clear();
         } else if (state is ImagePickedState) {
           pickedImage = state.croppedIage;
         } else if (state is FetchProductsSuccess) {
@@ -81,7 +82,7 @@ class _AddProductState extends State<AddProduct> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Add product',
+            widget.document==null ? 'Add Product' : 'Edit product',
             style: appbartitle,
           ),
         ),
@@ -99,7 +100,7 @@ class _AddProductState extends State<AddProduct> {
                           child: BlocBuilder<AddProductBloc, AddProductState>(
                             builder: (context, state) {
                               if (state is CategoryLoadingState) {
-                                const Text('Categories are loading...');
+                                return const Text('Categories are loading...');
                               }
 
                               return DropDownTextfield(
@@ -237,8 +238,7 @@ class _AddProductState extends State<AddProduct> {
                         if (state is AddProductLoadingState) {
                           return const CircularProgressIndicator();
                         }
-                        return BlocBuilder<AddProductBloc, AddProductState>(
-                          builder: (context, state) {
+
                             if(state is EditProductLoadingState){
                               return CircularProgressIndicator();
                             }
@@ -246,8 +246,8 @@ class _AddProductState extends State<AddProduct> {
                               widget.document==null ? 'Add Product' : 'Edit product',
                               style: buttonText,
                             );
-                          },
-                        );
+                         
+                        
                       },
                     ),
                     onTap: () {

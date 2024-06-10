@@ -34,9 +34,9 @@ class PurchasesList extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return const Center(child: Text('Error fetching products'));
+                    return const Center(child: Text('Error fetching records'));
                   } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return const Center(child: Text('No categories available'));
+                    return const Center(child: Text('No records available'));
                   } else {
                     final data = snapshot.data!.docs;
                     return ListView.builder(

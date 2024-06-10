@@ -108,20 +108,40 @@ class HomeFirst extends StatelessWidget {
           SizedBox(
             height: size.height * .03,
           ),
-          CarouselSlider(items: const [
-            CarouselContainer(
-                data: 'Total Costs',
-                datatype: '10000 \$',
-                imageurl: AppImages.costsImage),
-            CarouselContainer(
-                data: 'Total Stock',
-                datatype: '10000 \$',
-                imageurl: AppImages.salesImage),
-            CarouselContainer(
-                data: 'Total Sales',
-                datatype: '10000 \$',
-                imageurl: AppImages.stockImage),
-          ], options: CarouselOptions(autoPlay: true)),
+          StreamBuilder(
+            stream: FirebaseFirestore.instance
+        .collection('UserData')
+        .doc(user.uid)
+        .collection('PurchaseRecords').snapshots(),
+            builder:(context,snapshot){
+              if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        // final records=snapshot.data?.docs ?? [];
+        // double totalPrice=0;
+        // for(var record in records){
+        //   totalPrice=record['totalAmount'];
+        // }
+              return CarouselSlider(items: const [
+              CarouselContainer(
+                  data: 'Total Costs',
+                  datatype: '10000 \$',
+                  imageurl: AppImages.costsImage),
+              CarouselContainer(
+                  data: 'Total Stock',
+                  datatype: '10000 \$',
+                  imageurl: AppImages.salesImage),
+              CarouselContainer(
+                  data: 'Total Sales',
+                  datatype: '10000 \$',
+                  imageurl: AppImages.stockImage),
+            ], options: CarouselOptions(autoPlay: true)
+            );
+            }
+          ),
           SizedBox(
             height: size.height * .03,
           ),
@@ -206,3 +226,4 @@ class HomeFirst extends StatelessWidget {
     ));
   }
 }
+

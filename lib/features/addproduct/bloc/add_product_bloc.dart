@@ -114,28 +114,6 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
 }
 
 
-
-  // FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddProductState> emit)async{
-  //   final pickedImage=await imagePicker.pickImage(source: ImageSource.gallery);
-  //   if(pickedImage!=null){
-  //   final croppedImage=await imageCropper.cropImage(
-  //     sourcePath: pickedImage.path,
-  //     aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-  //     compressQuality: 100,
-  //   );
-  //   if (croppedImage != null) {
-  //       final croppedImagePath=croppedImage.path;
-  //       croppedImageFile=File(croppedImagePath);
-  //     }
-  
-  //     emit(ImagePickedState(croppedIage: croppedImageFile));
-  //   }
-  //   return;
-  //   }
-  
-  // FutureOr<void> fetchProducts(FetchProducts event, Emitter<AddProductState> emit) {
-    
-  // }
   
   FutureOr<void> fetchProducts(FetchProducts event, Emitter<AddProductState> emit) async{
     log('fetch product event started');
@@ -178,8 +156,12 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
     );
     DocumentReference reference=firestore.collection('UserData').doc(currentUser!.uid);
     log('before reaching the adding portion');
-    //adding the product data to a new collection named products under the document name as product name
-    await reference.collection('Products').doc(event.oldDoc).update(productModel.toMap());
+    //delete the existing product with the document name of the product
+    await reference.collection('Products').doc(event.oldDoc).delete();
+    log('old Product document deleted');
+    //add the edit as a new product under the document name of the new product
+    await reference.collection('Products').doc(event.productModel.productName).set(productModel.toMap());
+    log('Edited product added as new product');
     emit(EditProductSuccessState());
     }catch(e){
       emit(EditProductErrorState(message: e.toString()));

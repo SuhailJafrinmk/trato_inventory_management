@@ -20,7 +20,5 @@ Map<String,dynamic>toMap(){
     'totalAmount':totalAmount,
   };
 }
-
-
 }
 

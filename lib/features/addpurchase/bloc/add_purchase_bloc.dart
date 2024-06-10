@@ -44,8 +44,5 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
     }
   }
 
-  // FutureOr<void> deleteButtonClicked(DeleteButtonClicked event, Emitter<AddPurchaseState> emit) {
-  //   itemsPurchased.remove(event.purchasedItem);
-  //   emit(PurchaseListUpdated(itemsPurchased: itemsPurchased));
-  // }
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/features/addpurchase/presentation/screens/add_purchase.dart';
+import 'package:trato_inventory_management/features/addsales/presentation/screens/add_sales.dart';
 import 'package:trato_inventory_management/features/sales/presentation/sales_page.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
@@ -78,7 +79,7 @@ class Records extends StatelessWidget {
         ),
         RecordsAddTile(backgroundImage: AppImages.recordsSales, title: 'Sales Records',
         onTapView: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>SalesPage())),
-        onTapAdd: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>AddPurchase())),
+        onTapAdd: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>AddSales())),
         ),
              ],
     ));

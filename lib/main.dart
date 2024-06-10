@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/addproduct/bloc/add_product_bloc.dart';
 import 'package:trato_inventory_management/features/addpurchase/bloc/add_purchase_bloc.dart';
+import 'package:trato_inventory_management/features/addsales/bloc/add_sales_bloc.dart';
 import 'package:trato_inventory_management/features/addstore/bloc/addstore_bloc.dart';
 import 'package:trato_inventory_management/features/inventory/bloc/inventory_bloc.dart';
 import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
@@ -49,6 +50,10 @@ void main()async{
       ),
       BlocProvider(
         create: (context) => PurchaseBloc(),
+      ),
+      BlocProvider(
+        create: (context) => AddSalesBloc(),
+        child: Container(),
       )
     ],
     child: const MyApp(),
