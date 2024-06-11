@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:input_quantity/input_quantity.dart';
@@ -19,6 +20,7 @@ class QuantityModalSales extends StatefulWidget {
 
 class _QuantityModalState extends State<QuantityModalSales> {
   dynamic totalQuantity = 2;
+
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<AddPurchaseBloc>(context);
@@ -64,9 +66,14 @@ class _QuantityModalState extends State<QuantityModalSales> {
                               Text(widget.singleDoc['productName']),
                               Text('Supplier : ${widget.singleDoc['supplier']}'),
                               InputQty(
+                                
                                 validator: (value) {
+                                  final qty=widget.singleDoc['productQuantity'];
                                   if (value == null) {
                                     return 'value cannot be null';
+                                  }
+                                  if(value>qty){
+                                    return 'only $qty products are available';
                                   }
                                   return null;
                                 },
@@ -77,7 +84,7 @@ class _QuantityModalState extends State<QuantityModalSales> {
                                 },
                                 steps: 1,
                                 initVal: 1,
-                                maxVal: 5000,
+                                maxVal: widget.singleDoc['productQuantity'],
                                 decoration: const QtyDecorationProps(
                                   qtyStyle: QtyStyle.btnOnRight,
                                   plusBtn: Icon(Icons.arrow_drop_up),
@@ -100,7 +107,8 @@ class _QuantityModalState extends State<QuantityModalSales> {
         Row(
           children: [
             Expanded(flex: 1,child: CustomButton(height: height*.05,child: Text('Cancel'),color: Colors.white,onTap: () => Navigator.pop(context),)),
-             Expanded(flex: 1, child: CustomButton(height: height*.05,child: Text('Confirm',style: textbutton,),color: AppColors.primaryColor,onTap: () {
+             Expanded(flex: 1, child: CustomButton(height: height*.05,child: Text('Confirm',style: textbutton,),color: AppColors.primaryColor,
+             onTap: () {
             final purchasedItem = SelledItem(
                   productName: widget.singleDoc['productName'],
                   supplierName: widget.singleDoc['supplier'],

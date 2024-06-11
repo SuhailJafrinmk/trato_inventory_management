@@ -4,7 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:trato_inventory_management/models/product_model.dart';
 import 'package:trato_inventory_management/models/purchase_record_model.dart';
 import 'package:trato_inventory_management/models/purchased_item.dart';
 
@@ -33,16 +35,28 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
     try {
       emit(PurchaseRecordAddLoading());
       CollectionReference reference = firestore
-          .collection('UserData')
-          .doc(user!.uid)
-          .collection('PurchaseRecords');
+        .collection('UserData')
+        .doc(user!.uid)
+        .collection('PurchaseRecords');
+      CollectionReference productReference=firestore.collection('UserData').doc(user!.uid).collection('Products');
       await reference.doc(event.record.purchaseDate).set(event.record.toMap());
+      for(var item in event.record.items){
+        DocumentReference productDoc=productReference.doc(item.productName);
+        await firestore.runTransaction((transaction)async{
+        DocumentSnapshot snapshot=await transaction.get(productDoc);
+        if (!snapshot.exists) {
+        throw Exception("Product does not exist!");
+        }
+        ProductModel product = ProductModel.fromMap(snapshot.data() as Map<String, dynamic>);
+        product.productQuantity += item.quantity;
+
+        transaction.update(productDoc, product.toMap());
+        });
+      }
       emit(PurchaseRecordAddSuccess());
     } catch (e) {
       print(e.toString());
       emit(PurchaseRecordAddingError(message: e.toString()));
     }
   }
-
-
 }

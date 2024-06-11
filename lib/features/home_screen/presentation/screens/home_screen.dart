@@ -166,20 +166,12 @@ class HomeFirst extends StatelessWidget {
               childAspectRatio: 3 / 3,
               children: [
                 ProductGrid(
+                  subtitleTwo: 'available : 2',
                   productName: 'Pixel 7A',
                   subtitle: 'only 2 stock',
                   productImage: AppImages.pixelImage,
                 ),
-                ProductGrid(
-                  productName: 'Samsung galaxy',
-                  subtitle: 'only 2 stock',
-                  productImage: AppImages.galaxyS24,
-                ),
-                ProductGrid(
-                  productName: 'Iphone 13',
-                  subtitle: 'only 2 stock',
-                  productImage: AppImages.iphone13pro,
-                ),
+           
               ],
             ),
           ),
@@ -204,20 +196,12 @@ class HomeFirst extends StatelessWidget {
               childAspectRatio: 3 / 3,
               children: [
                 ProductGrid(
+                  subtitleTwo: 'Available : 2',
                   productName: 'Asus rogue',
                   subtitle: 'only 2 stock',
                   productImage: AppImages.asusRogue,
                 ),
-                ProductGrid(
-                  productName: 'Asus rogue',
-                  subtitle: 'only 2 stock',
-                  productImage: AppImages.asusRogue,
-                ),
-                ProductGrid(
-                  productName: 'Asus rogue',
-                  subtitle: 'only 2 stock',
-                  productImage: AppImages.asusRogue,
-                ),
+           
               ],
             ),
           ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -103,8 +105,13 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
                                 supplierName: customerController.text,
                               );
                               //event meant for handling the purchase record
+                              if(record.items.isNotEmpty){
                               BlocProvider.of<AddPurchaseBloc>(context)
                                   .add(AddRecordConfirm(record: record));
+                                  
+                              }else{
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No items added')));
+                              }
                             }
                           },
                           height: 60,

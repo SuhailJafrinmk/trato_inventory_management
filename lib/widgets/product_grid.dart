@@ -7,7 +7,8 @@ class ProductGrid extends StatelessWidget {
    final String productName;
    final String subtitle;
    final String productImage;
-   ProductGrid({required this.productName,required this.subtitle,required this.productImage,this.onTap});
+   final String subtitleTwo;
+   ProductGrid({required this.productName,required this.subtitle,required this.productImage,this.onTap,required this.subtitleTwo});
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -55,6 +56,11 @@ class ProductGrid extends StatelessWidget {
                       Text(
                         subtitle,
                         style: TextStyle(color: Colors.black45),
+                      ),
+                      Text(
+                        subtitleTwo,
+                        style: TextStyle(color: Colors.black45),
+
                       ),
                     ],
                   ),

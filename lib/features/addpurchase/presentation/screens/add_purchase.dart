@@ -88,8 +88,9 @@ class _AddPurchaseState extends State<AddPurchase> {
                           itemBuilder: (context, index) {
                             final eachdocument = singledocument[index];
                             return ProductGrid(
-                              productName: eachdocument['productName'],
-                              subtitle: '${eachdocument['purchasePrice']}',
+                              subtitleTwo: 'Available : ${eachdocument['productQuantity']}',
+                              productName: 'Product : ${eachdocument['productName']}',
+                              subtitle: 'Price : ${eachdocument['purchasePrice']}',
                               productImage: eachdocument['productImage'],
                               onTap: () {
                                 showQuantityModal(

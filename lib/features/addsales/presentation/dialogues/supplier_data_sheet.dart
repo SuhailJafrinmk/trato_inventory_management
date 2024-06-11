@@ -37,7 +37,7 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
                       child: Column(
                         children: [
                           CircularProgressIndicator(),
-                          Text("adding your purchase record"),
+                          Text("adding your sales record"),
                         ],
                       ),
                     );
@@ -52,7 +52,7 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
                           validateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please add a supplier name';
+                              return 'Please add customer name';
                             }
                             if (value.length > 30) {
                               return 'Please make the name shorter than 30 characters';
@@ -71,7 +71,7 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
                           validateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please add supplier mail';
+                              return 'Please add Customer mail';
                             }
                             if (!RegexUtils.emailRegExp.hasMatch(value)) {
                               return 'Enter a valid mail';

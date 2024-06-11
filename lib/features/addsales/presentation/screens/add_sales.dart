@@ -82,9 +82,10 @@ class _AddSalesState extends State<AddSales> {
                           itemBuilder: (context, index) {
                             final eachdocument = singledocument[index];
                             return ProductGrid(
-                              productName: eachdocument['productName'],
-                              subtitle: '${eachdocument['purchasePrice']}',
+                              productName: 'Product : ${eachdocument['productName']}',
+                              subtitle: 'Price : ${eachdocument['purchasePrice']}',
                               productImage: eachdocument['productImage'],
+                              subtitleTwo: 'Available : ${eachdocument['productQuantity']}',
                               onTap: () {
                                 showQuantityModalSales(
                                     context, eachdocument, itemsSelled);

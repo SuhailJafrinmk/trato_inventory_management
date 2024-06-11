@@ -9,6 +9,7 @@ class ProductModel {
   final int minimumQuantity;
   String? description;
   dynamic productImage;
+  int productQuantity;
   ProductModel(
       {required this.category,
       required this.productName,
@@ -17,7 +18,9 @@ class ProductModel {
       required this.minimumQuantity,
       required this.supplier,
       this.productImage,
-      this.description});
+      this.description,
+      this.productQuantity=0,
+      });
   Map<String, dynamic> toMap() {
     return {
       'supplier': supplier,
@@ -28,6 +31,7 @@ class ProductModel {
       "minimumQuantity": minimumQuantity,
       "productImage": productImage,
       "description": description,
+      'productQuantity':productQuantity,
     };
   }
 
@@ -41,6 +45,7 @@ class ProductModel {
       minimumQuantity: data['minimumQuantity'],
       productImage: data["productImage"],
       description: data['description'],
+      productQuantity: data['productQuantity'],
     );
   }
 }
