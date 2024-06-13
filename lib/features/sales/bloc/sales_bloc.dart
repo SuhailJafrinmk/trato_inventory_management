@@ -1,32 +1,30 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
+part 'sales_event.dart';
+part 'sales_state.dart';
 
-part 'purchase_event.dart';
-part 'purchase_state.dart';
-
-class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
+class SalesBloc extends Bloc<SalesEvent, SalesState> {
   final firebase=FirebaseAuth.instance;
-  PurchaseBloc() : super(PurchaseInitial()) {
- on<PrintButtonClicked>(printButtonClicked);
- on<DownloadButtonPressed>(downloadButtonPressed);
+  SalesBloc() : super(SalesInitial()) {
+  on<PrintSalesButtonClicked>(printSalesButtonClicked);
   }
 
+  
 
-FutureOr<void> printButtonClicked(PrintButtonClicked event, Emitter<PurchaseState> emit) async {
-  try {
-    emit(PdfGenerationLoading());
+  FutureOr<void> printSalesButtonClicked(PrintSalesButtonClicked event, Emitter<SalesState> emit)async {
+     try {
+    emit(SalesPdfGenerateLoading());
 
-    // creating the PDF with the required data using the pdf package
+   //for generating the pdf with the required data 
     final pdf = pw.Document();
     pdf.addPage(
       pw.Page(
@@ -36,9 +34,9 @@ FutureOr<void> printButtonClicked(PrintButtonClicked event, Emitter<PurchaseStat
             children: [
               pw.Text('Purchase Records', style: const pw.TextStyle(fontSize: 24)),
               pw.SizedBox(height: 20),
-              pw.Text('Supplier Name: ${event.data['supplierName']}'),
-              pw.Text('Supplier Email: ${event.data['supplierEmail']}'),
-              pw.Text('Purchase Date: ${event.data['purchaseDate']}'),
+              pw.Text('Customer Name: ${event.data['customerName']}'),
+              pw.Text('Customer Email: ${event.data['customerEmail']}'),
+              pw.Text('Purchase Date: ${event.data['saleDate']}'),
               pw.Text('Total Amount: ${event.data['totalAmount']}'),
               pw.SizedBox(height: 20),
               pw.Text('Items:', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
@@ -66,41 +64,34 @@ FutureOr<void> printButtonClicked(PrintButtonClicked event, Emitter<PurchaseStat
 
     // Save PDF locally in temporary directory
     final directory = await getTemporaryDirectory();
-    final path = '${directory.path}/purchase_record.pdf';
+    final path = '${directory.path}/sale_record.pdf';
     final file = File(path);
     await file.writeAsBytes(await pdf.save());
 
     // Upload the PDF to Firebase Storage
-    final storageRef = FirebaseStorage.instance.ref().child('Purchasepdfs/${DateTime.now().millisecondsSinceEpoch}.pdf');
+    final storageRef = FirebaseStorage.instance.ref().child('Salespdfs/${DateTime.now().millisecondsSinceEpoch}.pdf');
     await storageRef.putFile(file);
     final downloadUrl = await storageRef.getDownloadURL();
     print('PDF uploaded successfully. Download URL: $downloadUrl');
 
-    // Update Firestore record with the PDF URL
+    // Updating the sale document with the link of the pdf
     await FirebaseFirestore.instance
         .collection('UserData')
         .doc(firebase.currentUser!.uid)
-        .collection('PurchaseRecords')
-        .doc(event.data['purchaseDate'])
+        .collection('SalesRecord')
+        .doc(event.data['saleDate'])
         .update({'Pdfpath': downloadUrl});
 
     // Display the locally stored PDF
-    displayPDF(file);
+    displaySalesPDF(file);
 
-    emit(PdfGenerationSuccess(pdfPath: downloadUrl));
+    emit(SalesPdfGenerateSuccess());
   } catch (e) {
-    emit(PdfGenerationError());
+    emit(SalesPdfGenerateError());
+  }
+
   }
 }
-
-void displayPDF(File pdfFile) {
+void displaySalesPDF(File pdfFile) {
   Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdfFile.readAsBytes());
-}
-
-
-  FutureOr<void> downloadButtonPressed(DownloadButtonPressed event, Emitter<PurchaseState> emit) {
-    // final filename=
-    final storage=FirebaseStorage.instance;
-    
-  }
 }

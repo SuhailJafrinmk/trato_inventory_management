@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/features/addpurchase/presentation/screens/add_purchase.dart';
 import 'package:trato_inventory_management/features/addsales/presentation/screens/add_sales.dart';
-import 'package:trato_inventory_management/features/sales/presentation/sales_page.dart';
+import 'package:trato_inventory_management/features/sales/presentation/screens/sales_page.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/record_page_widget.dart';
@@ -78,7 +78,7 @@ class Records extends StatelessWidget {
           height: height * .05,
         ),
         RecordsAddTile(backgroundImage: AppImages.recordsSales, title: 'Sales Records',
-        onTapView: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>SalesPage())),
+        onTapView: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>SalesList())),
         onTapAdd: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>AddSales())),
         ),
              ],

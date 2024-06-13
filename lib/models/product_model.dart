@@ -6,7 +6,6 @@ class ProductModel {
   final String supplier;
   final int purchasePrice;
   final int sellingPrice;
-  final int minimumQuantity;
   String? description;
   dynamic productImage;
   int productQuantity;
@@ -15,7 +14,6 @@ class ProductModel {
       required this.productName,
       required this.purchasePrice,
       required this.sellingPrice,
-      required this.minimumQuantity,
       required this.supplier,
       this.productImage,
       this.description,
@@ -28,7 +26,6 @@ class ProductModel {
       'category': category,
       'purchasePrice': purchasePrice,
       'sellingPrice': sellingPrice,
-      "minimumQuantity": minimumQuantity,
       "productImage": productImage,
       "description": description,
       'productQuantity':productQuantity,
@@ -42,7 +39,6 @@ class ProductModel {
       productName: data["productName"],
       purchasePrice: data['purchasePrice'],
       sellingPrice: data['sellingPrice'],
-      minimumQuantity: data['minimumQuantity'],
       productImage: data["productImage"],
       description: data['description'],
       productQuantity: data['productQuantity'],

@@ -39,7 +39,7 @@ class ProductDetails extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Container(
                   width: size.width*.92,
-                  height: size.height*.7,
+                  height: size.height*.8,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20)
@@ -59,12 +59,18 @@ class ProductDetails extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('${productData['productName']}',style: productTitle,),
-                            Text('${productData['purchasePrice']}',style: productDescription,),
+                            Text('Product : ${productData['productName']}',style: productTitle,),
+                            Text('Purchase Price : ${productData['purchasePrice']}',style: productDescription,),
+                            Text('Selling Price : ${productData['sellingPrice']}',style: productDescription,),
+                            Text('Supplier : ${productData['supplier']}',style: productDescription,),
+                            Text('Product Quantity : ${productData['productQuantity']}',style: productDescription,),
+                           Text('Product Description',style: TextStyle(fontSize: 20,),),
                             Text('${productData['description']}' ?? '',style: productDescription,),
-                            Text('Available 8 units',style: productDescription,),
+                            
                             SizedBox(height: size.height*.02,),
-                            CustomButton(height: size.height*.075, width: size.width*.7, elevation: 5, color: AppColors.primaryColor, radius: 10,child: Text('Close',style: buttonText,),onTap: (){},)
+                            CustomButton(height: size.height*.075, width: size.width*.7, elevation: 5, color: AppColors.primaryColor, radius: 10,child: Text('Close',style: buttonText,),onTap: (){
+                              Navigator.pop(context);
+                            },)
                           ],
                         ),
                        ),

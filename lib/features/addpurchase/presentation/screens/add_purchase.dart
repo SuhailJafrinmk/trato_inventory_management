@@ -7,7 +7,9 @@ import 'package:trato_inventory_management/features/addpurchase/bloc/add_purchas
 import 'package:trato_inventory_management/features/addpurchase/presentation/dialogues/supplier_data_sheet.dart';
 import 'package:trato_inventory_management/features/addpurchase/presentation/dialogues/product_quantity_modal.dart';
 import 'package:trato_inventory_management/models/purchased_item.dart';
+import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
+import 'package:trato_inventory_management/widgets/custom_button.dart';
 import 'package:trato_inventory_management/widgets/product_grid.dart';
 
 
@@ -161,18 +163,22 @@ class _AddPurchaseState extends State<AddPurchase> {
                       ),
                     ),
                     Expanded(
-                        child: SizedBox(
+                        child: Container(
+                          
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                showCustomerForm(context, 'Supplier name',
-                                    'Supplier email', itemsPurchased);
-                              },
-                              child: const Text('Add')),
-                          ElevatedButton(
-                              onPressed: () {}, child: const Text('cancel'))
+                          Flexible(flex: 2,child: CustomButton(color: AppColors.primaryColor,child: Text('Add Purchase',style: buttonTextWhiteSmall,),)),
+                          Flexible(flex: 2,child: CustomButton(color: AppColors.primaryColor,child: Text('Cancel',style: buttonTextWhiteSmall,),)),
+
+                          // ElevatedButton(
+                          //     onPressed: () {
+                          //       showCustomerForm(context, 'Supplier name',
+                          //           'Supplier email', itemsPurchased);
+                          //     },
+                          //     child: const Text('Add')),
+                          // ElevatedButton(
+                          //     onPressed: () {}, child: const Text('cancel'))
                         ],
                       ),
                     ))

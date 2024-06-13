@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,6 +13,7 @@ import 'package:meta/meta.dart';
 import 'package:trato_inventory_management/models/product_model.dart';
 part 'add_product_event.dart';
 part 'add_product_state.dart';
+
 
 class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
   final ImagePicker imagePicker=ImagePicker();
@@ -69,7 +71,6 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
       productName: event.productModel.productName,
       purchasePrice: event.productModel.purchasePrice,
       sellingPrice: event.productModel.sellingPrice,
-      minimumQuantity: event.productModel.minimumQuantity,
       productImage: imageUrl,
       description: event.productModel.description
     );
@@ -150,18 +151,17 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
       productName: event.productModel.productName,
       purchasePrice: event.productModel.purchasePrice,
       sellingPrice: event.productModel.sellingPrice,
-      minimumQuantity: event.productModel.minimumQuantity,
       productImage: imageUrl,
       description: event.productModel.description
     );
     DocumentReference reference=firestore.collection('UserData').doc(currentUser!.uid);
-    log('before reaching the adding portion');
+    log('before reaching the adding portion',level: 1000);
     //delete the existing product with the document name of the product
     await reference.collection('Products').doc(event.oldDoc).delete();
-    log('old Product document deleted');
+    log('old Product document deleted',level: 1000);
     //add the edit as a new product under the document name of the new product
     await reference.collection('Products').doc(event.productModel.productName).set(productModel.toMap());
-    log('Edited product added as new product');
+    log('Edited product added as new product',level: 100);
     emit(EditProductSuccessState());
     }catch(e){
       emit(EditProductErrorState(message: e.toString()));

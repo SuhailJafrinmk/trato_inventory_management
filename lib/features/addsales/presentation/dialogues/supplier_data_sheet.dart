@@ -30,14 +30,13 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
           child: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.all(20),
-              child: BlocBuilder<AddPurchaseBloc, AddPurchaseState>(
+              child: BlocBuilder<AddSalesBloc, AddSalesState>(
                 builder: (context, state) {
                   if (state is CustomerDetailsAddLoading) {
                     return const Center(
                       child: Column(
                         children: [
                           CircularProgressIndicator(),
-                          Text("adding your sales record"),
                         ],
                       ),
                     );
@@ -104,8 +103,7 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
                                 customerName: customerController.text,
                               );
                               //event meant for handling the purchase record
-                              BlocProvider.of<AddSalesBloc>(context)
-                                  .add(ConfirmCompleteSales(salesRecordModel: record));
+                              BlocProvider.of<AddSalesBloc>(context).add(ConfirmCompleteSales(salesRecordModel: record));
                             }
                           },
                           height: 60,

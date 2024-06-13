@@ -32,16 +32,9 @@ class DeleteConfirmationModal extends StatelessWidget {
               children: [
                 CustomButton(height: height*.05, width: width*.3, elevation: 10, color: AppColors.primaryColor, radius: 10,child: Text('Delete',style: buttonText,),
                 onTap: onTapDelete,
-                // onTap: () {
-                //   // bloc.add(DeleteConfirmationClicked(document: document));
-                //   // Navigator.pop(context);
-                // },
                 ),
                 CustomButton(height: height*.05, width: width*.3, elevation: 10, color: AppColors.primaryColor, radius: 10,child: Text('Cancel',style: buttonText,),
                 onTap: onTapCancel,
-                // onTap: () {
-                //   Navigator.pop(context);
-                // },
                 )
               ],
             ),

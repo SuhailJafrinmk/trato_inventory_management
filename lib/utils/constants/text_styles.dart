@@ -90,3 +90,10 @@ TextStyle modalDescription=TextStyle(
   fontSize: 15,
   color: const Color.fromARGB(255, 51, 51, 51),
 );
+
+TextStyle buttonTextWhiteSmall=TextStyle(
+  fontSize: 16,
+  color: Colors.white,
+  fontWeight: FontWeight.w500
+
+);

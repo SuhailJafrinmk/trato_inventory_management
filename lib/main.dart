@@ -6,11 +6,13 @@ import 'package:trato_inventory_management/features/addproduct/bloc/add_product_
 import 'package:trato_inventory_management/features/addpurchase/bloc/add_purchase_bloc.dart';
 import 'package:trato_inventory_management/features/addsales/bloc/add_sales_bloc.dart';
 import 'package:trato_inventory_management/features/addstore/bloc/addstore_bloc.dart';
+import 'package:trato_inventory_management/features/home_screen/bloc/home_screen_bloc.dart';
 import 'package:trato_inventory_management/features/inventory/bloc/inventory_bloc.dart';
 import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
 import 'package:trato_inventory_management/features/profile/bloc/profile_bloc.dart';
 import 'package:trato_inventory_management/features/purchases/bloc/purchase_bloc.dart';
 import 'package:trato_inventory_management/features/register/bloc/register_bloc.dart';
+import 'package:trato_inventory_management/features/sales/bloc/sales_bloc.dart';
 import 'package:trato_inventory_management/features/splash_screen/splash_screen.dart';
 import 'package:trato_inventory_management/firebase_options.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
@@ -54,6 +56,12 @@ void main()async{
       BlocProvider(
         create: (context) => AddSalesBloc(),
         child: Container(),
+      ),
+      BlocProvider(
+        create: (context) => SalesBloc(),
+      ),
+      BlocProvider(
+        create: (context) => HomeScreenBloc(),
       )
     ],
     child: const MyApp(),

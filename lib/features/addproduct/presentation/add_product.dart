@@ -1,3 +1,4 @@
+import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,6 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController productNameController = TextEditingController();
   TextEditingController purchasePriceController = TextEditingController();
   TextEditingController sellingPriceController = TextEditingController();
-  TextEditingController minimumQuantityController = TextEditingController();
   TextEditingController supplierController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
   dynamic pickedImage;
@@ -39,10 +39,8 @@ class _AddProductState extends State<AddProduct> {
       selectedValue = widget.document!['category'];
       productNameController.text = widget.document!['productName'];
       purchasePriceController.text =
-          widget.document!['purchasePrice'].toString();
+      widget.document!['purchasePrice'].toString();
       sellingPriceController.text = widget.document!['sellingPrice'].toString();
-      minimumQuantityController.text =
-          widget.document!['minimumQuantity'].toString();
       supplierController.text = widget.document!['supplier'];
       productDescriptionController?.text = widget.document!['description'];
       pickedImage = widget.document!['productImage'];
@@ -56,6 +54,7 @@ class _AddProductState extends State<AddProduct> {
     final size = MediaQuery.of(context).size;
     return BlocListener<AddProductBloc, AddProductState>(
       listener: (context, state) {
+        developer.log('current state in add product page is $state');
         if (state is CategorySelectedState) {
           selectedValue = state.newValue;
         } else if (state is FetchingSuccessState) {
@@ -67,9 +66,9 @@ class _AddProductState extends State<AddProduct> {
           productNameController.clear();
           purchasePriceController.clear();
           sellingPriceController.clear();
-          minimumQuantityController.clear();
           supplierController.clear();
           productDescriptionController.clear();
+          formkey.currentState!.reset();
         } else if (state is ImagePickedState) {
           pickedImage = state.croppedIage;
         } else if (state is FetchProductsSuccess) {
@@ -196,19 +195,7 @@ class _AddProductState extends State<AddProduct> {
                     padding: 10,
                     obscureText: false,
                     inputType: TextInputType.number,
-                  ),
-                  //textfield for adding the minimum quantity of the product required in stock
-                  AppTextfield(
-                    textEditingController: minimumQuantityController,
-                    validateMode: AutovalidateMode.onUserInteraction,
-                    validator: (p0) => AppValidations.minimumQuantity(p0),
-                    fillColor: Colors.white,
-                    labelText: 'Minimum Quantity',
-                    width: double.infinity,
-                    padding: 10,
-                    obscureText: false,
-                    inputType: TextInputType.number,
-                  ),
+                  ),             
                   //textfield for adding the supplier name of the product
                   AppTextfield(
                       textEditingController: supplierController,
@@ -264,8 +251,6 @@ class _AddProductState extends State<AddProduct> {
                                 int.parse(purchasePriceController.text),
                             sellingPrice:
                                 int.parse(sellingPriceController.text),
-                            minimumQuantity:
-                                int.parse(minimumQuantityController.text),
                             description:
                                 productDescriptionController?.text ?? '',
                             productImage: pickedImage);
