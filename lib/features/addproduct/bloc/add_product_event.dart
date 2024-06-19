@@ -18,7 +18,5 @@ class FetchProducts extends AddProductEvent{}
 class EditProductClicked extends AddProductEvent{
   final ProductModel productModel;
   String? oldDoc;
-
   EditProductClicked({required this.productModel,this.oldDoc});
-
 }

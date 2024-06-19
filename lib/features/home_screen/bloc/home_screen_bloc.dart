@@ -70,7 +70,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
         stockOutItems.add(singleDoc);
       }
     }
-
+    
     //all data as passed as individual values except the stock out items as list
     emit(HomeScreenDataSuccess(dataToBeDisplayed: {
       'totalSaleAmount':totalSaleAmount,

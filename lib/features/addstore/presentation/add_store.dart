@@ -1,6 +1,8 @@
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:trato_inventory_management/features/addstore/bloc/addstore_bloc.dart';
 import 'package:trato_inventory_management/models/store_model.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
@@ -10,8 +12,8 @@ import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 
 class AddStorePage extends StatefulWidget {
-  Map<String,dynamic>? storeDetails;
- AddStorePage({this.storeDetails});
+  Map<String, dynamic>? storeDetails;
+  AddStorePage({this.storeDetails});
   @override
   State<AddStorePage> createState() => _AddStorePageState();
 }
@@ -22,16 +24,16 @@ class _AddStorePageState extends State<AddStorePage> {
   TextEditingController contactController = TextEditingController();
   TextEditingController gstidController = TextEditingController();
   TextEditingController currencyController = TextEditingController();
-  final formkey=GlobalKey<FormState>();
+  final formkey = GlobalKey<FormState>();
   @override
   void initState() {
     developer.log("${widget.storeDetails}");
-    if(widget.storeDetails!=null){
-      storeNameController.text=widget.storeDetails!['storeName'];
-      locationController.text=widget.storeDetails!['location'];
-      contactController.text=widget.storeDetails!['contactInfo'];
-      gstidController.text=widget.storeDetails!['gstId'];
-      currencyController.text=widget.storeDetails!['currency'];
+    if (widget.storeDetails != null) {
+      storeNameController.text = widget.storeDetails!['storeName'];
+      locationController.text = widget.storeDetails!['location'];
+      contactController.text = widget.storeDetails!['contactInfo'];
+      gstidController.text = widget.storeDetails!['gstId'];
+      currencyController.text = widget.storeDetails!['currency'];
     }
     super.initState();
   }
@@ -47,20 +49,30 @@ class _AddStorePageState extends State<AddStorePage> {
               const SnackBar(content: Text('Store added successfully')));
           Navigator.pushReplacementNamed(context, 'login');
         }
-        if (state is AddstoreError) {
+        else  if (state is AddstoreError) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
+        else if(state is EditStoreSuccessState){
+          Fluttertoast.showToast(
+            msg: 'Edited successfully',
+            backgroundColor: Colors.green
+            );
+        }
       },
       child: Scaffold(
-        appBar: widget.storeDetails != null ? AppBar(title: Text('Edit store details'),) : null,
+        appBar: widget.storeDetails != null
+            ? AppBar(
+                title: Text('Edit store details'),
+              )
+            : null,
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
               child: BlocBuilder<AddstoreBloc, AddstoreState>(
                 builder: (context, state) {
-                  if(state is AddstoreLoading){
+                  if (state is AddstoreLoading) {
                     return const Center(
                       child: const SizedBox(
                         height: 20,
@@ -76,7 +88,9 @@ class _AddStorePageState extends State<AddStorePage> {
                       child: Column(
                         children: [
                           Text(
-                            widget.storeDetails != null ? 'Edit store details' : 'Add store details',
+                            widget.storeDetails != null
+                                ? 'Edit store details'
+                                : 'Add store details',
                             style: carouselTextLarge,
                           ),
                           AppTextfield(
@@ -177,7 +191,6 @@ class _AddStorePageState extends State<AddStorePage> {
                             labelStyle: labeltextblack,
                           ),
                           CustomButton(
-                            // onTap: () => Navigator.pushNamed(context,'home_screen'),
                             onTap: () {
                               StoreModel storeModel = StoreModel(
                                   storeName: storeNameController.text,
@@ -185,8 +198,16 @@ class _AddStorePageState extends State<AddStorePage> {
                                   contactInfo: contactController.text,
                                   gstId: gstidController.text,
                                   currency: currencyController.text);
-                              if(formkey.currentState!.validate()){
-                                bloc.add(AddButtonClicked(storeModel: storeModel));
+                              if (formkey.currentState!.validate()) {
+                                if (widget.storeDetails == null) {
+                                  bloc.add(
+                                      AddButtonClicked(storeModel: storeModel));
+                                } else {
+                                  bloc.add(EditButtonClicked(
+                                      storeModel: storeModel));
+                                }
+                              }else{
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid credentials')));
                               }
                             },
                             height: size.height * .07,
@@ -194,9 +215,21 @@ class _AddStorePageState extends State<AddStorePage> {
                             elevation: 5,
                             color: AppColors.primaryColor,
                             radius: 20,
-                            child: Text(
-                              widget.storeDetails != null ? 'Edit' : 'Add',
-                              style: buttonText,
+                            child: BlocBuilder<AddstoreBloc, AddstoreState>(
+                              builder: (context, state) {
+                                if(state is AddstoreLoading || state is EditStoreLoadingState){
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                    Text(widget.storeDetails==null ? 'Adding...' : 'Editing..',style: buttonText),
+                                    LoadingAnimationWidget.threeArchedCircle(color:Colors.white, size: 25),
+                                  ],);
+                                }
+                                return Text(
+                                  widget.storeDetails != null ? 'Edit' : 'Add',
+                                  style: buttonText,
+                                );
+                              },
                             ),
                           )
                         ],

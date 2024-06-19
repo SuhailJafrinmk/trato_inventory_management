@@ -12,3 +12,7 @@ class AddstoreError extends AddstoreState{
 
 }
 class AddstoreLoading extends AddstoreState{}
+
+class EditStoreLoadingState extends AddstoreState{}
+class EditStoreErrorState extends AddstoreState{}
+class EditStoreSuccessState extends AddstoreState{}
