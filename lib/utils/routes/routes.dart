@@ -22,7 +22,7 @@ class AppRoutes{
   'signup':(context)=>SignupScreen(),
   'home_screen':(context) => HomeScreen(),
   // 'product_details':(context)=>ProductDetails(productData: ,),
-  'add_store':(context) => AddStorePage(),
+  // 'add_store':(context) => AddStorePage(),
   'add_product':(context) => AddProduct(),
   'add_purchase':(context) => AddPurchase(),
   'records':(context) => Records(),

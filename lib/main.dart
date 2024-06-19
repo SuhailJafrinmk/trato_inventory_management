@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/addproduct/bloc/add_product_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:trato_inventory_management/features/inventory/bloc/inventory_blo
 import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
 import 'package:trato_inventory_management/features/profile/bloc/profile_bloc.dart';
 import 'package:trato_inventory_management/features/purchases/bloc/purchase_bloc.dart';
+import 'package:trato_inventory_management/features/records/bloc/records_page_bloc.dart';
 import 'package:trato_inventory_management/features/register/bloc/register_bloc.dart';
 import 'package:trato_inventory_management/features/sales/bloc/sales_bloc.dart';
 import 'package:trato_inventory_management/features/splash_screen/splash_screen.dart';
@@ -62,6 +64,9 @@ void main()async{
       ),
       BlocProvider(
         create: (context) => HomeScreenBloc(),
+      ),
+      BlocProvider(
+        create: (context) => RecordsPageBloc(),
       )
     ],
     child: const MyApp(),

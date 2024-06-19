@@ -12,7 +12,6 @@ import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 import 'package:trato_inventory_management/widgets/product_grid.dart';
 
-
 class AddPurchase extends StatefulWidget {
   const AddPurchase({super.key});
 
@@ -90,9 +89,12 @@ class _AddPurchaseState extends State<AddPurchase> {
                           itemBuilder: (context, index) {
                             final eachdocument = singledocument[index];
                             return ProductGrid(
-                              subtitleTwo: 'Available : ${eachdocument['productQuantity']}',
-                              productName: 'Product : ${eachdocument['productName']}',
-                              subtitle: 'Price : ${eachdocument['purchasePrice']}',
+                              subtitleTwo:
+                                  'Available : ${eachdocument['productQuantity']}',
+                              productName:
+                                  'Product : ${eachdocument['productName']}',
+                              subtitle:
+                                  'Price : ${eachdocument['purchasePrice']}',
                               productImage: eachdocument['productImage'],
                               onTap: () {
                                 showQuantityModal(
@@ -145,10 +147,7 @@ class _AddPurchaseState extends State<AddPurchase> {
                           return ListTile(
                             title: Text(singleItem.productName),
                             trailing: IconButton(
-                                onPressed: () {
-                                  // bloc.add(DeleteButtonClicked(purchasedItem: singleItem));
-                                },
-                                icon: Icon(Icons.delete)),
+                                onPressed: () {}, icon: Icon(Icons.delete)),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -164,21 +163,31 @@ class _AddPurchaseState extends State<AddPurchase> {
                     ),
                     Expanded(
                         child: Container(
-                          
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Flexible(flex: 2,child: CustomButton(color: AppColors.primaryColor,child: Text('Add Purchase',style: buttonTextWhiteSmall,),)),
-                          Flexible(flex: 2,child: CustomButton(color: AppColors.primaryColor,child: Text('Cancel',style: buttonTextWhiteSmall,),)),
-
-                          // ElevatedButton(
-                          //     onPressed: () {
-                          //       showCustomerForm(context, 'Supplier name',
-                          //           'Supplier email', itemsPurchased);
-                          //     },
-                          //     child: const Text('Add')),
-                          // ElevatedButton(
-                          //     onPressed: () {}, child: const Text('cancel'))
+                          Flexible(
+                              flex: 2,
+                              child: CustomButton(
+                                color: AppColors.primaryColor,
+                                child: Text(
+                                  'Add Purchase',
+                                  style: buttonTextWhiteSmall,
+                                ),
+                                onTap: () {
+                                  showCustomerForm(context, 'Supplier name',
+                                      'Supplier email', itemsPurchased);
+                                },
+                              )),
+                          Flexible(
+                              flex: 2,
+                              child: CustomButton(
+                                color: AppColors.primaryColor,
+                                child: Text(
+                                  'Cancel',
+                                  style: buttonTextWhiteSmall,
+                                ),
+                              )),
                         ],
                       ),
                     ))
@@ -192,7 +201,3 @@ class _AddPurchaseState extends State<AddPurchase> {
     );
   }
 }
-
-
-
-

@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/inventory/bloc/inventory_bloc.dart';
+import 'package:trato_inventory_management/features/product_details/presentation/product_details.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
+import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/product_tile.dart';
 
 class CategoryProductPage extends StatefulWidget {
@@ -50,6 +53,7 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                 itemBuilder:(context,index){
                 final product=state.categoryProducts[index];
                 return ProductTile(
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductDetails(productData: product),)),
                   productName: product['productName'],
                  subtitle1: '${product['sellingPrice']}',
                   subtitle2: product['supplier'],
@@ -64,7 +68,18 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
             }
             if(state is CategoryProductsEmpty){
             return Center(
-              child: Text('No Products available in this category'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                 
+                  DottedBorder(
+                    color: Colors.black38,
+                    borderType: BorderType.Circle,
+                    child: IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 50,color: Colors.black38,))),
+                    SizedBox(height: 10,),
+                     Text('Add Product to this category',style: notImportant,),
+                ],
+              ),
             );
             }
             return SizedBox();

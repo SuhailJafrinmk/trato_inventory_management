@@ -11,3 +11,14 @@ class LogoutError extends ProfileState{
   LogoutError({required this.errorMessage});
 }
 class LogoutLoading extends ProfileState{}
+class FetchingStoreDetails extends ProfileState{}
+class FetchedStoreDetails extends ProfileState{
+    final Map<String,dynamic> data;
+
+  FetchedStoreDetails({required this.data});
+}
+class FetchingStoreDetailsFailed extends ProfileState{
+final String message;
+
+  FetchingStoreDetailsFailed({required this.message});
+}

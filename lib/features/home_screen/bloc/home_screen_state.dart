@@ -15,6 +15,7 @@ class HomeScreenDataError extends HomeScreenState{
   class HomeScreenDataSuccess extends HomeScreenState{
     final Map<String,dynamic>dataToBeDisplayed;
     final List<Map<String,dynamic>> stockOutItems;
+    final List<Map<String,dynamic>> recentSales;
 
-  HomeScreenDataSuccess({required this.dataToBeDisplayed, required this.stockOutItems});
+  HomeScreenDataSuccess({required this.dataToBeDisplayed, required this.stockOutItems,required this.recentSales});
   }

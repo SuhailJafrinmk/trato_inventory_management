@@ -27,7 +27,7 @@ TextStyle minorText=const TextStyle(
 );
 TextStyle categoryTitle=const TextStyle(
   color: Colors.black,
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.bold,
   fontSize: 25,
 );
 TextStyle carouselTextLarge=const TextStyle(
@@ -96,4 +96,14 @@ TextStyle buttonTextWhiteSmall=TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.w500
 
+);
+
+TextStyle outOfStockIems=TextStyle(
+  color: Colors.red,
+  fontSize: 25,
+);
+
+TextStyle notImportant=TextStyle(
+  color: Colors.black38,
+  fontSize: 20
 );

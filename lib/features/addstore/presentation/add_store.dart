@@ -1,3 +1,4 @@
+import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/addstore/bloc/addstore_bloc.dart';
@@ -9,8 +10,8 @@ import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 
 class AddStorePage extends StatefulWidget {
-  const AddStorePage({super.key});
-
+  Map<String,dynamic>? storeDetails;
+ AddStorePage({this.storeDetails});
   @override
   State<AddStorePage> createState() => _AddStorePageState();
 }
@@ -22,6 +23,18 @@ class _AddStorePageState extends State<AddStorePage> {
   TextEditingController gstidController = TextEditingController();
   TextEditingController currencyController = TextEditingController();
   final formkey=GlobalKey<FormState>();
+  @override
+  void initState() {
+    developer.log("${widget.storeDetails}");
+    if(widget.storeDetails!=null){
+      storeNameController.text=widget.storeDetails!['storeName'];
+      locationController.text=widget.storeDetails!['location'];
+      contactController.text=widget.storeDetails!['contactInfo'];
+      gstidController.text=widget.storeDetails!['gstId'];
+      currencyController.text=widget.storeDetails!['currency'];
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +53,7 @@ class _AddStorePageState extends State<AddStorePage> {
         }
       },
       child: Scaffold(
+        appBar: widget.storeDetails != null ? AppBar(title: Text('Edit store details'),) : null,
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
           child: Center(
@@ -62,7 +76,7 @@ class _AddStorePageState extends State<AddStorePage> {
                       child: Column(
                         children: [
                           Text(
-                            'Add store details',
+                            widget.storeDetails != null ? 'Edit store details' : 'Add store details',
                             style: carouselTextLarge,
                           ),
                           AppTextfield(
@@ -181,7 +195,7 @@ class _AddStorePageState extends State<AddStorePage> {
                             color: AppColors.primaryColor,
                             radius: 20,
                             child: Text(
-                              'Add',
+                              widget.storeDetails != null ? 'Edit' : 'Add',
                               style: buttonText,
                             ),
                           )

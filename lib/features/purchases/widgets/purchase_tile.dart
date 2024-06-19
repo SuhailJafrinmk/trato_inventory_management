@@ -21,77 +21,68 @@ class PurchaseTile extends StatelessWidget {
       listener: (context, state) {
         
       },
-      child: InkWell(
-        onTap: onTap,
-        child: Card(
-          elevation: 2,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Purchase',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: InkWell(
+          onTap: onTap,
+          child: Card(
+            elevation: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      const Text(
+                        'Purchase',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      records['purchaseDate'],
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
+                      Text(
+                        records['purchaseDate'],
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Total: ${records['totalAmount']}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
+                    ],
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Supplier: ${records['supplierName']}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                  const SizedBox(height: 8),
+                  Text(
+                    'Total: ${records['totalAmount']}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    BlocBuilder<PurchaseBloc, PurchaseState>(
-                      builder: (context, state) {
-                        if (state is PdfGenerationLoading) {
-                          return CircularProgressIndicator();
-                        }
-                        return IconButton(
-                          icon: Icon(Icons.print),
-                          onPressed: printIconPressed,
-                        );
-                      },
+                  const SizedBox(height: 4),
+                  Text(
+                    'Supplier: ${records['supplierName']}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
-                    IconButton(
-                      icon: Icon(Icons.download),
-                      onPressed: downloadPressed,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.more_vert),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                  
+                        
+                           IconButton(
+                            icon: const Icon(Icons.print),
+                            onPressed: printIconPressed,
+                          ),
+                     
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

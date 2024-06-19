@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:trato_inventory_management/features/addproduct/bloc/add_product_bloc.dart';
 import 'package:trato_inventory_management/models/product_model.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
@@ -61,8 +63,17 @@ class _AddProductState extends State<AddProduct> {
           dropDownItems.addAll(state.dropDownItems);
         } else if (state is ProductAddedSuccessState) {
           BlocProvider.of<AddProductBloc>(context).add(FetchProducts());
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('Product added')));
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(const SnackBar(content: Text('Product added')));
+          Fluttertoast.showToast(
+        msg: "Product added Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
           productNameController.clear();
           purchasePriceController.clear();
           sellingPriceController.clear();
@@ -223,7 +234,14 @@ class _AddProductState extends State<AddProduct> {
                     child: BlocBuilder<AddProductBloc, AddProductState>(
                       builder: (context, state) {
                         if (state is AddProductLoadingState) {
-                          return const CircularProgressIndicator();
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('Adding product',style: buttonText,),
+                              LoadingAnimationWidget.threeArchedCircle(color: Colors.white, size: 20)
+                            ],
+
+                          );
                         }
 
                             if(state is EditProductLoadingState){

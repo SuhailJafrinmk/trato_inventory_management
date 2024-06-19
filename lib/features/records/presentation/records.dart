@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:trato_inventory_management/features/addpurchase/presentation/screens/add_purchase.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/addsales/presentation/screens/add_sales.dart';
+import 'package:trato_inventory_management/features/records/bloc/records_page_bloc.dart';
 import 'package:trato_inventory_management/features/sales/presentation/screens/sales_page.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/record_page_widget.dart';
 
-class Records extends StatelessWidget {
+class Records extends StatefulWidget {
   const Records({super.key});
+
+  @override
+  State<Records> createState() => _RecordsState();
+}
+
+class _RecordsState extends State<Records> {
+  @override
+  void initState() {
+    BlocProvider.of<RecordsPageBloc>(context)
+        .add(FetchSellerAndCustomerDetails());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +50,18 @@ class Records extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '1223',
-                      style: categoryTitle,
+                    BlocBuilder<RecordsPageBloc, RecordsPageState>(
+                      builder: (context, state) {
+                        if (state is FetchedCustomerAndSellerDetails) {
+                          return Text(
+                            '${state.sellers}',
+                            style: categoryTitle,
+                          );
+                        }
+                        return Text(
+                          'Not available',
+                        );
+                      },
                     ),
                     const Text('Sellers'),
                   ],
@@ -55,9 +77,15 @@ class Records extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '1223',
-                      style: categoryTitle,
+                    BlocBuilder<RecordsPageBloc, RecordsPageState>(
+                      builder: (context, state) {
+                        if(state is FetchedCustomerAndSellerDetails){
+                          return Text('${state.customers}',style: categoryTitle,);
+                        }
+                        return Text(
+                          'not available',
+                        );
+                      },
                     ),
                     const Text('Customers'),
                   ],
@@ -69,19 +97,24 @@ class Records extends StatelessWidget {
         SizedBox(
           height: height * .03,
         ),
-        RecordsAddTile(backgroundImage: AppImages.recordPurchase,
-         title: 'Purchase Records',
-         onTapView: () => Navigator.pushNamed(context, 'purchase_page'),
-         onTapAdd: () => Navigator.pushNamed(context, 'add_purchase'),
-         ),
+        RecordsAddTile(
+          backgroundImage: AppImages.recordPurchase,
+          title: 'Purchase Records',
+          onTapView: () => Navigator.pushNamed(context, 'purchase_page'),
+          onTapAdd: () => Navigator.pushNamed(context, 'add_purchase'),
+        ),
         SizedBox(
           height: height * .05,
         ),
-        RecordsAddTile(backgroundImage: AppImages.recordsSales, title: 'Sales Records',
-        onTapView: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>SalesList())),
-        onTapAdd: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>AddSales())),
+        RecordsAddTile(
+          backgroundImage: AppImages.recordsSales,
+          title: 'Sales Records',
+          onTapView: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SalesList())),
+          onTapAdd: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddSales())),
         ),
-             ],
+      ],
     ));
   }
 }
