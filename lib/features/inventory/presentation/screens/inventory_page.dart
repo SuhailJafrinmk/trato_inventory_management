@@ -22,9 +22,10 @@ class InventoryPage extends StatefulWidget {
 
 class _InventoryPageState extends State<InventoryPage> {
   List<String>? categoryNames;
+
   @override
   void initState() {
-    //event meant for fetching the existing categories in the database
+    // Fetching the existing categories in the database
     BlocProvider.of<InventoryBloc>(context).add(FetchCategoriesEvent());
     super.initState();
   }
@@ -34,136 +35,120 @@ class _InventoryPageState extends State<InventoryPage> {
     final size = MediaQuery.of(context).size;
     final bloc = BlocProvider.of<InventoryBloc>(context);
     final user = FirebaseAuth.instance.currentUser;
+    
     return BlocListener<InventoryBloc, InventoryState>(
       listener: (context, state) {
         if (state is CategoryAddedSuccess) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Category added successfully')));
+            const SnackBar(content: Text('Category added successfully')));
         } else if (state is CategoryAddedError) {
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Failed to add category')));
+            const SnackBar(content: Text('Failed to add category')));
         } else if (state is CategoryDeleted) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('Category deleted')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Category deleted')));
         } else if (state is CategoriesFetchedState) {
           categoryNames = state.documentList;
         } else if (state is ProductDeletedSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('product deleted successfull')));
+            const SnackBar(content: Text('Product deleted successfully')));
         }
       },
       child: Container(
         padding: const EdgeInsets.all(10),
         child: SafeArea(
+          child: SingleChildScrollView(
             child: Column(
-          children: [
-            SizedBox(
-              height: size.height * .02,
-            ),
-            Row(
               children: [
-                Text(
-                  'Categories',
-                  style: categoryTitle,
-                ),
-                SizedBox(
-                  width: size.width * .09,
-                ),
-                CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.black,
-                    child: IconButton(
+                SizedBox(height: size.height * .02),
+                Row(
+                  children: [
+                    Text('Categories', style: categoryTitle),
+                    SizedBox(width: size.width * .09),
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.black,
+                      child: IconButton(
                         onPressed: () {
-                          print('clicked add button');
                           show_dialogue(context, bloc, categoryNames);
                         },
-                        icon: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ))),
-              ],
-            ),
-            SizedBox(
-              height: size.height * .02,
-            ),
-            SizedBox(
-              height: size.height * .3,
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('UserData')
-                    .doc(user!.uid)
-                    .collection('Category')
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Center(child: Text('Error fetching products'));
-                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return const Center(child: Text('No categories available'));
-                  }
-                  final categories = snapshot.data!.docs;
-                  return GridView.builder(
-                      itemCount: categories.length,
-                      scrollDirection: Axis.vertical,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 3 / 2,
-                        mainAxisSpacing: 15,
-                        crossAxisSpacing: 15,
+                        icon: const Icon(Icons.add, color: Colors.white),
                       ),
-                      itemBuilder: (context, index) {
-                        final categoryName = categories[index].id;
-                        return GestureDetector(
+                    ),
+                  ],
+                ),
+                SizedBox(height: size.height * .02),
+                SizedBox(
+                  height: size.height * .3,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('UserData')
+                        .doc(user!.uid)
+                        .collection('Category')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return const Center(child: Text('Error fetching products'));
+                      } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return const Center(child: Text('No categories available'));
+                      }
+                      final categories = snapshot.data!.docs;
+                      return GridView.builder(
+                        itemCount: categories.length,
+                        scrollDirection: Axis.vertical,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 3 / 2,
+                          mainAxisSpacing: 15,
+                          crossAxisSpacing: 15,
+                        ),
+                        itemBuilder: (context, index) {
+                          final categoryName = categories[index].id;
+                          return GestureDetector(
                             onLongPress: () {
                               deleteCategory(context, categoryName);
                             },
                             child: CategoryTile(
-                                categoryname: categoryName,
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              CategoryProductPage(
-                                                CategoryName: categoryName,
-                                              )));
-                                }));
-                      });
-                },
-              ),
-            ),
-            SizedBox(
-              height: size.height * .02,
-            ),
-            Row(
-              children: [
-                Text(
-                  'Products',
-                  style: categoryTitle,
+                              categoryname: categoryName,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CategoryProductPage(
+                                      CategoryName: categoryName,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
-                SizedBox(
-                  width: size.width * .15,
-                ),
-                CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.black,
-                    child: IconButton(
+                SizedBox(height: size.height * .02),
+                Row(
+                  children: [
+                    Text('Products', style: categoryTitle),
+                    SizedBox(width: size.width * .15),
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.black,
+                      child: IconButton(
                         onPressed: () {
                           Navigator.pushNamed(context, 'add_product');
                         },
-                        icon: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ))),
-              ],
-            ),
-            Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore
-                      .instance //retrieves the available products from the database
+                        icon: const Icon(Icons.add, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
                       .collection('UserData')
                       .doc(user.uid)
                       .collection('Products')
@@ -172,64 +157,66 @@ class _InventoryPageState extends State<InventoryPage> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      return const Center(
-                          child: Text('Error fetching products'));
+                      return const Center(child: Text('Error fetching products'));
                     } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                       return const Center(child: Text('No products available'));
                     }
                     final doc = snapshot.data!.docs;
                     return ListView.builder(
-                        itemCount: doc.length,
-                        itemBuilder: (context, index) {
-                          final productData =
-                              doc[index].data() as Map<String, dynamic>;
-                          return ProductTile(
-                              onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProductDetails(
-                                            productData: productData,
-                                          ))),
-                              trailingWidget: PopupMenuButton(
-                                itemBuilder: (context) {
-                                  return [
-                                    PopupMenuItem(
-                                      child: const Text('Edit'),
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    AddProduct(
-                                                      document: productData,
-                                                    )));
-                                      },
-                                    ),
-                                    PopupMenuItem(
-                                      child: const Text('Delete'),
-                                      onTap: () {
-                                        deleteProduct(context, productData);
-                                      },
-                                    ),
-                                  ];
-                                },
+                      shrinkWrap: true, // Important to avoid infinite height error
+                      physics: NeverScrollableScrollPhysics(), // Use outer scroll view
+                      itemCount: doc.length,
+                      itemBuilder: (context, index) {
+                        final productData = doc[index].data() as Map<String, dynamic>;
+                        return ProductTile(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetails(
+                                productData: productData,
                               ),
-                              productName: productData['productName'],
-                              subtitle1:
-                                  'supplier : ${productData['supplier']}',
-                              subtitle2:
-                                  'Price : ${productData['sellingPrice']}',
-                              productImage: productData['productImage']);
-                        });
-                  }),
+                            ),
+                          ),
+                          trailingWidget: PopupMenuButton(
+                            itemBuilder: (context) {
+                              return [
+                                PopupMenuItem(
+                                  child: const Text('Edit'),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddProduct(
+                                          document: productData,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                PopupMenuItem(
+                                  child: const Text('Delete'),
+                                  onTap: () {
+                                    deleteProduct(context, productData);
+                                  },
+                                ),
+                              ];
+                            },
+                          ),
+                          productName: productData['productName'],
+                          subtitle1: 'Supplier: ${productData['supplier']}',
+                          subtitle2: 'Price: ${productData['sellingPrice']}',
+                          productImage: productData['productImage'],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
-        )),
+          ),
+        ),
       ),
     );
   }
 }
-
-
-
 

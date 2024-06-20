@@ -11,8 +11,8 @@ class ErrorFetchingCustomerAndSellerDetail extends RecordsPageState{
   ErrorFetchingCustomerAndSellerDetail({required this.message});
 }
 class FetchedCustomerAndSellerDetails extends RecordsPageState{
-  final int customers;
-  final int sellers;
+  final List<Map<String,dynamic>> customerData;
+  final List<Map<String,dynamic>> sellerData;
 
-  FetchedCustomerAndSellerDetails({required this.customers, required this.sellers});
+  FetchedCustomerAndSellerDetails({required this.customerData,required this.sellerData});
 }

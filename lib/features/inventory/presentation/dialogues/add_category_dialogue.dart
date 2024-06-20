@@ -17,11 +17,11 @@ void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
         final TextEditingController? descriptionControler =
             TextEditingController();
         return Center(
-          child: SingleChildScrollView(
-            child: AlertDialog(
-              backgroundColor: Colors.white,
-              title: const Text('Add category'),
-              content: Column(
+          child: AlertDialog(
+            backgroundColor: Colors.white,
+            title: const Text('Add category'),
+            content: SingleChildScrollView(
+              child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AppTextfield(
@@ -35,6 +35,9 @@ void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
                         if (categoryNames.contains(value)) {
                           return 'Category already exist';
                         }
+                      }
+                      if(value.length>25){
+                        return 'Category name should be short';
                       }
                       return null;
                     },

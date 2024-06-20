@@ -1,6 +1,3 @@
-import 'dart:developer' as developer;
-import 'dart:math';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,19 +6,17 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:trato_inventory_management/features/addproduct/presentation/add_product.dart';
 import 'package:trato_inventory_management/features/home_screen/bloc/home_screen_bloc.dart';
 import 'package:trato_inventory_management/features/home_screen/presentation/screens/out_of_stock.dart';
+import 'package:trato_inventory_management/features/home_screen/presentation/screens/recent_purchases.dart';
 import 'package:trato_inventory_management/features/home_screen/presentation/screens/recent_sales_page.dart';
 import 'package:trato_inventory_management/features/home_screen/widgets/home_screen_container.dart';
 import 'package:trato_inventory_management/features/home_screen/widgets/home_screen_tile.dart';
 import 'package:trato_inventory_management/features/inventory/presentation/screens/inventory_page.dart';
-import 'package:trato_inventory_management/features/product_details/presentation/product_details.dart';
 import 'package:trato_inventory_management/features/profile/presentation/profile_page.dart';
 import 'package:trato_inventory_management/features/records/presentation/records.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/navigation_items_list.dart';
-import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/features/home_screen/widgets/bottom_navigation.dart';
-import 'package:trato_inventory_management/widgets/product_grid.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -143,7 +138,7 @@ class _HomeFirstState extends State<HomeFirst> {
                     builder: (context, state) {
                       if (state is HomeScreenDataLoading) {
                         return SizedBox(
-                          child: LoadingAnimationWidget.threeArchedCircle(color: AppColors.primaryColor, size: 20),
+                          child: Center(child: LoadingAnimationWidget.threeArchedCircle(color: AppColors.primaryColor, size: 30)),
                         );
                       }
                       if (state is HomeScreenDataSuccess) {
@@ -187,9 +182,8 @@ class _HomeFirstState extends State<HomeFirst> {
                     child: ListView(
                       children: [
                         HomeScreenTile(contentType: 'Out of stock',onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>OutOfStockItems())),),
-                        HomeScreenTile(contentType: 'Recently added'),
                         HomeScreenTile(contentType: 'Recent sale',onPressed: () =>  Navigator.push(context, MaterialPageRoute(builder: (context)=>RecentSalesPage())),),
-                        HomeScreenTile(contentType: 'Recent purchase'),               
+                        HomeScreenTile(contentType: 'Recent purchase',onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>RecentPurchases())),),               
                         ],
                     ),
                   ),

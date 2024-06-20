@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 
 class SalesTile extends StatelessWidget {
   final Map<String, dynamic> records;
   void Function()? onTap;
   void Function()? printIconPressed;
-
   SalesTile(
       {super.key,
       required this.records,
@@ -15,6 +15,8 @@ class SalesTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final timestamp=records['saleDate'];
+    final formattedDate=DateFormat('yyyy-MM-dd – kk:mm').format(timestamp.toDate());
     return InkWell(
       onTap: onTap,
       child: Card(
@@ -34,8 +36,8 @@ class SalesTile extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    records['saleDate'],
+                  Text(formattedDate,
+                     
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,

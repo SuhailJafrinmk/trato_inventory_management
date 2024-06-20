@@ -1,11 +1,12 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:trato_inventory_management/models/selled_item.dart';
 
 class SalesRecordModel{
   String? id;
   final String customerName;
   final String customerEmail;
-  final String saleDate;
+  final Timestamp saleDate;
   final List<SelledItem> items;
   final int totalAmount;
   SalesRecordModel({this.id, required this.saleDate, required this.items, required this.totalAmount,required this.customerEmail,required this.customerName});
@@ -20,6 +21,5 @@ Map<String,dynamic>toMap(){
     'totalAmount':totalAmount,
   };
 }
-
 
 }

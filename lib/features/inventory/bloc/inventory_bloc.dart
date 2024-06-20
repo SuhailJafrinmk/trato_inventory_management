@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:trato_inventory_management/models/category_model.dart';
 import 'package:trato_inventory_management/models/purchase_record_model.dart';
-import 'package:trato_inventory_management/models/purchased_item.dart';
 part 'inventory_event.dart';
 part 'inventory_state.dart';
 

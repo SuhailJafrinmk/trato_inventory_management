@@ -72,11 +72,10 @@ class _QuantityModalState extends State<QuantityModal> {
                                 minVal: 1,
                                 onQtyChanged: (value) {
                                   totalQuantity = value;
-                                  print(totalQuantity);
                                 },
                                 steps: 1,
                                 initVal: 1,
-                                maxVal: 5000,
+                                maxVal: 1000,
                                 decoration: const QtyDecorationProps(
                                   qtyStyle: QtyStyle.btnOnRight,
                                   plusBtn: Icon(Icons.arrow_drop_up),

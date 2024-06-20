@@ -12,6 +12,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final userId = FirebaseAuth.instance.currentUser!.uid;
   List<Map<String,dynamic>>stockOutItems=[];
   List<Map<String,dynamic>>recentSales=[];
+  List<Map<String,dynamic>>recentPurchases=[];
   HomeScreenBloc() : super(HomeScreenInitial()) {
   on<FetchHomeScreenData>(fetchHomeScreenData);
   }
@@ -30,16 +31,25 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     final categorySnapshots=await categoryCollection.get();
     final purchaseSnapshots=await purchaseCollection.get();
     final recentSalesSnapshot=await collectionReference.orderBy('saleDate',descending: true).limit(10).get();
+    final recentPurchasesSnapshot=await purchaseCollection.orderBy('purchaseDate',descending: true).limit(10).get();
     double totalSaleAmount = 0.0;
     double totalStock = 0.0;
     double totalPurchases=0.0;
     int totalProducts=productSnapshots.docs.length;
     int totalCategories=categorySnapshots.docs.length;
+
+    //for getting ten recent purchases
+     recentPurchases.clear();
+    for(var doc in recentPurchasesSnapshot.docs){
+     final data=doc.data() as Map<String,dynamic>;
+     recentPurchases.add(data);
+    }
+
     //for getting the recent ten sales
     recentSales.clear();
     for(var doc in recentSalesSnapshot.docs){
      final data=doc.data() as Map<String,dynamic>;
-     stockOutItems.add(data);
+     recentSales.add(data);
     }
     //this block of code calculates the total amount of sales happened from all the documents of  salesrecord collection
   for(var doc in snapshots.docs){
@@ -80,9 +90,11 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       'totalPurchases':totalPurchases,
       },
      stockOutItems: stockOutItems,
-     recentSales: recentSales
+     recentSales: recentSales,
+     recentPurchases: recentPurchases,
      ));
-    developer.log('items in the list$stockOutItems');
+    // developer.log('items in the list$stockOutItems');
+    developer.log('recent selled items are $recentSales');
 
     }catch(e){
       emit(HomeScreenDataError(message: e.toString()));

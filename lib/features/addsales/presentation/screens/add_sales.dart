@@ -7,9 +7,10 @@ import 'package:trato_inventory_management/features/AddSales/presentation/dialog
 import 'package:trato_inventory_management/features/addsales/bloc/add_sales_bloc.dart';
 import 'package:trato_inventory_management/features/addsales/presentation/dialogues/product_quantity_modal_sales.dart';
 import 'package:trato_inventory_management/models/selled_item.dart';
+import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
+import 'package:trato_inventory_management/widgets/custom_button.dart';
 import 'package:trato_inventory_management/widgets/product_grid.dart';
-
 
 class AddSales extends StatefulWidget {
   const AddSales({super.key});
@@ -54,6 +55,7 @@ class _AddSalesState extends State<AddSales> {
                       .collection('UserData')
                       .doc(user!.uid)
                       .collection('Products')
+                      .where('productQuantity', isGreaterThan: 0)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -82,10 +84,13 @@ class _AddSalesState extends State<AddSales> {
                           itemBuilder: (context, index) {
                             final eachdocument = singledocument[index];
                             return ProductGrid(
-                              productName: 'Product : ${eachdocument['productName']}',
-                              subtitle: 'Price : ${eachdocument['purchasePrice']}',
+                              productName:
+                                  'Product : ${eachdocument['productName']}',
+                              subtitle:
+                                  'Price : ${eachdocument['purchasePrice']}',
                               productImage: eachdocument['productImage'],
-                              subtitleTwo: 'Available : ${eachdocument['productQuantity']}',
+                              subtitleTwo:
+                                  'Available : ${eachdocument['productQuantity']}',
                               onTap: () {
                                 showQuantityModalSales(
                                     context, eachdocument, itemsSelled);
@@ -159,14 +164,27 @@ class _AddSalesState extends State<AddSales> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                showCustomerForm(context, 'Customer name',
-                                    'Customer email', itemsSelled);
-                              },
-                              child: const Text('Add')),
-                          ElevatedButton(
-                              onPressed: () {}, child: const Text('cancel'))
+                          Flexible(
+                              flex: 1,
+                              child: CustomButton(
+                                onTap: () => showCustomerForm(context, 'Customer name','Customer email', itemsSelled),
+                                color: AppColors.primaryColor,
+                                child: Text(
+                                  'Add',
+                                  style: buttonTextWhiteSmall,
+                                ),
+                              )),
+                          Flexible(
+                              flex: 1,
+                              child: CustomButton(
+                                onTap: () => Navigator.pop(context),
+                                color: AppColors.primaryColor,
+                                child: Text(
+                                  'Cancel',
+                                  style: buttonTextWhiteSmall,
+                                ),
+                              )),
+
                         ],
                       ),
                     ))
@@ -180,7 +198,3 @@ class _AddSalesState extends State<AddSales> {
     );
   }
 }
-
-
-
-

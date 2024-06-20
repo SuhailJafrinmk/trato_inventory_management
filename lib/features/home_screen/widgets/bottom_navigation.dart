@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/models/navigation_item.dart';
- // Ensure the path is correct
+
 
 class ScrollableBottomNavigationBar extends StatelessWidget {
   final List<NavigationItem> items;

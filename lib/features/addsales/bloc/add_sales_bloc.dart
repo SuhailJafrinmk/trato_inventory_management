@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:trato_inventory_management/models/product_model.dart';
 import 'package:trato_inventory_management/models/sales_record_model.dart';
@@ -33,7 +34,8 @@ class AddSalesBloc extends Bloc<AddSalesEvent, AddSalesState> {
           .doc(user!.uid)
           .collection('SalesRecord');
           CollectionReference productReference=firestore.collection('UserData').doc(user!.uid).collection('Products');
-      await reference.doc(event.salesRecordModel.saleDate).set(event.salesRecordModel.toMap());
+          final formattedDate=DateFormat('yyyy-MM-dd – kk:mm').format(event.salesRecordModel.saleDate.toDate());
+      await reference.doc(formattedDate).set(event.salesRecordModel.toMap());
        for(var item in event.salesRecordModel.items){
         DocumentReference productDoc=productReference.doc(item.productName);
         await firestore.runTransaction((transaction)async{

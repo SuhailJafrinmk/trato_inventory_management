@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:trato_inventory_management/models/product_model.dart';
 import 'package:trato_inventory_management/models/purchase_record_model.dart';
@@ -39,7 +40,8 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
         .doc(user!.uid)
         .collection('PurchaseRecords');
       CollectionReference productReference=firestore.collection('UserData').doc(user!.uid).collection('Products');
-      await reference.doc(event.record.purchaseDate).set(event.record.toMap());
+      final formattedDate=DateFormat('yyyy-MM-dd – kk:mm').format(event.record.purchaseDate.toDate());
+      await reference.doc(formattedDate).set(event.record.toMap());
       for(var item in event.record.items){
         DocumentReference productDoc=productReference.doc(item.productName);
         await firestore.runTransaction((transaction)async{

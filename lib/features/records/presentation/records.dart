@@ -1,7 +1,10 @@
+import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/addsales/presentation/screens/add_sales.dart';
 import 'package:trato_inventory_management/features/records/bloc/records_page_bloc.dart';
+import 'package:trato_inventory_management/features/records/presentation/customers_page.dart';
+import 'package:trato_inventory_management/features/records/presentation/sellers_page.dart';
 import 'package:trato_inventory_management/features/sales/presentation/screens/sales_page.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
@@ -39,56 +42,68 @@ class _RecordsState extends State<Records> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 108, 142, 164),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                width: width * .4,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocBuilder<RecordsPageBloc, RecordsPageState>(
-                      builder: (context, state) {
-                        if (state is FetchedCustomerAndSellerDetails) {
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ListOfSellers()));
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 108, 142, 164),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  width: width * .4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BlocBuilder<RecordsPageBloc, RecordsPageState>(
+                        builder: (context, state) {
+                          if (state is FetchedCustomerAndSellerDetails) {
+                            return Text(
+                              '${state.sellerData.length}',
+                              style: categoryTitle,
+                            );
+                          }
                           return Text(
-                            '${state.sellers}',
-                            style: categoryTitle,
+                            'Not available',
                           );
-                        }
-                        return Text(
-                          'Not available',
-                        );
-                      },
-                    ),
-                    const Text('Sellers'),
-                  ],
+                        },
+                      ),
+                      const Text('Sellers'),
+                    ],
+                  ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 145, 155, 162),
-                    borderRadius: BorderRadius.circular(20)),
-                width: width * .4,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocBuilder<RecordsPageBloc, RecordsPageState>(
-                      builder: (context, state) {
-                        if(state is FetchedCustomerAndSellerDetails){
-                          return Text('${state.customers}',style: categoryTitle,);
-                        }
-                        return Text(
-                          'not available',
-                        );
-                      },
-                    ),
-                    const Text('Customers'),
-                  ],
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ListOfCustomers()));
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 145, 155, 162),
+                      borderRadius: BorderRadius.circular(20)),
+                  width: width * .4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BlocBuilder<RecordsPageBloc, RecordsPageState>(
+                        builder: (context, state) {
+                          if(state is FetchedCustomerAndSellerDetails){
+                            developer.log('items in customer data are ${state.customerData}');
+                            developer.log('items in seller data are ${state.sellerData}');
+                            return Text('${state.customerData.length}',style: categoryTitle,);
+                          }
+                          return Text(
+                            'not available',
+                          );
+                        },
+                      ),
+                      const Text('Customers'),
+                    ],
+                  ),
                 ),
               ),
             ],

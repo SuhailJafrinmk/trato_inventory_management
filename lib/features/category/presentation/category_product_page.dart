@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trato_inventory_management/features/addproduct/presentation/add_product.dart';
 import 'package:trato_inventory_management/features/inventory/bloc/inventory_bloc.dart';
 import 'package:trato_inventory_management/features/product_details/presentation/product_details.dart';
-import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/product_tile.dart';
 
@@ -23,9 +22,7 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
   List<Map<String, dynamic>> categoryProducts = [];
   @override
   void initState() {
-    BlocProvider.of<InventoryBloc>(context)
-        .add(CategoryTileClicked(categoryName: widget.CategoryName));
-        print(categoryProducts);
+    BlocProvider.of<InventoryBloc>(context).add(CategoryTileClicked(categoryName: widget.CategoryName));
     super.initState();
   }
 
@@ -55,9 +52,9 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                 return ProductTile(
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductDetails(productData: product),)),
                   productName: product['productName'],
-                 subtitle1: '${product['sellingPrice']}',
+                  subtitle1: '${product['sellingPrice']}',
                   subtitle2: product['supplier'],
-                   productImage: product['productImage']);
+                  productImage: product['productImage']);
                 } 
                 );
             }
@@ -75,7 +72,9 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                   DottedBorder(
                     color: Colors.black38,
                     borderType: BorderType.Circle,
-                    child: IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 50,color: Colors.black38,))),
+                    child: IconButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddProduct(categoryName: widget.CategoryName,)));
+                    }, icon: Icon(Icons.add,size: 50,color: Colors.black38,))),
                     SizedBox(height: 10,),
                      Text('Add Product to this category',style: notImportant,),
                 ],
@@ -86,22 +85,6 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
           },
          
         ),
-
-
-
-
-        // body: categoryProducts.isNotEmpty ?  ListView.builder(
-        //         itemCount: categoryProducts.length,
-        //         itemBuilder: (context, index) {
-        //           print(categoryProducts);
-        //           final item = categoryProducts[index];
-        //           return ProductTile(
-        //               productName: item['productName'],
-        //               subtitle1: '${item['sellingPrice']}',
-        //               subtitle2: item['supplier'],
-        //               productImage: item['productImage']);
-        //         }): Center(child: Text('No Products available for this category'),)
-          
           
         
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:trato_inventory_management/features/purchases/bloc/purchase_bloc.dart';
 
 class PurchaseTile extends StatelessWidget {
@@ -17,6 +18,8 @@ class PurchaseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final timestamp=records['purchaseDate'];
+    final formattedDate=DateFormat('yyyy-MM-dd – kk:mm').format(timestamp.toDate());
     return BlocListener<PurchaseBloc, PurchaseState>(
       listener: (context, state) {
         
@@ -43,7 +46,7 @@ class PurchaseTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        records['purchaseDate'],
+                        formattedDate,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,

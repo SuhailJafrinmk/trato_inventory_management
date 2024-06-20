@@ -7,6 +7,7 @@ import 'package:trato_inventory_management/features/purchases/bloc/purchase_bloc
 import 'package:trato_inventory_management/features/purchases/presentation/dialogues/show_purchase_details.dart';
 import 'package:trato_inventory_management/features/purchases/widgets/purchase_tile.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
+import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 
 class PurchasesList extends StatelessWidget {
   final User? user = FirebaseAuth.instance.currentUser;
@@ -71,6 +72,7 @@ class PurchasesList extends StatelessWidget {
                   left: MediaQuery.of(context).size.width * 0.1,
                   right: MediaQuery.of(context).size.width * 0.1,
                   child: Card(
+                    elevation: 20,
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Row(
@@ -78,9 +80,9 @@ class PurchasesList extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           LoadingAnimationWidget.threeArchedCircle(
-                              color: AppColors.primaryColor, size: 20),
+                              color: AppColors.primaryColor, size: 30),
                           SizedBox(width: 20),
-                          Text("Generating PDF..."),
+                          Text("Generating PDF...",style: categoryTitle.copyWith(fontSize: 23),),
                         ],
                       ),
                     ),

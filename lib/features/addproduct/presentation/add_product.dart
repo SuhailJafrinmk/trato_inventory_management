@@ -15,8 +15,9 @@ import 'package:trato_inventory_management/widgets/custom_button.dart';
 import 'package:trato_inventory_management/widgets/drop_down_textfield.dart';
 
 class AddProduct extends StatefulWidget {
-  final Map<String, dynamic>? document;
-  AddProduct({this.document});
+  Map<String, dynamic>? document;
+  String? categoryName;
+  AddProduct({this.document,this.categoryName});
 
   @override
   State<AddProduct> createState() => _AddProductState();
@@ -122,12 +123,11 @@ class _AddProductState extends State<AddProduct> {
                                 },
                                 label: 'Category',
                                 items: dropDownItems,
-                                value: selectedValue,
+                                value: widget.categoryName != null ? widget.categoryName : selectedValue,
                                 onChanged: (newItem) {
                                   //event meant for updating the state of the dropdown textfield selected item
-                                  BlocProvider.of<AddProductBloc>(context).add(
-                                      DropdownTextfieldClicked(
-                                          selectedItem: newItem));
+                                  BlocProvider.of<AddProductBloc>(context).add(DropdownTextfieldClicked(selectedItem: newItem));
+                                      
                                 },
                               );
                             },

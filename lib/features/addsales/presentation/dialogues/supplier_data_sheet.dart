@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -88,15 +89,14 @@ void showCustomerForm(BuildContext context, String typeName, String typeEmail,
                           onTap: () {
                             if (formKey.currentState!.validate()) {
                               DateTime now = DateTime.now();
-                              String formattedNow =
-                                  DateFormat('yyyy-MM-dd – kk:mm').format(now);
+                              Timestamp timestamp=Timestamp.fromDate(now);
                               final totalCount = items.isNotEmpty
                                   ? items
                                       .map((item) => item.totalItemAmount)
                                       .reduce((a, b) => a + b)
                                   : 0;
                               SalesRecordModel record = SalesRecordModel(
-                                saleDate: formattedNow,
+                                saleDate: timestamp,
                                 items: items,
                                 totalAmount: totalCount,
                                 customerEmail: customerEmailController.text,

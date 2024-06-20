@@ -25,9 +25,7 @@ class RecordsPageBloc extends Bloc<RecordsPageEvent, RecordsPageState> {
       final salesSnapshot=await salesCollection.get();
       final purchaseDatas=purchaseSnapshot.docs.map((item) =>item.data() as Map<String,dynamic> ).toList();
       final salesDatas=salesSnapshot.docs.map((item) =>item.data() as Map<String,dynamic> ).toList();
-      final purchaseLength=purchaseDatas.length;
-      final salesLength=salesDatas.length;
-      emit(FetchedCustomerAndSellerDetails(customers: purchaseLength, sellers: salesLength));
+      emit(FetchedCustomerAndSellerDetails(customerData: salesDatas,sellerData: purchaseDatas));
   }catch(e){
     emit(ErrorFetchingCustomerAndSellerDetail(message: e.toString()));
   }
