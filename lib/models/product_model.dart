@@ -2,7 +2,7 @@ import 'package:image_picker/image_picker.dart';
 
 class ProductModel {
   final String productName;
-  final String category;
+  String ? category;
   final String supplier;
   final int purchasePrice;
   final int sellingPrice;

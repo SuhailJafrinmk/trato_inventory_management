@@ -263,7 +263,7 @@ class _AddProductState extends State<AddProduct> {
                       if (formkey.currentState!.validate()) {
                         final product = ProductModel(
                             supplier: supplierController.text,
-                            category: selectedValue!,
+                            category: widget.categoryName ?? selectedValue,
                             productName: productNameController.text,
                             purchasePrice:
                                 int.parse(purchasePriceController.text),
