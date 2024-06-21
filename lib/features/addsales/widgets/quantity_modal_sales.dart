@@ -19,7 +19,7 @@ class QuantityModalSales extends StatefulWidget {
 }
 
 class _QuantityModalState extends State<QuantityModalSales> {
-  dynamic totalQuantity = 2;
+  dynamic totalQuantity = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class _QuantityModalState extends State<QuantityModalSales> {
                               Text(widget.singleDoc['productName']),
                               Text('Supplier : ${widget.singleDoc['supplier']}'),
                               InputQty(
-                                
+                                qtyFormProps: QtyFormProps(enableTyping: true),
                                 validator: (value) {
                                   final qty=widget.singleDoc['productQuantity'];
                                   if (value == null) {
@@ -112,10 +112,10 @@ class _QuantityModalState extends State<QuantityModalSales> {
             final purchasedItem = SelledItem(
                   productName: widget.singleDoc['productName'],
                   supplierName: widget.singleDoc['supplier'],
-                  quantity: totalQuantity,
+                  quantity: totalQuantity.toInt(),
                   price: widget.singleDoc['purchasePrice'],
                   totalItemAmount:
-                  totalQuantity * widget.singleDoc['purchasePrice']
+                  (totalQuantity * widget.singleDoc['purchasePrice']).toInt(),
                   );
                   widget.selledItems.add(purchasedItem);
                   Navigator.pop(context);  

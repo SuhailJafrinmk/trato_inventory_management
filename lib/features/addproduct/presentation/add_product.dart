@@ -34,6 +34,7 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController supplierController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
   dynamic pickedImage;
+  TextEditingController categorycontroller=TextEditingController();
 
   @override
   void initState() {
@@ -47,6 +48,9 @@ class _AddProductState extends State<AddProduct> {
       supplierController.text = widget.document!['supplier'];
       productDescriptionController?.text = widget.document!['description'];
       pickedImage = widget.document!['productImage'];
+    }
+    if(widget.categoryName!=null){
+      categorycontroller.text=widget.categoryName ?? '';
     }
     BlocProvider.of<AddProductBloc>(context).add(FetchCategoriesEvent());
     BlocProvider.of<AddProductBloc>(context).add(FetchProducts());
@@ -114,7 +118,15 @@ class _AddProductState extends State<AddProduct> {
                                 return const Text('Categories are loading...');
                               }
 
-                              return DropDownTextfield(
+                              return widget.categoryName != null ? 
+                              AppTextfield(
+                                textEditingController: categorycontroller,
+                                readOnly: true,
+                              fillColor: Colors.white,
+                              labelText: 'Category',
+                              padding: 10,
+                               obscureText: false) : 
+                             DropDownTextfield(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please select a category';
@@ -123,7 +135,7 @@ class _AddProductState extends State<AddProduct> {
                                 },
                                 label: 'Category',
                                 items: dropDownItems,
-                                value: widget.categoryName != null ? widget.categoryName : selectedValue,
+                                value: selectedValue,
                                 onChanged: (newItem) {
                                   //event meant for updating the state of the dropdown textfield selected item
                                   BlocProvider.of<AddProductBloc>(context).add(DropdownTextfieldClicked(selectedItem: newItem));

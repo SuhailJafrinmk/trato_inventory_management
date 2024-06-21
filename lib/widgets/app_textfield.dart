@@ -3,7 +3,7 @@ import 'package:trato_inventory_management/utils/constants/colors.dart';
 
 class AppTextfield extends StatelessWidget {
 final String labelText;
-final double width;
+double ? width;
 final double padding;
 Widget ?suffixIcon;
 String? Function(String?)? validator;
@@ -18,10 +18,11 @@ void Function(String)? onChanged;
 TextStyle? inputStyle;
 Color ?fillColor;
 FocusNode ?focusNode;
+bool ? readOnly;
    AppTextfield({
     super.key, 
     required this.labelText,
-    required this.width,
+    this.width,
     required this.padding,
     required this.obscureText,
     this.labelStyle,
@@ -35,7 +36,8 @@ FocusNode ?focusNode;
     this.onChanged,
     this.inputStyle,
     this.fillColor=AppColors.primaryColor,
-    this.focusNode
+    this.focusNode,
+    this.readOnly
     });
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ FocusNode ?focusNode;
           children: [
             Text(labelText,style: labelStyle,),
             TextFormField(
+              readOnly: readOnly ?? false,
               focusNode: focusNode,
               style: inputStyle,
               onChanged: onChanged,

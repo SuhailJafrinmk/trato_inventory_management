@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -38,7 +40,7 @@ FutureOr<void> printButtonClicked(PrintButtonClicked event, Emitter<PurchaseStat
               pw.SizedBox(height: 20),
               pw.Text('Supplier Name: ${event.data['supplierName']}'),
               pw.Text('Supplier Email: ${event.data['supplierEmail']}'),
-              pw.Text('Purchase Date: ${event.data['purchaseDate']}'),
+              // pw.Text('Purchase Date: ${event.data['purchaseDate']}'),
               pw.Text('Total Amount: ${event.data['totalAmount']}'),
               pw.SizedBox(height: 20),
               pw.Text('Items:', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
@@ -74,20 +76,24 @@ FutureOr<void> printButtonClicked(PrintButtonClicked event, Emitter<PurchaseStat
     final storageRef = FirebaseStorage.instance.ref().child('Purchasepdfs/${DateTime.now().millisecondsSinceEpoch}.pdf');
     await storageRef.putFile(file);
     final downloadUrl = await storageRef.getDownloadURL();
-    print('PDF uploaded successfully. Download URL: $downloadUrl');
+    // print('PDF uploaded successfully. Download URL: $downloadUrl');
+    // log('purchase date is : ${event.data['purchaseDate']}');
 
     // Update Firestore record with the PDF URL
+    Timestamp date=event.data['purchaseDate'];
+    final formattedDate=DateFormat('yyyy-MM-dd – kk:mm').format(date.toDate());
     await FirebaseFirestore.instance
         .collection('UserData')
         .doc(firebase.currentUser!.uid)
         .collection('PurchaseRecords')
-        .doc(event.data['purchaseDate'])
+        .doc(formattedDate)
         .update({'Pdfpath': downloadUrl});
 
     // Display the locally stored PDF
     displayPDF(file);
 
     emit(PdfGenerationSuccess(pdfPath: downloadUrl));
+    log('success state emitted success');
   } catch (e) {
     emit(PdfGenerationError());
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/models/navigation_item.dart';
 
-
 class ScrollableBottomNavigationBar extends StatelessWidget {
   final List<NavigationItem> items;
   final int selectedIndex;

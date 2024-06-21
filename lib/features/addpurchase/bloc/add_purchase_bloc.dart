@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +23,7 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
   AddPurchaseBloc() : super(AddPurchaseInitial()) {
     on<ConfirmQuantity>(confirmQuantity);
     on<AddRecordConfirm>(addRecordConfirm);
+    on<DeleteButtonClicked>(deleteButtonClicked);
   }
 
   //function just for adding the individual items into the list of purchase item just to be displayed on the ui.
@@ -42,6 +44,7 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
       CollectionReference productReference=firestore.collection('UserData').doc(user!.uid).collection('Products');
       final formattedDate=DateFormat('yyyy-MM-dd – kk:mm').format(event.record.purchaseDate.toDate());
       await reference.doc(formattedDate).set(event.record.toMap());
+      log('added purchase record to database');
       for(var item in event.record.items){
         DocumentReference productDoc=productReference.doc(item.productName);
         await firestore.runTransaction((transaction)async{
@@ -50,15 +53,23 @@ class AddPurchaseBloc extends Bloc<AddPurchaseEvent, AddPurchaseState> {
         throw Exception("Product does not exist!");
         }
         ProductModel product = ProductModel.fromMap(snapshot.data() as Map<String, dynamic>);
+        log('quantity of product ${product.productQuantity}');
         product.productQuantity += item.quantity;
 
         transaction.update(productDoc, product.toMap());
+        log('updated the product quantity');
         });
       }
       emit(PurchaseRecordAddSuccess());
+      itemsPurchased.clear();
     } catch (e) {
-      print(e.toString());
+      log('errorrrrr$e');
       emit(PurchaseRecordAddingError(message: e.toString()));
     }
+  }
+
+  FutureOr<void> deleteButtonClicked(DeleteButtonClicked event, Emitter<AddPurchaseState> emit) {
+    itemsPurchased.remove(event.purchasedItem);
+    emit(SinglePurchaseAddedState(purcaseItems: itemsPurchased));
   }
 }

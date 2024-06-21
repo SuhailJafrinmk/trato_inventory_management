@@ -57,7 +57,6 @@ void main()async{
       ),
       BlocProvider(
         create: (context) => AddSalesBloc(),
-        child: Container(),
       ),
       BlocProvider(
         create: (context) => SalesBloc(),

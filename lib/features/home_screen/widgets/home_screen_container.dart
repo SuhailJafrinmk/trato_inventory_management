@@ -1,5 +1,6 @@
 
 import 'dart:developer' as developer;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 
@@ -29,8 +30,9 @@ class HomeScreenContainer extends StatelessWidget {
           children: [
             CircleAvatar(),
             Spacer(),
-            Text(data,style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),),
-            Text(title,style: TextStyle(color: Colors.white),),
+            AutoSizeText(data,style:TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold) ,),
+            // Text(data,style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),),
+            AutoSizeText(title,style: TextStyle(color: Colors.white),),
           ],
         ),
       ),
