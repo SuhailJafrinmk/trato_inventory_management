@@ -6,9 +6,7 @@ sealed class AddSalesState {}
 final class AddSalesInitial extends AddSalesState {}
 class ItemQuanityAdded extends AddSalesState{
  final List<SelledItem>itemsAdded;
-
   ItemQuanityAdded({required this.itemsAdded});
-
 }
 
 class CustomerDetailsAddLoading extends AddSalesState{}

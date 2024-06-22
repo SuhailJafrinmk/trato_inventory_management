@@ -161,7 +161,7 @@ class _AddPurchaseState extends State<AddPurchase> {
                             style: buttonTextWhiteSmall,
                           ),
                           onTap: () {
-                            showCustomerForm(context, 'Supplier name', 'Supplier email');
+                            showSellerForm(context, 'Supplier name', 'Supplier email');
                           },
                         ),
                       ),

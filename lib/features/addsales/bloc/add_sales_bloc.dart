@@ -19,6 +19,7 @@ class AddSalesBloc extends Bloc<AddSalesEvent, AddSalesState> {
   AddSalesBloc() : super(AddSalesInitial()) {
    on<ConfirmSingleSale>(confirmSingleSale);
    on<ConfirmCompleteSales>(confirmCompleteSales);
+   on<DeleteButtonClickedEvent>(deleteButtonClickedEvent);
   }
 
   FutureOr<void> confirmSingleSale(ConfirmSingleSale event, Emitter<AddSalesState> emit) {
@@ -49,10 +50,16 @@ class AddSalesBloc extends Bloc<AddSalesEvent, AddSalesState> {
         });
       }
       emit(CustomerDetalsAddSuccess());
+      items.clear();
     } catch (e) {
       print(e.toString());
       emit(CustomerDetailsAddError(message: e.toString()));
     }
+  }
+
+  FutureOr<void> deleteButtonClickedEvent(DeleteButtonClickedEvent event, Emitter<AddSalesState> emit) {
+    items.remove(event.selledItem);
+    emit(ItemQuanityAdded(itemsAdded: items));
   }
 }
  

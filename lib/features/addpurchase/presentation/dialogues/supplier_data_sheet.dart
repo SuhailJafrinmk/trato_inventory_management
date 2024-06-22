@@ -13,7 +13,7 @@ import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 
-void showCustomerForm(BuildContext context, String typeName, String typeEmail) {
+void showSellerForm(BuildContext context, String typeName, String typeEmail) {
   TextEditingController customerController = TextEditingController();
   TextEditingController customerEmailController = TextEditingController();
   final formKey = GlobalKey<FormState>();

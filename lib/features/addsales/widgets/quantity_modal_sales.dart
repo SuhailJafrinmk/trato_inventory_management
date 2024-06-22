@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:input_quantity/input_quantity.dart';
 import 'package:trato_inventory_management/features/addpurchase/bloc/add_purchase_bloc.dart';
-import 'package:trato_inventory_management/models/purchased_item.dart';
+import 'package:trato_inventory_management/features/addsales/bloc/add_sales_bloc.dart';
 import 'package:trato_inventory_management/models/selled_item.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
@@ -11,21 +10,18 @@ import 'package:trato_inventory_management/widgets/custom_button.dart';
 
 class QuantityModalSales extends StatefulWidget {
   Map<String, dynamic> singleDoc;
-  List<SelledItem>selledItems=[];
-  QuantityModalSales({required this.singleDoc,required this.selledItems});
+  QuantityModalSales({required this.singleDoc});
 
   @override
   _QuantityModalState createState() => _QuantityModalState();
 }
 
 class _QuantityModalState extends State<QuantityModalSales> {
-  dynamic totalQuantity = 0;
+  int totalQuantity = 1;
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<AddPurchaseBloc>(context);
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return AlertDialog(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,6 +68,9 @@ class _QuantityModalState extends State<QuantityModalSales> {
                                   if (value == null) {
                                     return 'value cannot be null';
                                   }
+                                  if(value is double || value is! int){
+                                    return 'value must be integer';
+                                  }
                                   if(value>qty){
                                     return 'only $qty products are available';
                                   }
@@ -79,7 +78,7 @@ class _QuantityModalState extends State<QuantityModalSales> {
                                 },
                                 minVal: 1,
                                 onQtyChanged: (value) {
-                                  totalQuantity = value;
+                                 totalQuantity = value.toInt();
                                   print(totalQuantity);
                                 },
                                 steps: 1,
@@ -109,17 +108,16 @@ class _QuantityModalState extends State<QuantityModalSales> {
             Expanded(flex: 1,child: CustomButton(height: height*.05,child: Text('Cancel'),color: Colors.white,onTap: () => Navigator.pop(context),)),
              Expanded(flex: 1, child: CustomButton(height: height*.05,child: Text('Confirm',style: textbutton,),color: AppColors.primaryColor,
              onTap: () {
-            final purchasedItem = SelledItem(
+            final selledItem = SelledItem(
                   productName: widget.singleDoc['productName'],
                   supplierName: widget.singleDoc['supplier'],
-                  quantity: totalQuantity.toInt(),
+                  quantity: totalQuantity,
                   price: widget.singleDoc['purchasePrice'],
                   totalItemAmount:
                   (totalQuantity * widget.singleDoc['purchasePrice']).toInt(),
                   );
-                  widget.selledItems.add(purchasedItem);
+                  BlocProvider.of<AddSalesBloc>(context).add(ConfirmSingleSale(selledItem: selledItem));
                   Navigator.pop(context);  
-            
              },)),
           ],
         ),

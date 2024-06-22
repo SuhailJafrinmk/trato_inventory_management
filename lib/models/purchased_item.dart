@@ -1,5 +1,3 @@
-import 'package:trato_inventory_management/models/product_model.dart';
-
 class PurchasedItem{
   final String productName;
   final String supplierName;

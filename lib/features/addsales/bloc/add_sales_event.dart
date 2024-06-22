@@ -12,3 +12,8 @@ class ConfirmCompleteSales extends AddSalesEvent{
   final SalesRecordModel salesRecordModel;
   ConfirmCompleteSales({required this.salesRecordModel});
 }
+
+class DeleteButtonClickedEvent extends AddSalesEvent{
+  final SelledItem selledItem;
+  DeleteButtonClickedEvent({required this.selledItem});
+}

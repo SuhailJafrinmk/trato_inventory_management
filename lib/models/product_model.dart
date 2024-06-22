@@ -8,7 +8,7 @@ class ProductModel {
   final int sellingPrice;
   String? description;
   dynamic productImage;
-  double productQuantity;
+  int productQuantity;
   ProductModel(
       {required this.category,
       required this.productName,
