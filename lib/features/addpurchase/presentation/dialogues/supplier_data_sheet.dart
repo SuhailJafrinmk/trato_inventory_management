@@ -69,7 +69,6 @@ void showSellerForm(BuildContext context, String typeName, String typeEmail) {
                               labelText: typeName,
                               width: double.infinity,
                               padding: 10,
-                              obscureText: false,
                               fillColor: Colors.white,
                             ),
                             AppTextfield(
@@ -88,7 +87,6 @@ void showSellerForm(BuildContext context, String typeName, String typeEmail) {
                               labelText: typeEmail,
                               width: double.infinity,
                               padding: 10,
-                              obscureText: false,
                               fillColor: Colors.white,
                             ),
                             CustomButton(

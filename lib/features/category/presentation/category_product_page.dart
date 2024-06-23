@@ -41,6 +41,11 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.CategoryName),
+          actions: [
+            IconButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddProduct(categoryName: widget.CategoryName,)));
+            }, icon: Icon(Icons.add))
+          ],
         ),
         body: BlocBuilder<InventoryBloc, InventoryState>(
           builder: (context, state) {

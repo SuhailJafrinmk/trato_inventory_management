@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class HomeScreenTile extends StatelessWidget {
   final String contentType;
   void Function()? onPressed;
-
  HomeScreenTile({super.key, required this.contentType,this.onPressed});
-
-
   @override
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;

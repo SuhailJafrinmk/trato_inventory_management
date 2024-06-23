@@ -125,7 +125,7 @@ class _AddProductState extends State<AddProduct> {
                               fillColor: Colors.white,
                               labelText: 'Category',
                               padding: 10,
-                               obscureText: false) : 
+                               ) : 
                              DropDownTextfield(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -194,7 +194,7 @@ class _AddProductState extends State<AddProduct> {
                       labelText: 'Product',
                       width: double.infinity,
                       padding: 10,
-                      obscureText: false),
+                      ),
                   //textfield for adding purchase price of the product
                   AppTextfield(
                     textEditingController: purchasePriceController,
@@ -204,7 +204,6 @@ class _AddProductState extends State<AddProduct> {
                     labelText: 'Purchase Price',
                     width: double.infinity,
                     padding: 10,
-                    obscureText: false,
                     inputType: TextInputType.number,
                   ),
                   //textfield for adding selling price of the product
@@ -216,7 +215,6 @@ class _AddProductState extends State<AddProduct> {
                     labelText: 'Selling price',
                     width: double.infinity,
                     padding: 10,
-                    obscureText: false,
                     inputType: TextInputType.number,
                   ),             
                   //textfield for adding the supplier name of the product
@@ -228,7 +226,7 @@ class _AddProductState extends State<AddProduct> {
                       labelText: 'Supplier',
                       width: double.infinity,
                       padding: 10,
-                      obscureText: false),
+                      ),
                   //textfield for adding a short description for the product which is not necessary
                   AppTextfield(
                       textEditingController: productDescriptionController,
@@ -236,7 +234,7 @@ class _AddProductState extends State<AddProduct> {
                       labelText: 'Description',
                       width: double.infinity,
                       padding: 10,
-                      obscureText: false),
+                      ),
                   CustomButton(
                     height: 70,
                     width: double.infinity,

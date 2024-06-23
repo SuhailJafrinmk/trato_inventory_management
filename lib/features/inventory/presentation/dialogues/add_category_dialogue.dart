@@ -21,66 +21,66 @@ void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
             backgroundColor: Colors.white,
             title: const Text('Add category'),
             content: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AppTextfield(
-                    validateMode: AutovalidateMode.onUserInteraction,
-                    textEditingController: categoryController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'please add category name';
-                      }
-                      if (categoryNames != null) {
-                        if (categoryNames.contains(value)) {
-                          return 'Category already exist';
+              child: Form(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AppTextfield(
+                      validateMode: AutovalidateMode.onUserInteraction,
+                      textEditingController: categoryController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'please add category name';
                         }
-                      }
-                      if(value.length>25){
-                        return 'Category name should be short';
-                      }
-                      return null;
-                    },
-                    labelText: 'Category name',
-                    width: double.infinity,
-                    padding: 10,
-                    obscureText: false,
-                    fillColor: Colors.white,
-                  ),
-                  AppTextfield(
-                    textEditingController: descriptionControler,
-                    labelText: 'Description',
-                    width: double.infinity,
-                    padding: 10,
-                    obscureText: false,
-                    fillColor: Colors.white,
-                  ),
-                  CustomButton(
-                    onTap: () {
-                      inventoryBloc.add(AddCategoryButtonClicked(CategoryModel(
-                          category: categoryController.text,
-                          description: descriptionControler?.text)));
-                    },
-                    height: 60,
-                    width: double.infinity,
-                    elevation: 10,
-                    color: AppColors.primaryColor,
-                    radius: 10,
-                    child: BlocBuilder<InventoryBloc, InventoryState>(
-                      builder: (context, state) {
-                        if (state is CategoryAddLoading) {
-                          return const CircularProgressIndicator(
-                            color: Colors.white,
-                          );
+                        if (categoryNames != null) {
+                          if (categoryNames.contains(value)) {
+                            return 'Category already exist';
+                          }
                         }
-                        return Text(
-                          'Add category',
-                          style: buttonText,
-                        );
+                        if(value.length>25){
+                          return 'Category name should be short';
+                        }
+                        return null;
                       },
+                      labelText: 'Category name',
+                      width: double.infinity,
+                      padding: 10,
+                      fillColor: Colors.white,
                     ),
-                  )
-                ],
+                    AppTextfield(
+                      textEditingController: descriptionControler,
+                      labelText: 'Description',
+                      width: double.infinity,
+                      padding: 10,
+                      fillColor: Colors.white,
+                    ),
+                    CustomButton(
+                      onTap: () {
+                        inventoryBloc.add(AddCategoryButtonClicked(CategoryModel(
+                            category: categoryController.text,
+                            description: descriptionControler?.text)));
+                      },
+                      height: 60,
+                      width: double.infinity,
+                      elevation: 10,
+                      color: AppColors.primaryColor,
+                      radius: 10,
+                      child: BlocBuilder<InventoryBloc, InventoryState>(
+                        builder: (context, state) {
+                          if (state is CategoryAddLoading) {
+                            return const CircularProgressIndicator(
+                              color: Colors.white,
+                            );
+                          }
+                          return Text(
+                            'Add category',
+                            style: buttonText,
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

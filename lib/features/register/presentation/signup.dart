@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:trato_inventory_management/features/addstore/presentation/add_store.dart';
 import 'package:trato_inventory_management/features/register/bloc/register_bloc.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/icons.dart';
@@ -33,7 +34,7 @@ class _SignupScreenState extends State<SignupScreen> {
         } else if (state is RegisterSuccessState) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('Register success')));
-          Navigator.pushReplacementNamed(context, 'add_store');
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AddStorePage()));
         } else if (state is RegisterErrorState) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
@@ -104,7 +105,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                   textEditingController: usernameController,
                                   labelStyle: labeltextwhite,
                                   inputStyle: inputFieldTextWhite,
-                                  obscureText: false,
                                   labelText: 'Username',
                                   width: size.width * .7,
                                   padding: 20,
@@ -125,11 +125,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                     textEditingController: emailController,
                                     labelStyle: labeltextwhite,
                                     inputStyle: inputFieldTextWhite,
-                                    obscureText: false,
                                     labelText: 'Email',
                                     width: size.width * .7,
                                     padding: 20),
                                 AppTextfield(
+                                    isPassword: true,
                                     validateMode:
                                         AutovalidateMode.onUserInteraction,
                                     validator: (value) {
@@ -156,17 +156,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                     textEditingController: passwordController,
                                     labelStyle: labeltextwhite,
                                     inputStyle: inputFieldTextWhite,
-                                    obscureText: false,
                                     labelText: 'Password',
                                     width: size.width * .7,
                                     padding: 20,
-                                    suffixIcon: IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.visibility,
-                                          color: Colors.white,
-                                        ))),
+                                        ),
                                 AppTextfield(
+                                  isPassword: true,
                                   validateMode:
                                       AutovalidateMode.onUserInteraction,
                                   validator: (value) {
@@ -180,16 +175,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                   },
                                   labelStyle: labeltextwhite,
                                   inputStyle: inputFieldTextWhite,
-                                  obscureText: false,
                                   labelText: 'Confirm password',
                                   width: size.width * .7,
                                   padding: 20,
-                                  suffixIcon: IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.visibility,
-                                        color: Colors.white,
-                                      )),
+                                  
                                 ),
                                 CustomButton(
                                   onTap: () {

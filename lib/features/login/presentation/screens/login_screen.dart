@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:trato_inventory_management/features/home_screen/presentation/screens/home_screen.dart';
 import 'package:trato_inventory_management/features/login/bloc/login_bloc.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/regex.dart';
@@ -24,14 +25,12 @@ class _LoginScreenState extends State<LoginScreen> {
     final bloc = BlocProvider.of<LoginBloc>(context);
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoginLoadedState) {
-        } else if (state is LoginErrorState) {
+        if (state is LoginErrorState) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is LoginSuccessState) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('Login Succesfull')));
-          Navigator.pushReplacementNamed(context, 'home_screen');
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Login Succesfull')));
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
         }
       },
       child: Scaffold(
@@ -95,13 +94,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 labelStyle: labeltextwhite,
                                 inputStyle: inputFieldTextWhite,
-                                obscureText: false,
                                 textEditingController: emailController,
                                 labelText: 'Email',
                                 width: size.width * .7,
                                 padding: 20,
                               ),
                               AppTextfield(
+                                isPassword: true,
                                 validateMode:
                                     AutovalidateMode.onUserInteraction,
                                 validator: (value) {
@@ -112,7 +111,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 labelStyle: labeltextwhite,
                                 inputStyle: inputFieldTextWhite,
-                                obscureText: false,
                                 textEditingController: passwordController,
                                 labelText: 'Password',
                                 width: size.width * .7,

@@ -65,7 +65,6 @@ void showCustomerForm(BuildContext context, String customerName, String customer
                           labelText: customerName,
                           width: double.infinity,
                           padding: 10,
-                          obscureText: false,
                           fillColor: Colors.white,
                         ),
                         AppTextfield(
@@ -84,7 +83,6 @@ void showCustomerForm(BuildContext context, String customerName, String customer
                           labelText: customerEmail,
                           width: double.infinity,
                           padding: 10,
-                          obscureText: false,
                           fillColor: Colors.white,
                         ),
                         CustomButton(

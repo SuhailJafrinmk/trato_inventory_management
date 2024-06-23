@@ -4,7 +4,7 @@ class UserModel {
   final String password;
   final String? uid;
 
-  UserModel(this.userName, this.userEmail, this.password, this.uid);
+  UserModel({required this.userName, required this.userEmail, required this.password, this.uid});
   Map<String, dynamic> toMap() {
     return {
       'userName': userName,
@@ -20,6 +20,5 @@ class UserModel {
   //     password:data['password'],
   //     uid:data['uid'],
   //   );
-
   // }
 }
