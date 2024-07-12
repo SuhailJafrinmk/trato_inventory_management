@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
@@ -24,6 +25,7 @@ class RecordsAddTile extends StatelessWidget {
           topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
       elevation: 20,
       child: Container(
+        padding: const EdgeInsets.all(10),
         height: height * .2,
         width: width * .8,
         decoration: const BoxDecoration(
@@ -49,16 +51,17 @@ class RecordsAddTile extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      title,
-                      style: categoryTitle,
-                    ),
+                  AutoSizeText(
+                    title,
+                    style: categoryTitle,
+                    maxLines: 1,
+                  ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton(
-                            onPressed: onTapView, child: Text('view')),
-                        ElevatedButton(onPressed: onTapAdd, child: Text('Add')),
+                            onPressed: onTapView, child: const AutoSizeText('view')),
+                        ElevatedButton(onPressed: onTapAdd, child: const AutoSizeText('Add')),
                       ],
                     )
                   ],

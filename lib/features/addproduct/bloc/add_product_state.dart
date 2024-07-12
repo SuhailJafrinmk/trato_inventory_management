@@ -31,6 +31,7 @@ class ImagePickedState extends AddProductState{
   File? croppedIage;
   ImagePickedState({required this.croppedIage});
 }
+class ImageCroppingCancelled extends AddProductState{}
 
 
 class ProductAddedSuccessState extends AddProductState{}

@@ -12,7 +12,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-
 part 'purchase_event.dart';
 part 'purchase_state.dart';
 
@@ -23,11 +22,10 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
  on<DownloadButtonPressed>(downloadButtonPressed);
   }
 
-
+//this function creates the pdf using the pdf package,stores a copy in the firebase storage,display the generated record
 FutureOr<void> printButtonClicked(PrintButtonClicked event, Emitter<PurchaseState> emit) async {
   try {
     emit(PdfGenerationLoading());
-
     // creating the PDF with the required data using the pdf package
     final pdf = pw.Document();
     pdf.addPage(
@@ -76,9 +74,6 @@ FutureOr<void> printButtonClicked(PrintButtonClicked event, Emitter<PurchaseStat
     final storageRef = FirebaseStorage.instance.ref().child('Purchasepdfs/${DateTime.now().millisecondsSinceEpoch}.pdf');
     await storageRef.putFile(file);
     final downloadUrl = await storageRef.getDownloadURL();
-    // print('PDF uploaded successfully. Download URL: $downloadUrl');
-    // log('purchase date is : ${event.data['purchaseDate']}');
-
     // Update Firestore record with the PDF URL
     Timestamp date=event.data['purchaseDate'];
     final formattedDate=DateFormat('yyyy-MM-dd – kk:mm').format(date.toDate());
@@ -91,9 +86,7 @@ FutureOr<void> printButtonClicked(PrintButtonClicked event, Emitter<PurchaseStat
 
     // Display the locally stored PDF
     displayPDF(file);
-
     emit(PdfGenerationSuccess(pdfPath: downloadUrl));
-    log('success state emitted success');
   } catch (e) {
     emit(PdfGenerationError());
   }
@@ -105,8 +98,6 @@ void displayPDF(File pdfFile) {
 
 
   FutureOr<void> downloadButtonPressed(DownloadButtonPressed event, Emitter<PurchaseState> emit) {
-    // final filename=
     final storage=FirebaseStorage.instance;
-    
   }
 }

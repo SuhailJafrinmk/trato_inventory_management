@@ -19,9 +19,9 @@ class ConnectivityCubit extends Cubit<InternetStatus> {
   }
   void _updateConnectivityStatus(List<ConnectivityResult> result){
     if(result.contains(ConnectivityResult.mobile)||result.contains(ConnectivityResult.wifi)){
-      emit(InternetStatus(ConnectivityStatus.connected));
+      emit(const InternetStatus(ConnectivityStatus.connected));
     }else{
-      emit(InternetStatus(ConnectivityStatus.disconnected));
+      emit(const InternetStatus(ConnectivityStatus.disconnected));
     }
     log('The function is checking the intenet connection');
   }

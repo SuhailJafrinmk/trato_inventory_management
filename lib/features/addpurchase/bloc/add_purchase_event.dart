@@ -3,7 +3,7 @@ part of 'add_purchase_bloc.dart';
 @immutable
 sealed class AddPurchaseEvent {}
 class ConfirmQuantity extends AddPurchaseEvent{
-  PurchasedItem purchasedItem;
+  final PurchasedItem purchasedItem;
   ConfirmQuantity({required this.purchasedItem});
 }
 class AddRecordConfirm extends AddPurchaseEvent{
@@ -12,6 +12,6 @@ class AddRecordConfirm extends AddPurchaseEvent{
   AddRecordConfirm({required this.record});
 }
 class DeleteButtonClicked extends AddPurchaseEvent{
- PurchasedItem purchasedItem;
+ final PurchasedItem purchasedItem;
  DeleteButtonClicked({required this.purchasedItem});
 }

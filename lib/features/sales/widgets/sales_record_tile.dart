@@ -6,11 +6,13 @@ class SalesTile extends StatelessWidget {
   final Map<String, dynamic> records;
   void Function()? onTap;
   void Function()? printIconPressed;
+  bool isPrint;
   SalesTile(
       {super.key,
       required this.records,
       this.onTap,
       this.printIconPressed,
+      this.isPrint=true,
       });
 
   @override
@@ -67,11 +69,11 @@ class SalesTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                 
-                    
+                    isPrint==true ?
                        IconButton(
                         icon: const Icon(Icons.print),
                         onPressed: printIconPressed,
-                      ),
+                      ) : const SizedBox(),
                 
                  
                 ],

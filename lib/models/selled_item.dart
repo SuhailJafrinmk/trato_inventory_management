@@ -1,4 +1,4 @@
-import 'package:trato_inventory_management/models/product_model.dart';
+
 
 class SelledItem{
   final String productName;

@@ -23,7 +23,6 @@ class _AddStorePageState extends State<AddStorePage> {
   TextEditingController locationController = TextEditingController();
   TextEditingController contactController = TextEditingController();
   TextEditingController gstidController = TextEditingController();
-  TextEditingController currencyController = TextEditingController();
   final formkey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -33,7 +32,6 @@ class _AddStorePageState extends State<AddStorePage> {
       locationController.text = widget.storeDetails!['location'];
       contactController.text = widget.storeDetails!['contactInfo'];
       gstidController.text = widget.storeDetails!['gstId'];
-      currencyController.text = widget.storeDetails!['currency'];
     }
     super.initState();
   }
@@ -63,7 +61,7 @@ class _AddStorePageState extends State<AddStorePage> {
       child: Scaffold(
         appBar: widget.storeDetails != null
             ? AppBar(
-                title: Text('Edit store details'),
+                title: const Text('Edit store details'),
               )
             : null,
         backgroundColor: AppColors.backgroundColor,
@@ -74,7 +72,7 @@ class _AddStorePageState extends State<AddStorePage> {
                 builder: (context, state) {
                   if (state is AddstoreLoading) {
                     return const Center(
-                      child: const SizedBox(
+                      child:  SizedBox(
                         height: 20,
                         width: 20,
                         child: CircularProgressIndicator(),
@@ -169,22 +167,7 @@ class _AddStorePageState extends State<AddStorePage> {
                             borderColor: Colors.black,
                             labelStyle: labeltextblack,
                           ),
-                          AppTextfield(
-                            validateMode: AutovalidateMode.onUserInteraction,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'please enter a value';
-                              }
-                              return null;
-                            },
-                            textEditingController: currencyController,
-                            fillColor: AppColors.backgroundColor,
-                            labelText: 'Currency',
-                            width: size.width * .8,
-                            padding: 20,
-                            borderColor: Colors.black,
-                            labelStyle: labeltextblack,
-                          ),
+                         
                           CustomButton(
                             onTap: () {
                               StoreModel storeModel = StoreModel(
@@ -192,7 +175,7 @@ class _AddStorePageState extends State<AddStorePage> {
                                   location: locationController.text,
                                   contactInfo: contactController.text,
                                   gstId: gstidController.text,
-                                  currency: currencyController.text);
+                                  );
                               if (formkey.currentState!.validate()) {
                                 if (widget.storeDetails == null) {
                                   bloc.add(
@@ -202,7 +185,7 @@ class _AddStorePageState extends State<AddStorePage> {
                                       storeModel: storeModel));
                                 }
                               }else{
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid credentials')));
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Invalid credentials')));
                               }
                             },
                             height: size.height * .07,

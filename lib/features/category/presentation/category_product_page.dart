@@ -9,9 +9,9 @@ import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/product_tile.dart';
 
 class CategoryProductPage extends StatefulWidget {
-  final String CategoryName;
+  final String categoryName;
 
-  CategoryProductPage({super.key, required this.CategoryName});
+  CategoryProductPage({super.key, required this.categoryName});
 
   @override
   State<CategoryProductPage> createState() => _CategoryProductPageState();
@@ -22,7 +22,7 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
   List<Map<String, dynamic>> categoryProducts = [];
   @override
   void initState() {
-    BlocProvider.of<InventoryBloc>(context).add(CategoryTileClicked(categoryName: widget.CategoryName));
+    BlocProvider.of<InventoryBloc>(context).add(CategoryTileClicked(categoryName: widget.categoryName));
     super.initState();
   }
 
@@ -40,11 +40,11 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.CategoryName),
+          title: Text(widget.categoryName),
           actions: [
             IconButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddProduct(categoryName: widget.CategoryName,)));
-            }, icon: Icon(Icons.add))
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddProduct(categoryName: widget.categoryName,)));
+            }, icon: const Icon(Icons.add))
           ],
         ),
         body: BlocBuilder<InventoryBloc, InventoryState>(
@@ -78,15 +78,15 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                     color: Colors.black38,
                     borderType: BorderType.Circle,
                     child: IconButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddProduct(categoryName: widget.CategoryName,)));
-                    }, icon: Icon(Icons.add,size: 50,color: Colors.black38,))),
-                    SizedBox(height: 10,),
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddProduct(categoryName: widget.categoryName,)));
+                    }, icon: const Icon(Icons.add,size: 50,color: Colors.black38,))),
+                    const SizedBox(height: 10,),
                      Text('Add Product to this category',style: notImportant,),
                 ],
               ),
             );
             }
-            return SizedBox();
+            return const SizedBox();
           },
          
         ),

@@ -1,11 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:trato_inventory_management/features/addstore/presentation/add_store.dart';
 import 'package:trato_inventory_management/features/register/bloc/register_bloc.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
-import 'package:trato_inventory_management/utils/constants/icons.dart';
 import 'package:trato_inventory_management/utils/constants/regex.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/app_textfield.dart';
@@ -33,7 +32,7 @@ class _SignupScreenState extends State<SignupScreen> {
         if (state is RegisterLoadingState) {
         } else if (state is RegisterSuccessState) {
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Register success')));
+              .showSnackBar(const SnackBar(content: Text('Register success')));
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AddStorePage()));
         } else if (state is RegisterErrorState) {
           ScaffoldMessenger.of(context)
@@ -70,7 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 30),
-                        child: Text(
+                        child: AutoSizeText(
                           'Register',
                           style: signInGreeting,
                         ),
@@ -78,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 60),
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 15),
                           width: size.width * .8,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -201,7 +200,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         return Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
-                                            Text('Registering...',style: TextStyle(fontSize: 20,color: Colors.white),),
+                                            const Text('Registering...',style: TextStyle(fontSize: 20,color: Colors.white),),
                                             LoadingAnimationWidget.threeArchedCircle(color: Colors.white, size: 25),
                                           ],
                                         );
@@ -217,12 +216,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text('Already have an account',style: TextStyle(color: Colors.white38),),
+                                    const Text('Already have an account',style: TextStyle(color: Colors.white38),),
                                     TextButton(
                                         onPressed: () {
                                           Navigator.pushNamed(context, 'login');
                                         },
-                                        child: Text('Login',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))
+                                        child: const Text('Login',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))
                                   ],
                                 )
                               ],

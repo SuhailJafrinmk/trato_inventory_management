@@ -10,7 +10,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
   final bool isExpanded;
   final ValueChanged<T?>? onChanged;
 
-   CustomDropdownButton({
+   const CustomDropdownButton({
     Key? key,
     required this.items,
     required this.value,
@@ -27,7 +27,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return InputDecorator(
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(7),
+        contentPadding: const EdgeInsets.all(7),
         border: InputBorder.none,
         hintText: hintText,
         hintStyle: const TextStyle(

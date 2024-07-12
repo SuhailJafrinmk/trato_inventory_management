@@ -42,6 +42,7 @@ void checkLoginStatus(context)async{
       SharedPreferences ?sharedPreferences=await SharedPreferences.getInstance();
       final loginStatus=sharedPreferences.getBool('loginkey');
       if(loginStatus==null){
+        // ignore: prefer_const_constructors
         Future.delayed(Duration(seconds: 3),(){
           Navigator.pushReplacementNamed(context, 'onboarding');
         });

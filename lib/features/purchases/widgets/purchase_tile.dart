@@ -8,9 +8,11 @@ class PurchaseTile extends StatelessWidget {
   void Function()? onTap;
   void Function()? printIconPressed;
   void Function()? downloadPressed;
+  bool isPrint;
 
   PurchaseTile(
       {super.key,
+      this.isPrint=true,
       required this.records,
       this.onTap,
       this.printIconPressed,
@@ -75,12 +77,11 @@ class PurchaseTile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                  
-                        
+                      isPrint==true ? 
                            IconButton(
                             icon: const Icon(Icons.print),
                             onPressed: printIconPressed,
-                          ),
+                          ) : SizedBox(),
                      
                     ],
                   ),

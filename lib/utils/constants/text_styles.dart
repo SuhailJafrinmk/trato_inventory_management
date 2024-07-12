@@ -28,7 +28,7 @@ TextStyle minorText=const TextStyle(
 TextStyle categoryTitle=const TextStyle(
   color: Colors.black,
   fontWeight: FontWeight.bold,
-  fontSize: 25,
+  fontSize: 23,
 );
 TextStyle carouselTextLarge=const TextStyle(
   fontSize: 30,
@@ -86,24 +86,24 @@ TextStyle onboardingTitle=const TextStyle(
   color: Colors.black
 );
 
-TextStyle modalDescription=TextStyle(
+TextStyle modalDescription=const TextStyle(
   fontSize: 15,
-  color: const Color.fromARGB(255, 51, 51, 51),
+  color: Color.fromARGB(255, 51, 51, 51),
 );
 
-TextStyle buttonTextWhiteSmall=TextStyle(
+TextStyle buttonTextWhiteSmall=const TextStyle(
   fontSize: 16,
   color: Colors.white,
   fontWeight: FontWeight.w500
 
 );
 
-TextStyle outOfStockIems=TextStyle(
+TextStyle outOfStockIems=const TextStyle(
   color: Colors.red,
   fontSize: 25,
 );
 
-TextStyle notImportant=TextStyle(
+TextStyle notImportant=const TextStyle(
   color: Colors.black38,
   fontSize: 20
 );

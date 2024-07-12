@@ -1,13 +1,15 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:input_quantity/input_quantity.dart';
-import 'package:trato_inventory_management/features/addpurchase/bloc/add_purchase_bloc.dart';
 import 'package:trato_inventory_management/features/addsales/bloc/add_sales_bloc.dart';
 import 'package:trato_inventory_management/models/selled_item.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 
+// ignore: must_be_immutable
 class QuantityModalSales extends StatefulWidget {
   Map<String, dynamic> singleDoc;
   QuantityModalSales({required this.singleDoc});
@@ -25,7 +27,7 @@ class _QuantityModalState extends State<QuantityModalSales> {
     return AlertDialog(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [Text('Select quantity'),
+        children: [const Text('Select quantity'),
         Text('Please select the required quantity for the product',style: modalDescription,)],
       ),
       content: SingleChildScrollView(
@@ -62,7 +64,7 @@ class _QuantityModalState extends State<QuantityModalSales> {
                               Text(widget.singleDoc['productName']),
                               Text('Supplier : ${widget.singleDoc['supplier']}'),
                               InputQty(
-                                qtyFormProps: QtyFormProps(enableTyping: true),
+                                qtyFormProps: const QtyFormProps(enableTyping: true),
                                 validator: (value) {
                                   final qty=widget.singleDoc['productQuantity'];
                                   if (value == null) {
@@ -105,8 +107,8 @@ class _QuantityModalState extends State<QuantityModalSales> {
       actions: <Widget>[
         Row(
           children: [
-            Expanded(flex: 1,child: CustomButton(height: height*.05,child: Text('Cancel'),color: Colors.white,onTap: () => Navigator.pop(context),)),
-             Expanded(flex: 1, child: CustomButton(height: height*.05,child: Text('Confirm',style: textbutton,),color: AppColors.primaryColor,
+            Expanded(flex: 1,child: CustomButton(height: height*.05,color: Colors.white,onTap: () => Navigator.pop(context),child: const Text('Cancel'),)),
+             Expanded(flex: 1, child: CustomButton(height: height*.05,color: AppColors.primaryColor,
              onTap: () {
             final selledItem = SelledItem(
                   productName: widget.singleDoc['productName'],
@@ -118,7 +120,7 @@ class _QuantityModalState extends State<QuantityModalSales> {
                   );
                   BlocProvider.of<AddSalesBloc>(context).add(ConfirmSingleSale(selledItem: selledItem));
                   Navigator.pop(context);  
-             },)),
+             },child: Text('Confirm',style: textbutton,),)),
           ],
         ),
         

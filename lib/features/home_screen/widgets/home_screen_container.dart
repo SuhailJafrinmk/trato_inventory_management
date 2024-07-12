@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 class HomeScreenContainer extends StatelessWidget {
  final String data;
  final String title;
-
-  HomeScreenContainer({super.key, required this.data, required this.title});
+ final String backgroundImage;
+  HomeScreenContainer({super.key, required this.data, required this.title,required this.backgroundImage});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class HomeScreenContainer extends StatelessWidget {
     return Container(
       height: height * .16,
       width: width * .42,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color.fromARGB(255, 57, 103, 98),
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
@@ -25,10 +25,13 @@ class HomeScreenContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(),
-            Spacer(),
-            AutoSizeText(data,style:TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold) ,),
-            AutoSizeText(title,style: TextStyle(color: Colors.white),),
+            CircleAvatar(
+              backgroundColor: Colors.transparent,
+              backgroundImage: AssetImage(backgroundImage),
+            ),
+            const Spacer(),
+            AutoSizeText(data,style:const TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,),
+            AutoSizeText(title,style: const TextStyle(color: Colors.white),maxLines: 1,overflow: TextOverflow.ellipsis,),
           ],
         ),
       ),

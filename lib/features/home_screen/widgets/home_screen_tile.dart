@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenTile extends StatelessWidget {
@@ -7,15 +8,14 @@ class HomeScreenTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
-    final width=MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Container(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         height: height*.08,
         // width: width*.8,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 188, 198, 215),
+          color: const Color.fromARGB(255, 188, 198, 215),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
@@ -23,12 +23,12 @@ class HomeScreenTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(),
-                SizedBox(width: 20,),
-                Text(contentType,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)
+                const CircleAvatar(),
+                const SizedBox(width: 20,),
+                AutoSizeText(contentType,style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)
               ],
             ),
-            IconButton(onPressed: onPressed, icon: Icon(Icons.arrow_forward_ios)),
+            IconButton(onPressed: onPressed, icon: const Icon(Icons.arrow_forward_ios)),
           ],
         ),
       ),

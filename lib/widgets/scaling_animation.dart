@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class OneTimeScalingAnimation extends StatefulWidget {
@@ -6,7 +8,7 @@ class OneTimeScalingAnimation extends StatefulWidget {
   final double minScale;
   final double maxScale;
 
-  OneTimeScalingAnimation({
+  const OneTimeScalingAnimation({
     required this.child,
     this.duration = const Duration(seconds: 2),
     this.minScale = 0.1,

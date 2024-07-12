@@ -52,6 +52,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc() : super(RegisterInitial()) {
     on<RegisterButtonClickedEvent>(registerButtonClickedEvent);
   }
+
+  //this function registers a new user with an email and password and store username and useremail to firestore
   FutureOr<void> registerButtonClickedEvent(RegisterButtonClickedEvent event, Emitter<RegisterState> emit) async {
     try {
       emit(RegisterLoadingState());
@@ -69,12 +71,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         await currentUser.reload();
         await currentUser.updateDisplayName(event.userName);
       }
-      UserModel model=UserModel(userName: event.userName, userEmail: event.useEmail, password: event.password,uid: currentUser!.uid);
+      UserModel model=UserModel(userName: event.userName, userEmail: event.useEmail,uid: currentUser!.uid);
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       await firestore.collection('UserData').doc(currentUser.uid).set(model.toMap());
       emit(RegisterSuccessState());
     } catch (e) {
-      print(e.toString());
       String errorMessage;
       if (e is FirebaseAuthException) {
         switch (e.code) {

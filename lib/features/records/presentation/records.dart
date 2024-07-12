@@ -1,4 +1,5 @@
 import 'dart:developer' as developer;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/addsales/presentation/screens/add_sales.dart';
@@ -44,7 +45,7 @@ class _RecordsState extends State<Records> {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ListOfSellers()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ListOfSellers()));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),
@@ -60,24 +61,24 @@ class _RecordsState extends State<Records> {
                       BlocBuilder<RecordsPageBloc, RecordsPageState>(
                         builder: (context, state) {
                           if (state is FetchedCustomerAndSellerDetails) {
-                            return Text(
+                            return AutoSizeText(
                               '${state.sellerData.length}',
                               style: categoryTitle,
                             );
                           }
-                          return Text(
+                          return const AutoSizeText(
                             'Not available',
                           );
                         },
                       ),
-                      const Text('Sellers'),
+                      const AutoSizeText('Sellers'),
                     ],
                   ),
                 ),
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ListOfCustomers()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ListOfCustomers()));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),
@@ -92,16 +93,14 @@ class _RecordsState extends State<Records> {
                       BlocBuilder<RecordsPageBloc, RecordsPageState>(
                         builder: (context, state) {
                           if(state is FetchedCustomerAndSellerDetails){
-                            developer.log('items in customer data are ${state.customerData}');
-                            developer.log('items in seller data are ${state.sellerData}');
-                            return Text('${state.customerData.length}',style: categoryTitle,);
+                            return AutoSizeText('${state.customerData.length}',style: categoryTitle,);
                           }
-                          return Text(
+                          return const AutoSizeText(
                             'not available',
                           );
                         },
                       ),
-                      const Text('Customers'),
+                      const AutoSizeText('Customers'),
                     ],
                   ),
                 ),
@@ -127,7 +126,7 @@ class _RecordsState extends State<Records> {
           onTapView: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => SalesList())),
           onTapAdd: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddSales())),
+              context, MaterialPageRoute(builder: (context) => const AddSales())),
         ),
       ],
     ));

@@ -1,6 +1,5 @@
 import 'dart:developer' as developer;
 import 'dart:async';
-import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +8,6 @@ part 'home_screen_event.dart';
 part 'home_screen_state.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
-  final userId = FirebaseAuth.instance.currentUser!.uid;
   List<Map<String,dynamic>>stockOutItems=[];
   List<Map<String,dynamic>>recentSales=[];
   List<Map<String,dynamic>>recentPurchases=[];
@@ -22,6 +20,10 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   FutureOr<void> fetchHomeScreenData(FetchHomeScreenData event, Emitter<HomeScreenState> emit) async{
     try{
     emit(HomeScreenDataLoading());
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+      if (userId == null) {
+        throw Exception("User not logged in");
+      }
     CollectionReference collectionReference=FirebaseFirestore.instance.collection('UserData').doc(userId).collection('SalesRecord');
     CollectionReference productCollection=FirebaseFirestore.instance.collection('UserData').doc(userId).collection('Products');
     CollectionReference categoryCollection=FirebaseFirestore.instance.collection('UserData').doc(userId).collection('Category');

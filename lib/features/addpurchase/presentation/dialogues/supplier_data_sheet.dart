@@ -1,6 +1,4 @@
 
-import 'dart:developer';
-import 'dart:developer' as developer;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +17,7 @@ void showSellerForm(BuildContext context, String typeName, String typeEmail) {
   final formKey = GlobalKey<FormState>();
   final customerFocusNode = FocusNode();
   final emailFocusNode = FocusNode();
-    final currentState = BlocProvider.of<AddPurchaseBloc>(context).state;
+  final currentState = BlocProvider.of<AddPurchaseBloc>(context).state;
   List<PurchasedItem> itemsPurchased = [];
   if (currentState is SinglePurchaseAddedState) {
     itemsPurchased.addAll(currentState.purcaseItems);
@@ -91,7 +89,6 @@ void showSellerForm(BuildContext context, String typeName, String typeEmail) {
                             ),
                             CustomButton(
                               onTap: () {
-                                developer.log('items in list is ${itemsPurchased.length}');
                                 if (formKey.currentState!.validate()) {
                                   DateTime now = DateTime.now();
                                   Timestamp timestamp=Timestamp.fromDate(now);
@@ -111,7 +108,7 @@ void showSellerForm(BuildContext context, String typeName, String typeEmail) {
                                   if(record.items.isNotEmpty){
                                   BlocProvider.of<AddPurchaseBloc>(context).add(AddRecordConfirm(record: record));
                                   }else{
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No items added')));
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No items added')));
                                   }
                                 }
                               },

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
               .showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is LoginSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Login Succesfull')));
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const HomeScreen()), (route) => false);
         }
       },
       child: Scaffold(
@@ -65,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
+                      AutoSizeText(
                         'Welcome back',
                         style: signInGreeting,
                       ),
@@ -145,12 +146,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                       return Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Text('Logging in...',style: TextStyle(color: Colors.white,fontSize: 20),),
+                                          const Text('Logging in...',style: TextStyle(color: Colors.white,fontSize: 20),),
                                           LoadingAnimationWidget.threeArchedCircle(color: Colors.white, size: 25),
                                         ],
                                       );
                                     }
-                                    return Text(
+                                    return AutoSizeText(
                                       'Login',
                                       style: buttonText,
                                     );
@@ -161,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(
+                                  AutoSizeText(
                                     'dont have an account',
                                     style: minorText,
                                   ),
@@ -169,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       onPressed: () {
                                         Navigator.pushNamed(context, 'signup');
                                       },
-                                      child: Text(
+                                      child: AutoSizeText(
                                         'SignUp',
                                         style: textbutton,
                                       ))

@@ -1,8 +1,5 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
-import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 
@@ -64,7 +61,7 @@ class ProductDetails extends StatelessWidget {
                             Text('Selling Price : ${productData['sellingPrice']}',style: productDescription,),
                             Text('Supplier : ${productData['supplier']}',style: productDescription,),
                             Text('Product Quantity : ${productData['productQuantity']}',style: productDescription,),
-                           Text('Product Description',style: TextStyle(fontSize: 20,),),
+                           const Text('Product Description',style: TextStyle(fontSize: 20,),),
                             Text('${productData['description']}' ?? '',style: productDescription,),
                             
                             SizedBox(height: size.height*.02,),

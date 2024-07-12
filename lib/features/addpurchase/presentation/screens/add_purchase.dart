@@ -20,8 +20,6 @@ class AddPurchase extends StatefulWidget {
 class _AddPurchaseState extends State<AddPurchase> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     User? user = FirebaseAuth.instance.currentUser;
 
     return BlocListener<AddPurchaseBloc, AddPurchaseState>(
@@ -126,7 +124,7 @@ class _AddPurchaseState extends State<AddPurchase> {
                                       onPressed: () {
                                         BlocProvider.of<AddPurchaseBloc>(context).add(DeleteButtonClicked(purchasedItem: singleItem));
                                       },
-                                      icon: Icon(Icons.delete)),
+                                      icon: const Icon(Icons.delete)),
                                   subtitle: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -142,7 +140,9 @@ class _AddPurchaseState extends State<AddPurchase> {
                         ],
                       );
                     }
-                    return const SizedBox();
+                    return const Center(
+                      child: Text('Please Select a product and\n add the required quanity'),
+                    );
                   },
                 ),
               ),
@@ -153,7 +153,7 @@ class _AddPurchaseState extends State<AddPurchase> {
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: 50, // Adjust the height as needed
+                        height: 50, 
                         child: CustomButton(
                           color: AppColors.primaryColor,
                           child: Text(
@@ -171,6 +171,7 @@ class _AddPurchaseState extends State<AddPurchase> {
                       child: SizedBox(
                         height: 50, // Adjust the height as needed
                         child: CustomButton(
+                          onTap: () => Navigator.pop(context),
                           color: AppColors.primaryColor,
                           child: Text(
                             'Cancel',

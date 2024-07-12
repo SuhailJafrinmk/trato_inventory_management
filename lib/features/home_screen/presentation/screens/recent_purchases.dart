@@ -17,11 +17,16 @@ class RecentPurchases extends StatelessWidget {
       body: BlocBuilder<HomeScreenBloc, HomeScreenState>(
         builder: (context, state) {
           if(state is HomeScreenDataSuccess){
+            if(state.recentPurchases.isEmpty){
+              return const Center(
+                child: Text('There is no recent purchases to display'),
+              );
+            }
           return ListView.builder(
             itemCount: state.recentPurchases.length,
               itemBuilder: (context,index){
                 final data=state.recentPurchases[index];
-                return PurchaseTile(records: data);
+                return PurchaseTile(records: data,isPrint: false,);
               }
               );
           }

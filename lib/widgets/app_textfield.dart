@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trato_inventory_management/features/login/cubit/obscure_cubit.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 
-class AppTextfield extends StatelessWidget {
+class AppTextfield extends StatefulWidget {
   final String labelText;
   final double? width;
   final double padding;
@@ -22,7 +22,7 @@ class AppTextfield extends StatelessWidget {
   final bool? readOnly;
   final bool isPassword;
 
-  AppTextfield({
+  const AppTextfield({
     Key? key,
     required this.labelText,
     this.width,
@@ -44,40 +44,46 @@ class AppTextfield extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AppTextfield> createState() => _AppTextfieldState();
+}
+
+
+class _AppTextfieldState extends State<AppTextfield> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: padding, vertical: 8),
-      child: Container(
-        width: width,
+      padding: EdgeInsets.symmetric(horizontal: widget.padding, vertical: 8),
+      child: SizedBox(
+        width: widget.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              labelText,
-              style: labelStyle,
+              widget.labelText,
+              style: widget.labelStyle,
             ),
-            if (isPassword)
+            if (widget.isPassword)
               BlocProvider(
                 create: (_) => ObscureCubit(),
                 child: BlocBuilder<ObscureCubit, bool>(
                   builder: (context, passwordHidden) {
                     return TextFormField(
-                      readOnly: readOnly ?? false,
-                      focusNode: focusNode,
-                      style: inputStyle,
-                      onChanged: onChanged,
-                      autovalidateMode: validateMode,
+                      readOnly: widget.readOnly ?? false,
+                      focusNode: widget.focusNode,
+                      style: widget.inputStyle,
+                      onChanged: widget.onChanged,
+                      autovalidateMode: widget.validateMode,
                       obscureText: passwordHidden,
-                      keyboardType: inputType,
-                      controller: textEditingController,
-                      validator: validator,
+                      keyboardType: widget.inputType,
+                      controller: widget.textEditingController,
+                      validator: widget.validator,
                       decoration: InputDecoration(
                         border: const UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        fillColor: fillColor,
+                        fillColor: widget.fillColor,
                         filled: true,
-                        hintText: hintText,
+                        hintText: widget.hintText,
                         suffixIcon: IconButton(
                           icon: Icon(
                             passwordHidden ? Icons.visibility_off : Icons.visibility,
@@ -93,23 +99,23 @@ class AppTextfield extends StatelessWidget {
               )
             else
               TextFormField(
-                readOnly: readOnly ?? false,
-                focusNode: focusNode,
-                style: inputStyle,
-                onChanged: onChanged,
-                autovalidateMode: validateMode,
-                obscureText: isPassword,
-                keyboardType: inputType,
-                controller: textEditingController,
-                validator: validator,
+                readOnly: widget.readOnly ?? false,
+                focusNode: widget.focusNode,
+                style: widget.inputStyle,
+                onChanged: widget.onChanged,
+                autovalidateMode: widget.validateMode,
+                obscureText: widget.isPassword,
+                keyboardType: widget.inputType,
+                controller: widget.textEditingController,
+                validator: widget.validator,
                 decoration: InputDecoration(
                   border: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
-                  fillColor: fillColor,
+                  fillColor: widget.fillColor,
                   filled: true,
-                  hintText: hintText,
-                  suffixIcon: suffixIcon,
+                  hintText: widget.hintText,
+                  suffixIcon: widget.suffixIcon,
                 ),
               ),
           ],

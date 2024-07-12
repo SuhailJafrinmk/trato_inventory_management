@@ -1,3 +1,6 @@
+// ignore_for_file: use_key_in_widget_constructors
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +19,7 @@ class SalesList extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Sales records'),
+            title: const AutoSizeText('Sales records'),
           ),
           body: Stack(
             children: [
@@ -31,9 +34,9 @@ class SalesList extends StatelessWidget {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      return const Center(child: Text('Error fetching records'));
+                      return const Center(child: AutoSizeText('Error fetching records'));
                     } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                      return const Center(child: Text('No records available'));
+                      return const Center(child: AutoSizeText('No records available'));
                     } else {
                       final data = snapshot.data!.docs;
                       return ListView.builder(
@@ -65,8 +68,8 @@ class SalesList extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           LoadingAnimationWidget.threeArchedCircle(color: AppColors.primaryColor, size: 20),
-                          SizedBox(width: 20),
-                          Text("Generating PDF..."),
+                          const SizedBox(width: 20),
+                          const AutoSizeText("Generating PDF..."),
                         ],
                       ),
                     ),

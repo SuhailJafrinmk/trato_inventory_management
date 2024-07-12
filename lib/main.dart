@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,45 +30,19 @@ void main() async {
 
   runApp(MultiBlocProvider(
     providers: [
-      BlocProvider(
-        create: (context) => LoginBloc(),
-      ),
-      BlocProvider(
-        create: (context) => RegisterBloc(),
-      ),
-      BlocProvider(
-        create: (context) => ProfileBloc(),
-      ),
-      BlocProvider(
-        create: (context) => AddstoreBloc(),
-      ),
-      BlocProvider(
-        create: (context) => InventoryBloc(),
-      ),
-      BlocProvider(
-        create: (context) => AddProductBloc(),
-      ),
-      BlocProvider(
-        create: (context) => AddPurchaseBloc(),
-      ),
-      BlocProvider(
-        create: (context) => PurchaseBloc(),
-      ),
-      BlocProvider(
-        create: (context) => AddSalesBloc(),
-      ),
-      BlocProvider(
-        create: (context) => SalesBloc(),
-      ),
-      BlocProvider(
-        create: (context) => HomeScreenBloc(),
-      ),
-      BlocProvider(
-        create: (context) => RecordsPageBloc(),
-      ),
-      BlocProvider(
-        create: (context) => ObscureCubit(),
-      )
+      BlocProvider(create: (context) => LoginBloc()),
+      BlocProvider(create: (context) => RegisterBloc()),
+      BlocProvider(create: (context) => ProfileBloc()),
+      BlocProvider(create: (context) => AddstoreBloc()),
+      BlocProvider(create: (context) => InventoryBloc()),
+      BlocProvider(create: (context) => AddProductBloc()),
+      BlocProvider(create: (context) => AddPurchaseBloc()),
+      BlocProvider(create: (context) => PurchaseBloc()),
+      BlocProvider(create: (context) => AddSalesBloc()),
+      BlocProvider(create: (context) => SalesBloc()),
+      BlocProvider(create: (context) => HomeScreenBloc()),
+      BlocProvider(create: (context) => RecordsPageBloc()),
+      BlocProvider(create: (context) => ObscureCubit()),
     ],
     child: const MyApp(),
   ));
@@ -112,12 +85,12 @@ class MyApp extends StatelessWidget {
         builder: (context) => WillPopScope(
           onWillPop: () async => false, 
           child: AlertDialog(
-            title: Text('No Connection'),
-            content: Text('You are not connected to the internet.'),
+            title: const Text('No Connection'),
+            content: const Text('You are not connected to the internet.\nPlease connect to the internet to dismiss this dialogue'),
             actions: [
               TextButton(
                 onPressed: () {},
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),

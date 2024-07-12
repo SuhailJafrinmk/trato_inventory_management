@@ -18,6 +18,11 @@ class OutOfStockItems extends StatelessWidget {
       body: BlocBuilder<HomeScreenBloc, HomeScreenState>(
         builder: (context, state) {
           if(state is HomeScreenDataSuccess){
+            if(state.stockOutItems.isEmpty){
+              return const Center(
+                child: Text('There is no stock out items to display'),
+              );
+            }
             return ListView.builder(
               itemCount: state.stockOutItems.length,
               itemBuilder: (context,index){

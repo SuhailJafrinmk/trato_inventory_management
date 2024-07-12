@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 
@@ -18,11 +19,11 @@ void Function()? onTap;
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.category, size: 40, color: Colors.black),
-            SizedBox(height: 8),
-            Text(
+            const Icon(Icons.category, size: 40, color: Colors.black),
+            const SizedBox(height: 8),
+            AutoSizeText(
               categoryname,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black
               ),

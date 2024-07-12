@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,6 @@ class ProfileScreen extends StatefulWidget {
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
-
 class _ProfileScreenState extends State<ProfileScreen> {
    Map<String,dynamic>? storeDetails;
   @override
@@ -22,12 +22,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<ProfileBloc>(context);
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
         if (state is LogoutSuccess) {
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Logging out')));
+              .showSnackBar(const SnackBar(content: Text('Logging out')));
           Navigator.pushReplacementNamed(context, 'login');
         }
         if(state is FetchedStoreDetails){
@@ -50,9 +49,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
                 if (state is FetchedStoreDetails) {
-                  return Text('${state.data['storeName']}',style: categoryTitle,);
+                  return AutoSizeText('${state.data['storeName']}',style: categoryTitle,);
                 }
-                return Text(
+                return const AutoSizeText(
                   'Not available',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 );
@@ -63,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 if(state is FetchedStoreDetails){
                   return Text('GST ID : ${state.data['gstId']}');
                 }
-                return Text(
+                return const Text(
                   'Gst id:1212121212',
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 );
@@ -79,14 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>AddStorePage(storeDetails: storeDetails,)));
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.notifications),
-              title: const Text('Notifications'),
-              trailing: Switch(
-                value: true,
-                onChanged: (value) {},
-              ),
-            ),
+
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
@@ -102,5 +94,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 void showLogoutConfirmPopup(BuildContext context) {
-  showDialog(context: context, builder: (context) => LogoutConfirmModal());
+  showDialog(context: context, builder: (context) => const LogoutConfirmModal());
 }

@@ -10,7 +10,6 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final user=FirebaseAuth.instance.currentUser;
   final firestore=FirebaseFirestore.instance;
   ProfileBloc() : super(ProfileInitial()) {
    on<LogoutTilePressed>(logoutTilePressed);
@@ -33,7 +32,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   FutureOr<void> fetchStoreDetails(FetchStoreDetails event, Emitter<ProfileState> emit) async{
     try{
     emit(FetchingStoreDetails());
-    DocumentReference documentReference=firestore.collection('UserData').doc(user!.uid).collection('store details').doc(user!.uid);
+     final user = FirebaseAuth.instance.currentUser?.uid;
+      if (user == null) {
+        throw Exception("User not logged in");
+      }
+    DocumentReference documentReference=firestore.collection('UserData').doc(user).collection('store details').doc(user);
     final documents=await documentReference.get();
     final data=documents.data() as Map<String,dynamic>;
     emit(FetchedStoreDetails(data: data));

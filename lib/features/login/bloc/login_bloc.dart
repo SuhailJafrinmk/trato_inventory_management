@@ -14,18 +14,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
     on<LoginButtonPressedEvent>(_onLoginButtonPressed);
   }
+
+  //this function logins an existing user by checking firebase for existing user 
+  //sets the login status to true in shared preference storage
   Future<void> _onLoginButtonPressed(
       LoginButtonPressedEvent event, Emitter<LoginState> emit) async {
     emit(LoginLoadedState());
-
     try {
-      UserCredential credential = await _firebaseAuth.signInWithEmailAndPassword(
+      UserCredential credential =
+          await _firebaseAuth.signInWithEmailAndPassword(
         email: event.userEmail,
         password: event.userPassword,
       );
       _user = credential.user;
-
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
       sharedPreferences.setBool('loginkey', true);
       emit(LoginSuccessState());
     } on FirebaseAuthException catch (e) {

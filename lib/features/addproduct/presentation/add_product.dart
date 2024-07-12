@@ -1,5 +1,5 @@
-import 'dart:developer' as developer;
 import 'dart:io';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,48 +55,32 @@ class _AddProductState extends State<AddProduct> {
     BlocProvider.of<AddProductBloc>(context).add(FetchCategoriesEvent());
     BlocProvider.of<AddProductBloc>(context).add(FetchProducts());
   }
-
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return BlocListener<AddProductBloc, AddProductState>(
       listener: (context, state) {
-        developer.log('current state in add product page is $state');
         if (state is CategorySelectedState) {
           selectedValue = state.newValue;
         } else if (state is FetchingSuccessState) {
           dropDownItems.addAll(state.dropDownItems);
         } else if (state is ProductAddedSuccessState) {
           BlocProvider.of<AddProductBloc>(context).add(FetchProducts());
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(const SnackBar(content: Text('Product added')));
-          Fluttertoast.showToast(
-        msg: "Product added Successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
-          productNameController.clear();
-          purchasePriceController.clear();
-          sellingPriceController.clear();
-          supplierController.clear();
-          productDescriptionController.clear();
-          formkey.currentState!.reset();
+           Fluttertoast.showToast(msg: 'Product added succesfully',backgroundColor: Colors.green);
+           Navigator.pop(context);
         } else if (state is ImagePickedState) {
           pickedImage = state.croppedIage;
         } else if (state is FetchProductsSuccess) {
           availableProducts.addAll(state.products);
         } else if (state is EditProductSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Product edited successfully')));
+           Fluttertoast.showToast(msg: 'Product edited succesfully',backgroundColor: Colors.green);
+           Navigator.pop(context);
+        }else if(state is AddProductErrorState){
+          Fluttertoast.showToast(msg: 'Please add product image',backgroundColor: Colors.red);
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: AutoSizeText(
             widget.document==null ? 'Add Product' : 'Edit product',
             style: appbartitle,
           ),
@@ -115,9 +99,8 @@ class _AddProductState extends State<AddProduct> {
                           child: BlocBuilder<AddProductBloc, AddProductState>(
                             builder: (context, state) {
                               if (state is CategoryLoadingState) {
-                                return const Text('Categories are loading...');
+                                return const AutoSizeText('Categories are loading...');
                               }
-
                               return widget.categoryName != null ? 
                               AppTextfield(
                                 textEditingController: categorycontroller,
@@ -151,7 +134,7 @@ class _AddProductState extends State<AddProduct> {
                         flex: 3,
                         child: DottedBorder(
                           borderType: BorderType.Rect,
-                          child: Container(
+                          child: SizedBox(
                             height: 150,
                             child: BlocBuilder<AddProductBloc, AddProductState>(
                               builder: (context, state) {
@@ -165,7 +148,7 @@ class _AddProductState extends State<AddProduct> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Text('Add Image'),
+                                      const AutoSizeText('Add Image'),
                                       IconButton(
                                           onPressed: () {
                                             BlocProvider.of<AddProductBloc>(
@@ -253,41 +236,34 @@ class _AddProductState extends State<AddProduct> {
 
                           );
                         }
-
                             if(state is EditProductLoadingState){
-                              return CircularProgressIndicator();
+                              return const CircularProgressIndicator();
                             }
                             return Text(
                               widget.document==null ? 'Add Product' : 'Edit product',
                               style: buttonText,
                             );
-                         
-                        
                       },
                     ),
                     onTap: () {
                       if (!formkey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Form not valid')));
+                            const SnackBar(content: Text('Form not valid'),backgroundColor: Colors.red,));
                       }
                       if (formkey.currentState!.validate()) {
                         final product = ProductModel(
                             supplier: supplierController.text,
                             category: widget.categoryName ?? selectedValue,
                             productName: productNameController.text,
-                            purchasePrice:
-                                int.parse(purchasePriceController.text),
-                            sellingPrice:
-                                int.parse(sellingPriceController.text),
-                            description:
-                                productDescriptionController?.text ?? '',
+                            purchasePrice:int.parse(purchasePriceController.text),
+                            sellingPrice:int.parse(sellingPriceController.text),
+                            description:productDescriptionController?.text ?? '',
                             productImage: pickedImage);
                         if (widget.document == null) {
                           BlocProvider.of<AddProductBloc>(context).add(
                               AddProductButtonClicked(productModel: product));
                         } else {
-                          final String? oldDoc =
-                              widget.document?['productName'];
+                          final String? oldDoc =widget.document?['productName'];
                           BlocProvider.of<AddProductBloc>(context).add(
                               EditProductClicked(
                                   productModel: product, oldDoc: oldDoc));

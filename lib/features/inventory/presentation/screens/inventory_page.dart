@@ -71,7 +71,7 @@ class _InventoryPageState extends State<InventoryPage> {
                       backgroundColor: Colors.black,
                       child: IconButton(
                         onPressed: () {
-                          show_dialogue(context, bloc, categoryNames);
+                          showDialogue(context, bloc, categoryNames);
                         },
                         icon: const Icon(Icons.add, color: Colors.white),
                       ),
@@ -93,7 +93,16 @@ class _InventoryPageState extends State<InventoryPage> {
                       } else if (snapshot.hasError) {
                         return const Center(child: Text('Error fetching products'));
                       } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                        return const Center(child: Text('No categories available'));
+                        return const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('No categories available'),
+                              Text('Please click the Plus button to add a category'),
+                              Text('Hold the category tile to delete the category')
+                            ],
+                          ),
+                        );
                       }
                       final categories = snapshot.data!.docs;
                       return GridView.builder(
@@ -118,7 +127,7 @@ class _InventoryPageState extends State<InventoryPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => CategoryProductPage(
-                                      CategoryName: categoryName,
+                                      categoryName: categoryName,
                                     ),
                                   ),
                                 );
@@ -163,8 +172,8 @@ class _InventoryPageState extends State<InventoryPage> {
                     }
                     final doc = snapshot.data!.docs;
                     return ListView.builder(
-                      shrinkWrap: true, // Important to avoid infinite height error
-                      physics: NeverScrollableScrollPhysics(), // Use outer scroll view
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: doc.length,
                       itemBuilder: (context, index) {
                         final productData = doc[index].data() as Map<String, dynamic>;

@@ -72,7 +72,7 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
     final storageRef = FirebaseStorage.instance.ref().child('Salespdfs/${DateTime.now().millisecondsSinceEpoch}.pdf');
     await storageRef.putFile(file);
     final downloadUrl = await storageRef.getDownloadURL();
-    print('PDF uploaded successfully. Download URL: $downloadUrl');
+
 
     // Updating the sale document with the link of the pdf
     await FirebaseFirestore.instance

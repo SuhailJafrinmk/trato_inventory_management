@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,11 @@ import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/constants/image_links.dart';
 import 'package:trato_inventory_management/utils/constants/navigation_items_list.dart';
 import 'package:trato_inventory_management/features/home_screen/widgets/bottom_navigation.dart';
+import 'package:trato_inventory_management/utils/constants/text_styles.dart';
+import 'package:trato_inventory_management/widgets/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -28,7 +30,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController pageController = PageController();
   int selectedIndex = 0;
-  final List<String> AppbarTitles = ['Home', 'Inventory', 'Records', "profile"];
+  final List<String> appbarTitles = ['Home', 'Inventory', 'Records', "profile"];
   @override
   void dispose() {
     pageController.dispose();
@@ -40,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(AppbarTitles[selectedIndex]),
+        title: AutoSizeText(appbarTitles[selectedIndex]),
       ),
       bottomNavigationBar: ScrollableBottomNavigationBar(
           backgroundColor: AppColors.primaryColor,
@@ -89,7 +91,6 @@ class _HomeFirstState extends State<HomeFirst> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     User? user = FirebaseAuth.instance.currentUser;
-
     return SafeArea(
       child: Material(
         child: Stack(
@@ -111,20 +112,20 @@ class _HomeFirstState extends State<HomeFirst> {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return const Center(child: CircularProgressIndicator());
                         } else if (snapshot.hasError) {
-                          return const Center(child: Text('Error fetching products'));
+                          return const Center(child: AutoSizeText('Error fetching products'));
                         } else if (!snapshot.hasData || !snapshot.data!.exists) {
-                          return const Center(child: Text('No stores added'));
+                          return const Center(child: AutoSizeText('No stores added'));
                         } else {
                           final data = snapshot.data!.data() as Map<String, dynamic>;
                           final storename = data['storeName'];
                           final gstid = data['gstId'];
                           return ListTile(
                             leading: SizedBox(child: Image.asset(AppImages.shopDummyimage)),
-                            title: Text(
+                            title: AutoSizeText(
                               storename,
                               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                             ),
-                            subtitle: Text(
+                            subtitle: AutoSizeText(
                               'GST ID : $gstid',
                               style: const TextStyle(fontWeight: FontWeight.w300),
                             ),
@@ -138,7 +139,11 @@ class _HomeFirstState extends State<HomeFirst> {
                     builder: (context, state) {
                       if (state is HomeScreenDataLoading) {
                         return SizedBox(
-                          child: Center(child: LoadingAnimationWidget.threeArchedCircle(color: AppColors.primaryColor, size: 30)),
+                          height: size.height*.4,
+                          width: size.width,
+                          child: Center(
+                            child: LoadingAnimationWidget.threeArchedCircle(color: AppColors.primaryColor, size: 30)
+                            ),
                         );
                       }
                       if (state is HomeScreenDataSuccess) {
@@ -151,29 +156,33 @@ class _HomeFirstState extends State<HomeFirst> {
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     HomeScreenContainer(
+                                      backgroundImage:'assets/images/total_sales_amount.png',
                                       data: '${state.dataToBeDisplayed['totalSaleAmount']}', title: 'Total sale amount'),
                                     HomeScreenContainer(
+                                      backgroundImage: 'assets/images/total_stock_price.png',
                                       data: '${state.dataToBeDisplayed['totalStock']}', title: 'Total stock price')
                                   ],
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     HomeScreenContainer(
+                                      backgroundImage: 'assets/images/total_purchases.png',
                                       data: '${state.dataToBeDisplayed['totalPurchases']}', title: 'Total purchase'),
                                     HomeScreenContainer(
+                                      backgroundImage: 'assets/images/total_products.png',
                                       data: '${state.dataToBeDisplayed['totalProducts']}', title: 'Total products')
                                   ],
                                 ),
                                 SizedBox(height: size.height * .03),
-                                Divider(),
+                                const Divider(),
                               ],
                             ),
                           ),
                         );
                       }
-                      return SizedBox();
+                      return const SizedBox();
                     },
                   ),
                   SizedBox(
@@ -182,8 +191,8 @@ class _HomeFirstState extends State<HomeFirst> {
                     child: ListView(
                       children: [
                         HomeScreenTile(contentType: 'Out of stock',onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>OutOfStockItems())),),
-                        HomeScreenTile(contentType: 'Recent sale',onPressed: () =>  Navigator.push(context, MaterialPageRoute(builder: (context)=>RecentSalesPage())),),
-                        HomeScreenTile(contentType: 'Recent purchase',onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>RecentPurchases())),),               
+                        HomeScreenTile(contentType: 'Recent sale',onPressed: () =>  Navigator.push(context, MaterialPageRoute(builder: (context)=>const RecentSalesPage())),),
+                        HomeScreenTile(contentType: 'Recent purchase',onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>const RecentPurchases())),),               
                         ],
                     ),
                   ),
@@ -193,13 +202,23 @@ class _HomeFirstState extends State<HomeFirst> {
             // Floating Action Button positioned on top of the content
             Positioned(
               bottom: size.height * 0.02,
-              right: size.width * 0.32,
-             child: ElevatedButton(
-              onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddProduct()));
-             }, child: Row(
-              children: [Text('Add Product'),
-              Icon(Icons.add)],)),
+              right: size.width * 0.3,
+              child: CustomButton(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddProduct()));
+                },
+                elevation: 30,
+                width: size.width*.36,
+              height: size.height*.06,
+              color: AppColors.primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Icon(Icons.add_box,color: Colors.white,),
+                  Text('Add product',style: buttonTextWhiteSmall,)
+                ],
+              ),
+              ),
             ),
           ],
         ),

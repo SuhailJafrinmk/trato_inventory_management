@@ -7,21 +7,21 @@ import 'package:trato_inventory_management/utils/constants/text_styles.dart';
 import 'package:trato_inventory_management/widgets/app_textfield.dart';
 import 'package:trato_inventory_management/widgets/custom_button.dart';
 
-void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
+void showDialogue(BuildContext context, InventoryBloc inventoryBloc,
     List<String>? categoryNames) {
   showDialog(
       context: context,
       builder: (context) {
-        final TextEditingController categoryController =
-            TextEditingController();
-        final TextEditingController? descriptionControler =
-            TextEditingController();
+        final TextEditingController categoryController =TextEditingController();
+        final TextEditingController? descriptionControler =TextEditingController();
+        final formkey=GlobalKey<FormState>();
         return Center(
           child: AlertDialog(
             backgroundColor: Colors.white,
             title: const Text('Add category'),
             content: SingleChildScrollView(
               child: Form(
+                key: formkey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -37,7 +37,7 @@ void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
                             return 'Category already exist';
                           }
                         }
-                        if(value.length>25){
+                        if(value.length>20){
                           return 'Category name should be short';
                         }
                         return null;
@@ -56,9 +56,11 @@ void show_dialogue(BuildContext context, InventoryBloc inventoryBloc,
                     ),
                     CustomButton(
                       onTap: () {
-                        inventoryBloc.add(AddCategoryButtonClicked(CategoryModel(
-                            category: categoryController.text,
-                            description: descriptionControler?.text)));
+                        if(formkey.currentState!.validate()){
+                          inventoryBloc.add(AddCategoryButtonClicked(CategoryModel(
+                          category: categoryController.text,
+                          description: descriptionControler?.text)));
+                        }
                       },
                       height: 60,
                       width: double.infinity,

@@ -41,7 +41,7 @@ class PurchasesList extends StatelessWidget {
                     } else {
                       final data = snapshot.data!.docs;
                       return ListView.builder(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         itemCount: data.length,
                         itemBuilder: ((context, index) {
                           final documentData =
@@ -49,7 +49,7 @@ class PurchasesList extends StatelessWidget {
                           return PurchaseTile(
                             records: documentData,
                             onTap: () =>
-                                ShowPurchaseDetails(context, documentData),
+                                showPurchaseDetails(context, documentData),
                             printIconPressed: () {
                               BlocProvider.of<PurchaseBloc>(context)
                                   .add(PrintButtonClicked(data: documentData));
@@ -81,7 +81,7 @@ class PurchasesList extends StatelessWidget {
                         children: [
                           LoadingAnimationWidget.threeArchedCircle(
                               color: AppColors.primaryColor, size: 30),
-                          SizedBox(width: 20),
+                          const SizedBox(width: 20),
                           Text("Generating PDF...",style: categoryTitle.copyWith(fontSize: 23),),
                         ],
                       ),

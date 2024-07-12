@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:trato_inventory_management/models/product_model.dart';
-import 'package:trato_inventory_management/utils/constants/image_links.dart';
 
+// ignore: must_be_immutable
 class ProductGrid extends StatelessWidget {
    void Function()? onTap;
    final String productName;
@@ -19,7 +18,7 @@ class ProductGrid extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border(
+            border: const Border(
               left: BorderSide(color: Colors.black12, width: 2.0),
               right: BorderSide(color: Colors.black12, width: 2.0),
               bottom: BorderSide(color: Colors.black12, width: 2.0),
@@ -35,7 +34,7 @@ class ProductGrid extends StatelessWidget {
                         image: NetworkImage(productImage),
                         fit: BoxFit.cover,
                       ),
-                       borderRadius: BorderRadius.only(
+                       borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8),
                 topRight: Radius.circular(8),
               ),
@@ -43,23 +42,23 @@ class ProductGrid extends StatelessWidget {
                   ),
                 ),
                  Padding(
-                  padding: EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         productName,
-                        style: TextStyle(fontWeight: FontWeight.bold),   
+                        style: const TextStyle(fontWeight: FontWeight.bold),   
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         subtitle,
-                        style: TextStyle(color: Colors.black45),
+                        style: const TextStyle(color: Colors.black45),
                       ),
                       Text(
                         subtitleTwo,
-                        style: TextStyle(color: Colors.black45),
+                        style: const TextStyle(color: Colors.black45),
 
                       ),
                     ],

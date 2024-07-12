@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -86,9 +85,7 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
 
   //this function is just for picking the image and emit the state 
 FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddProductState> emit) async {
-  print('started adding image');
   final pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
-  print('image oicked');
   if (pickedImage != null) {
     try {
       //crop the picked image using image cropper
@@ -97,7 +94,6 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
         compressQuality: 50,
       );
-      print('image cropped');
       
       if (croppedFile != null) {
         final croppedImagePath = croppedFile.path;
@@ -105,11 +101,10 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
         //adding the cropped image to the state
         emit(ImagePickedState(croppedIage: croppedImageFile));
       } else {
-        print("Image cropping canceled or failed.");
+       emit(ImageCroppingCancelled());
       }
     } on Exception catch (e) {
-
-      print("Error picking or cropping image: $e");
+      emit(AddImageErrorState(message: e.toString()));
     }
   }
 }
@@ -117,7 +112,6 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
 
   
   FutureOr<void> fetchProducts(FetchProducts event, Emitter<AddProductState> emit) async{
-    log('fetch product event started');
      try{
       emit(FetchProductsLoading());
      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -168,8 +162,6 @@ FutureOr<void> addImageButtonClicked(AddImageButtonClicked event, Emitter<AddPro
     }
 
   }
-
-
 
   }
 
