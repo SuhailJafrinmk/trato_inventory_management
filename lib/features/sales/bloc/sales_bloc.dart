@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -24,7 +25,6 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
   FutureOr<void> printSalesButtonClicked(PrintSalesButtonClicked event, Emitter<SalesState> emit)async {
      try {
     emit(SalesPdfGenerateLoading());
-
    //for generating the pdf with the required data 
     final pdf = pw.Document();
     pdf.addPage(
@@ -59,10 +59,10 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
               }).toList(),
             ],
           );
+          
         },
       ),
     );
-
     // Save PDF locally in temporary directory
     final directory = await getTemporaryDirectory();
     final path = '${directory.path}/sale_record.pdf';
@@ -73,16 +73,16 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
     final storageRef = FirebaseStorage.instance.ref().child('Salespdfs/${DateTime.now().millisecondsSinceEpoch}.pdf');
     await storageRef.putFile(file);
     final downloadUrl = await storageRef.getDownloadURL();
-
+    Timestamp date=event.data['saleDate'];
+    final formattedDate=DateFormat('yyyy-MM-dd – kk:mm').format(date.toDate());
 
     // Updating the sale document with the link of the pdf
     await FirebaseFirestore.instance
         .collection('UserData')
         .doc(firebase.currentUser!.uid)
         .collection('SalesRecord')
-        .doc(event.data['saleDate'])
+        .doc(formattedDate)
         .update({'Pdfpath': downloadUrl});
-
     // Display the locally stored PDF
     displaySalesPDF(file);
 

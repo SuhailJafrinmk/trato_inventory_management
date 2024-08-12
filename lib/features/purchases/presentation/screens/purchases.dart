@@ -54,11 +54,6 @@ class PurchasesList extends StatelessWidget {
                               BlocProvider.of<PurchaseBloc>(context)
                                   .add(PrintButtonClicked(data: documentData));
                             },
-                            downloadPressed: () {
-                              BlocProvider.of<PurchaseBloc>(context).add(
-                                  DownloadButtonPressed(
-                                      document: documentData));
-                            },
                           );
                         }),
                       );

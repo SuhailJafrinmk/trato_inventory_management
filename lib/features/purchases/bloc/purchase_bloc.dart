@@ -19,7 +19,6 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
   final firebase=FirebaseAuth.instance;
   PurchaseBloc() : super(PurchaseInitial()) {
  on<PrintButtonClicked>(printButtonClicked);
- on<DownloadButtonPressed>(downloadButtonPressed);
   }
 
 //this function creates the pdf using the pdf package,stores a copy in the firebase storage,display the generated record
@@ -97,7 +96,5 @@ void displayPDF(File pdfFile) {
 }
 
 
-  FutureOr<void> downloadButtonPressed(DownloadButtonPressed event, Emitter<PurchaseState> emit) {
-    final storage=FirebaseStorage.instance;
-  }
+
 }

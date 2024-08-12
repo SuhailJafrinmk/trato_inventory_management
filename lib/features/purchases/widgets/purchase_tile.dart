@@ -7,7 +7,6 @@ class PurchaseTile extends StatelessWidget {
   final Map<String, dynamic> records;
   void Function()? onTap;
   void Function()? printIconPressed;
-  void Function()? downloadPressed;
   bool isPrint;
 
   PurchaseTile(
@@ -16,7 +15,7 @@ class PurchaseTile extends StatelessWidget {
       required this.records,
       this.onTap,
       this.printIconPressed,
-      this.downloadPressed});
+      });
 
   @override
   Widget build(BuildContext context) {

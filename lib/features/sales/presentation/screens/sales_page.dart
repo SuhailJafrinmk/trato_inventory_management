@@ -9,11 +9,9 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:trato_inventory_management/features/sales/bloc/sales_bloc.dart';
 import 'package:trato_inventory_management/features/sales/widgets/sales_record_tile.dart';
 import 'package:trato_inventory_management/utils/constants/colors.dart';
-import 'dart:developer' as developer;
 
 class SalesList extends StatelessWidget {
   final User? user = FirebaseAuth.instance.currentUser;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SalesBloc, SalesState>(
@@ -47,7 +45,6 @@ class SalesList extends StatelessWidget {
                           return SalesTile(
                             records: documentData,
                             printIconPressed: () {
-                              developer.log('the print sales button is clicked');
                               BlocProvider.of<SalesBloc>(context).add(PrintSalesButtonClicked(data: documentData));
                             },
                           );
