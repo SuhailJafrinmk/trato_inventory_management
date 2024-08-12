@@ -12,6 +12,7 @@ import 'package:meta/meta.dart';
 part 'sales_event.dart';
 part 'sales_state.dart';
 
+
 class SalesBloc extends Bloc<SalesEvent, SalesState> {
   final firebase=FirebaseAuth.instance;
   SalesBloc() : super(SalesInitial()) {
