@@ -55,6 +55,7 @@ class RecordsAddTile extends StatelessWidget {
                     title,
                     style: categoryTitle,
                     maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

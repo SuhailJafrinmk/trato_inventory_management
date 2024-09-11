@@ -21,6 +21,8 @@ import 'package:trato_inventory_management/utils/check_connectivity.dart/cubit/c
 import 'package:trato_inventory_management/utils/constants/colors.dart';
 import 'package:trato_inventory_management/utils/routes/routes.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

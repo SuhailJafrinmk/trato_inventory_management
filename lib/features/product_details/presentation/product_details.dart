@@ -6,7 +6,6 @@ import 'package:trato_inventory_management/widgets/custom_button.dart';
 
 class ProductDetails extends StatelessWidget {
   final Map<String,dynamic>productData;
-
   const ProductDetails({super.key, required this.productData});
  
   @override
@@ -41,34 +40,39 @@ class ProductDetails extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20)
                   ), 
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                      Container(
                       height: size.height*.4,
                       width: size.width*.75,
                       decoration: BoxDecoration(
-                        image: DecorationImage(image: NetworkImage(productData['productImage'])),
+                        image: DecorationImage(image: 
+                        NetworkImage(productData['productImage'])),
                       ),
                      ),
                      Expanded(
                        child: SizedBox(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Product : ${productData['productName']}',style: productTitle,),
-                            Text('Purchase Price : ${productData['purchasePrice']}',style: productDescription,),
-                            Text('Selling Price : ${productData['sellingPrice']}',style: productDescription,),
-                            Text('Supplier : ${productData['supplier']}',style: productDescription,),
-                            Text('Product Quantity : ${productData['productQuantity']}',style: productDescription,),
-                           const Text('Product Description',style: TextStyle(fontSize: 20,),),
-                            Text('${productData['description']}' ?? '',style: productDescription,),
-                            
-                            SizedBox(height: size.height*.02,),
-                            CustomButton(height: size.height*.075, width: size.width*.7, elevation: 5, color: AppColors.primaryColor, radius: 10,child: Text('Close',style: buttonText,),onTap: (){
-                              Navigator.pop(context);
-                            },)
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Product : ${productData['productName']}',overflow: TextOverflow.ellipsis,style: productTitle,),
+                              Text('Purchase Price : ${productData['purchasePrice']}',style: productDescription,),
+                              Text('Selling Price : ${productData['sellingPrice']}',style: productDescription,),
+                              Text('Supplier : ${productData['supplier']}',style: productDescription,),
+                              Text('Product Quantity : ${productData['productQuantity']}',style: productDescription,),
+                             const Text('Product Description',style: TextStyle(fontSize: 20,),),
+                              Text('${productData['description']}' ?? '',style: productDescription,),
+                              
+                              SizedBox(height: size.height*.02,),
+                              CustomButton(height: size.height*.075, width: size.width*.7, elevation: 5, color: AppColors.primaryColor, radius: 10,child: Text('Close',style: buttonText,),onTap: (){
+                                Navigator.pop(context);
+                              },)
+                            ],
+                          ),
                         ),
                        ),
                      ),
